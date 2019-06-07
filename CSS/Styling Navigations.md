@@ -84,8 +84,6 @@ li a:hover {
 	color: white;
 }
 
-![nav](https://user-images.githubusercontent.com/15992276/59135859-93b3cf80-894e-11e9-91d4-dce564a59aee.JPG)
-
 li a:after{
     content: "(Link)";
     color:red;
@@ -95,6 +93,7 @@ li a:active {
 	color: white;
 }
 ```
+![nav](https://user-images.githubusercontent.com/15992276/59135859-93b3cf80-894e-11e9-91d4-dce564a59aee.JPG)
 
 Here you the li will behave as an inline element but also give you
 the ability to set margin and padding to it.
