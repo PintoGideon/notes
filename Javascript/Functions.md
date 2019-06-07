@@ -10,7 +10,8 @@ console.log('Oh hey hi')
 }
 
 ```
-***Output*** 
+
+**_Output_**
 undefined
 Oh hey hi
 
@@ -22,9 +23,9 @@ it's going to assign a value.
 Variables are partially hoisted and functions are fully hoisted. In the above
 
 ```javascript
-(function(){
-console.log("Does this hoist")
-})()
+(function() {
+	console.log('Does this hoist');
+})();
 ```
 
 The above function does not hoist. const and let are not
@@ -33,10 +34,11 @@ hoisted. It's going to throw a reference error.
 ### What about function expressions?
 
 ```javascript
-var app=function(){
-console.log('How does this hoist?');
-}
+var app = function() {
+	console.log('How does this hoist?');
+};
 ```
+
 The variable app is going to be hoisted and assigned
 undefined. If I run sing2() before it is defined, I get
 an error saying that the function is not defined.
@@ -57,12 +59,11 @@ perform some computations on them. Now the arguments are
 an array.
 
 ```javascript
-
-function marry2(...args){
-console.log('Arguments',arguments);
+function marry2(...args) {
+	console.log('Arguments', arguments);
 }
 
-marry('Tim','Tina')
+marry('Tim', 'Tina');
 ```
 
 ### Variable Environment
@@ -70,25 +71,22 @@ marry('Tim','Tina')
 In Javascript, our lexical scope determines our
 available variable. Not where the function is called.
 
-
 ![The scope chain](https://user-images.githubusercontent.com/15992276/59047080-ba043d00-8872-11e9-865d-72df855ebebf.JPG)
 
 ```javascript
+function sayName() {
+	var a = 'a';
 
-function sayName(){
-var a='a';
+	return function findName() {
+		var b = 'b';
+		console.log(c);
 
-return function findName(){
-var b='b';
-console.log(c)
-
-return function printName(){
-var c='c';
-return 'Andrei Neagoie'
+		return function printName() {
+			var c = 'c';
+			return 'Andrei Neagoie';
+		};
+	};
 }
-}
-}
-
 ```
 
 ### IIFE
@@ -99,9 +97,7 @@ this JS developers used an IIFE.
 An IIFE is an function expression which looks like this:
 
 ```javascript
-(function(){
-
-})();
+(function() {})();
 ```
 
 Using thi design pattern, we can define all our variables in a local scope. We can aalso see
@@ -109,25 +105,25 @@ that the function expression is immediately invoked. We cannot do the same
 with a function declaration. What's the benefit of this?
 
 ```javascript
-(function(){
-var a='Is this available outside'
+(function() {
+	var a = 'Is this available outside';
 })();
 
-console.log(a) //reference error
+console.log(a); //reference error
 ```
+
 This is really powerful though. I can encapsulate the behaviour of the
 underlying function and only return the values neeed. We still used
 a global namespace but we kept it from polluting.
 
 ```javascript
-var z=1
-var script1=(function(){
-return 5;
-
-})()
+var z = 1;
+var script1 = (function() {
+	return 5;
+})();
 ```
 
-***JQuery made use of the IIFE pattern***
+**_JQuery made use of the IIFE pattern_**
 
 ```javascript
 
@@ -155,55 +151,101 @@ a:a
 ```
 
 We can also do something like this
+
 ```javascript
-script.a()  //5
+script.a(); //5
 ```
 
 ### this keyword
 
-***this*** is the object that the function is a property of. 
+**_this_** is the object that the function is a property of.
 
 ```javascript
-function a()
-{
-console.log(this)
+function a() {
+	console.log(this);
 }
-a();  //Window
-
+a(); //Window
 ```
 
+Again, this is a object that the function
+is a property of.
 
+```javascript
+const obj = {
+	name: 'Bill',
+	sing: function() {
+		return 'hey' + this.name;
+	}
+};
 
+obj.sing();
+```
 
+The **_'this'_** keyword is actually dynamically
+scoped.
 
+```javascrpt
+const obj = {
+	name: 'Bill',
+	sing: function() {
+		var name=function(){
+            console.log('Inner', this)
+        }
+        name();
+	}
+};
 
+obj.sing();
 
+Output
+Window Object.
+```
 
+Here the inner function name was not called
+by 'obj'. It was called by the window object.
 
+Array function is going to lexically bind this. If we replace the function inside
+the sing function with the arrow function, the problem will now be solved.
 
+```javascript
+const wizard = {
+	name: 'Merlin',
+	health: 50,
+	heal() {
+		return (this.health = 100);
+	}
+};
 
+const archer = {
+	name: 'Robin Hood',
+	health: 30
+};
 
+wizard.heal.call(archer);
+```
 
+What happens if you use bind? Unlike
+call and apply it does not run a function
+but returns a function.
 
+```
+const healArcher=wizard.heal.bind(archer)
+```
 
+### Bind and currying
 
+**_Function Currying_**
 
+```javascript
+function multiply(a, b) {
+	return a * b;
+}
 
+let multiplyByTwo = multiply.bind(this, 2);
+console.log(multiplyByTwo(4));
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+let multiplyByTen = multiply.bind(this, 10);
+console.log(multiplyByTen(4));
+```
 
 

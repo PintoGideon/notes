@@ -21,7 +21,7 @@ user1.increment();
 ```
 
 The increment function has a common behavior for both objects. This code is not scalable to 10000
-users as we are making copies for each user.
+users as we are making copies of the function for each user.
 
 ### __proto__
 
@@ -60,7 +60,7 @@ Object.create(userFunctionStore)
 
 ```
 The above snippet essentially creates an empty object with
-a bond to the userFunctionStore. This is how the object that the function returns.
+a bond to the userFunctionStore. This is how the object returned from the function looks.
  
  ```javascript
 {
@@ -136,10 +136,8 @@ __proto__:User.prototype
 ```javascript
 
 function UserCreator(name,score){
-
 this.name=name;
 this.score=score;
-
 }
 
 UserCreator.prototype.increment=function()
@@ -147,7 +145,6 @@ UserCreator.prototype.increment=function()
 function add1(){
 this.score++
 }
-
 add1();
 }
 
