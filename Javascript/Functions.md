@@ -40,13 +40,18 @@ var app = function() {
 ```
 
 The variable app is going to be hoisted and assigned
-undefined. If I run sing2() before it is defined, I get
+undefined. If I run app() before it is defined, I get
 an error saying that the function is not defined.
 
-### Difference between a function expression and declaration
+- Function expressions are defined at runtime while
+- function declarations are defined at parse time.
+- ***Function expressions put their identifier in their own scope***
+- ***You should prefer the named function expression over the anonymous function    	 	expression***
+- The name provides reliable function self-reference(recursion etc) 
+- More debuggable stack traces
+- More self-documenting code
 
-Function expressions are defined at runtime while
-function declarations are defined at parse time.
+
 
 ![Variable environment](https://user-images.githubusercontent.com/15992276/59047082-ba043d00-8872-11e9-9684-272abbc5d1b1.JPG)
 
@@ -184,7 +189,7 @@ obj.sing();
 The **_'this'_** keyword is actually dynamically
 scoped.
 
-```javascrpt
+```javascript
 const obj = {
 	name: 'Bill',
 	sing: function() {
@@ -247,5 +252,43 @@ console.log(multiplyByTwo(4));
 let multiplyByTen = multiply.bind(this, 10);
 console.log(multiplyByTen(4));
 ```
+
+
+### Summarizing through examples
+
+# Functions are first class citizens in JS
+
+
+//1
+
+```javascript
+var stuff=function(){
+}
+```
+--------------------------------------
+//2
+
+```javascript
+
+function a(fn){
+fn()
+}
+
+a(function(){console.log('Hi there'));
+
+```
+--------------------------------------
+//3
+
+```javascript
+
+function b(){
+return function c(){console.log('bye')}
+
+var d=b()
+d();
+
+```
+
 
 

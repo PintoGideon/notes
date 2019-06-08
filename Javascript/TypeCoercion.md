@@ -145,7 +145,7 @@ a nonnumeric value.
 
 ```javascript
 var myAge=Number('0o46') //38
-var myNextAge=Number('39) //39
+var myNextAge=Number('39') //39
 var myCatsAge=Number("n/a")  //NaN
 myAge="my son's age";  //NaN
 
@@ -160,7 +160,7 @@ isNaN('my sons age') //true
 
 ```
 
-The third example in the above code return true for a string input.
+The third example in the above code returns true for a string input.
 The isNaN function is going to coerce the input to a Number
 and return true if it's a NaN value.
 
@@ -199,6 +199,7 @@ Object.is(trendRate,0);  //false;
 
 ```
 ***Application***
+
 ```javascript
 function formatTrend(trendRate){
 var direction=(trendRate<0 || Object.is(trendRate,-0)) ? 
@@ -293,7 +294,7 @@ Examples:
 
 Falsy:
 
--0,-0,
+0,-0,
 null,
 NaN,
 false,
@@ -393,7 +394,7 @@ if(Number(workshopEnrollment)==Number(workshopEnrollment2)
 If the Types are the same: ===
 If null or undefined: equal
 If non-primitives:ToPrimitive
-Prefer:ToNumber
+Prefers:ToNumber
 ```
 
 
