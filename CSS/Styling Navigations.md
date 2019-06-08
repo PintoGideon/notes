@@ -157,18 +157,6 @@ the ability to set margin and padding to it.
 </main>
 ```
 
-### Inherit
-
-The inherit CSS keyword causes the element for which it is specified to take the computed value of the property from its parent element. It can be applied to any CSS property, including the CSS shorthand all.
-
-For inherited properties, this reinforces the default behavior, and is only needed to override another rule. For non-inherited properties, this specifies a behavior that typically makes relatively little sense and you may consider using initial instead, or unset on the all property.
-
-Inheritance is always from the parent element in the document tree, even when the parent element is not the containing block.
-
-**_margin: auto_**
-
-Setting the width of a block-level element will prevent it from stretching out to the edges of its container to the left and right. Then, you can set the left and right margins to auto to horizontally center that element within its container. The element will take up the width you specify, then the remaining space will be split evenly between the two margins.
-
 ```css
 .plan {
 	background: #d5ffdc;
