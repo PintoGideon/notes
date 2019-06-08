@@ -45,7 +45,7 @@ The variable app is going to be hoisted and assigned
 undefined. If I run app() before it is defined, I get
 an error saying that the function is not defined.
 
-- Function expressions are defined at runtime while
+- Function expressions are defined at runtime 
 - function declarations are defined at parse time.
 - ***Function expressions put their identifier in their own scope***
 - ***You should prefer the named function expression over the anonymous function    	 	expression***
@@ -54,16 +54,16 @@ an error saying that the function is not defined.
 - More self-documenting code
 
 
+### Variable environment
 
 ![Variable environment](https://user-images.githubusercontent.com/15992276/59047082-ba043d00-8872-11e9-9684-272abbc5d1b1.JPG)
 
-When a function is invoked, we get the this keyword and
-arguments. The arguments keyword give us an object with
-the argument passed as property values.
+When a function is invoked, we get the **this*** keyword and
+***arguments***. The arguments keyword give us an object with
+the arguments passed in as property values.
 
 Now we want the arguments to be an array so that we can
-perform some computations on them. Now the arguments are
-an array.
+perform some computations on them.
 
 ```javascript
 function marry2(...args) {
@@ -72,8 +72,6 @@ function marry2(...args) {
 
 marry('Tim', 'Tina');
 ```
-
-### Variable Environment
 
 In Javascript, our lexical scope determines our
 available variable. Not where the function is called.
