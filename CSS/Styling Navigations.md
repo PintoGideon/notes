@@ -56,6 +56,9 @@ li {
 li a {
 	text-decoration: none;
 	color: #2ddf5c;
+	font-weight: bold;
+	border-bottom: 5px solid white;
+	padding: 3px 0;
 }
 ```
 
@@ -107,5 +110,124 @@ the ability to set margin and padding to it.
 	text-decoration: none;
 	font-weight: bold;
 	vertical-align: middle;
+}
+```
+
+### More CSS
+
+```html
+<main>
+	<section id="product-overview">
+		<h1>Christ My Savior</h1>
+	</section>
+
+	<section id="plans">
+		<h1 class="section-title">Choose Your Plan</h1>
+		<div>
+			<article class="plan">
+				<h1 class="plan__annotation">Free</h1>
+				<h2 class="plan__title">$0/month</h2>
+				<h3>For Hobby projects or small teams.</h3>
+
+				<ul class="plan__features">
+					<li>1 workspace</li>
+					<li>Unlimited Traffic</li>
+				</ul>
+
+				<div>
+					<button>Choose Plan</button>
+				</div>
+			</article>
+
+			<article class="plan plan--highlighted">
+				<h1 class="plan__annotation">Recommended</h1>
+				<h2>$0/month</h2>
+				<h3>For Hobby projects or small teams.</h3>
+
+				<ul class="plan__features">
+					<li>1 workspace</li>
+					<li>Unlimited Traffic</li>
+				</ul>
+
+				<div>
+					<button>Choose Plan</button>
+				</div>
+			</article>
+		</div>
+	</section>
+</main>
+```
+
+### Inherit
+
+The inherit CSS keyword causes the element for which it is specified to take the computed value of the property from its parent element. It can be applied to any CSS property, including the CSS shorthand all.
+
+For inherited properties, this reinforces the default behavior, and is only needed to override another rule. For non-inherited properties, this specifies a behavior that typically makes relatively little sense and you may consider using initial instead, or unset on the all property.
+
+Inheritance is always from the parent element in the document tree, even when the parent element is not the containing block.
+
+**_margin: auto_**
+
+Setting the width of a block-level element will prevent it from stretching out to the edges of its container to the left and right. Then, you can set the left and right margins to auto to horizontally center that element within its container. The element will take up the width you specify, then the remaining space will be split evenly between the two margins.
+
+```css
+.plan {
+	background: #d5ffdc;
+	text-align: center;
+	padding: 16px;
+	margin: 8px;
+	display: inline-block;
+	width: 30%;
+	vertical-align: middle;
+}
+
+.plan--highlighted {
+	background: #19b84c;
+	color: #fff;
+	box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.5);
+}
+
+.plan__annotation {
+	background: white;
+	color: #19b84c;
+	padding: 8px;
+	box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.5);
+	border-radius: 8px;
+}
+
+.plan__title {
+	color: #0e4f1f;
+}
+
+.plan__features {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+.plan__features li {
+	margin: 8px 0;
+}
+
+/*Button inherited styles set by the browser */
+
+.button {
+	background: #0e4f1f;
+	color: white;
+	font: inherit;
+	border: 1.5px solid #0e4f1f;
+	padding: 8px;
+	border-radius: 8px;
+	font-weight: bold;
+
+	/* Adding an icon whenever you hover over a button */
+
+	cursor: pointer;
+}
+
+.button:hover,
+.button:active {
+	background: white;
+	color: green;
 }
 ```

@@ -79,6 +79,16 @@ we want.
 }
 ```
 
+### Browser Support
+
+Whenever we use a CSS feature, we
+need to check for Browser support. Checking the browser support is important.
+[Can I Use](https://caniuse.com/)
+
+
+
+
+
 
 
 
