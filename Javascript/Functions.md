@@ -100,7 +100,7 @@ this JS developers used an IIFE. An IIFE is an function expression which looks l
 (function() {})();
 ```
 
-Using this design pattern, we can define all our variables in a local scope. We can aalso see
+Using this design pattern, we can define all our variables in a local scope. We can also see
 that the function expression is immediately invoked. We cannot do the same
 with a function declaration. What's the benefit of this?
 
