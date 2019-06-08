@@ -256,7 +256,7 @@ console.log(multiplyByTen(4));
 
 ### Summarizing through examples
 
-# Functions are first class citizens in JS
+### Functions are first class citizens in JS
 
 
 //1
