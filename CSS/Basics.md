@@ -86,11 +86,9 @@ need to check for Browser support. Checking the browser support is important.
 [Can I Use](https://caniuse.com/)
 
 
-# Vertical Align
+### Vertical Align
 
-
-
-
+![vertically align](https://user-images.githubusercontent.com/15992276/59142143-53247800-8987-11e9-96ef-515dc69055d5.JPG)
 
 ### Inherit
 
