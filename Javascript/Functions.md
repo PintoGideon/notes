@@ -12,8 +12,10 @@ console.log('Oh hey hi')
 ```
 
 **_Output_**
+```
 undefined
 Oh hey hi
+```
 
 The JS engine is a 2 pass system. In the first pass,
 it is going to hoist or assign a memory location
