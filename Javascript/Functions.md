@@ -22,7 +22,7 @@ it is going to hoist or assign a memory location
 to variables and functions and in the 2nd pass,
 it's going to assign a value.
 
-Variables are partially hoisted and functions are fully hoisted. In the above
+Variables are partially hoisted and functions are fully hoisted.
 
 ```javascript
 (function() {
