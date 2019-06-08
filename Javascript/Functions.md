@@ -18,10 +18,7 @@ Oh hey hi
 ```
 
 The JS engine is a 2 pass system. In the first pass,
-it is going to hoist or assign a memory location
-to variables and functions and in the 2nd pass,
-it's going to assign a value.
-
+it is going to hoist or assign a memory location to variables and functions and in the 2nd pass, it's going to assign a value.
 Variables are partially hoisted and functions are fully hoisted.
 
 ```javascript
@@ -97,15 +94,13 @@ function sayName() {
 ### IIFE
 
 One major issue with global variables is that we can have collissions. To avoid
-this JS developers used an IIFE.
-
-An IIFE is an function expression which looks like this:
+this JS developers used an IIFE. An IIFE is an function expression which looks like this:
 
 ```javascript
 (function() {})();
 ```
 
-Using thi design pattern, we can define all our variables in a local scope. We can aalso see
+Using this design pattern, we can define all our variables in a local scope. We can aalso see
 that the function expression is immediately invoked. We cannot do the same
 with a function declaration. What's the benefit of this?
 
@@ -206,11 +201,8 @@ Output
 Window Object.
 ```
 
-Here the inner function name was not called
-by 'obj'. It was called by the window object.
-
-Array function is going to lexically bind this. If we replace the function inside
-the sing function with the arrow function, the problem will now be solved.
+Here the inner function name was not called by 'obj'. It was called by the window object.
+Arrow function is going to lexically bind this. If we replace the function inside the sing function with the arrow function, the problem will now be solved.
 
 ```javascript
 const wizard = {
@@ -229,11 +221,10 @@ const archer = {
 wizard.heal.call(archer);
 ```
 
-What happens if you use bind? Unlike
-call and apply it does not run a function
+What happens if you use bind? Unlike call and apply it does not run a function
 but returns a function.
 
-```
+```javascript
 const healArcher=wizard.heal.bind(archer)
 ```
 
@@ -259,26 +250,25 @@ console.log(multiplyByTen(4));
 ### Functions are first class citizens in JS
 
 
-//1
+//1 (function Expressions)
 
 ```javascript
 var stuff=function(){
 }
 ```
 --------------------------------------
-//2
+//2 (Passing functions as parameters)
 
 ```javascript
 
 function a(fn){
 fn()
 }
-
 a(function(){console.log('Hi there'));
 
 ```
 --------------------------------------
-//3
+//3 (Inner function)
 
 ```javascript
 
