@@ -365,9 +365,9 @@ score:8,
 __proto__:userFunctionStore
 }
 ```
-t
 We do not want the ```__proto__``` to refer to  userFunctionStore.
 We want the paidUser function to be referenced instead.
+
 
 ```javascript
 Object.setPrototypeOf(paidUser,paidUserFunctions)
