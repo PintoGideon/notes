@@ -336,11 +336,10 @@ __proto__:userFunctionStore
 ```javascript
 function paidUserCreator(paidUserName,paidUserScore, monthlyFees)
 {
-const paidUser=userCreator('Gideon',8);
+const paidUser=userCreator(paidUserName,paidUserScore);
 Object.setPrototypeOf(paidUser, paidUserFunction);
 paidUser.monthlyFees=monthlyFees;
 return paidUser;
-
 }
 
 const paidUserfunction={
@@ -349,7 +348,6 @@ displayFees: function(){console.log(this.monthlyFees));
 
 Object.setPrototypeOf(paidUserFunction, userFunctionStore);
 
-
 const subscribedUser=paidUserCreator('Gideon',10,500);
 subscribedUser.displayFees() //500
 subsribedUser.sayName()  // 'Gideon'
@@ -357,7 +355,8 @@ subsribedUser.sayName()  // 'Gideon'
 ```
 ### Factory function approach
 
-userCreator is going to return an object
+userCreator when called is going to return an object of the shape shown below.
+
 ```javascript
 {
 name:'Gideon',
@@ -365,7 +364,7 @@ score:8,
 __proto__:userFunctionStore
 }
 ```
-We do not want the ```__proto__``` to refer to  userFunctionStore.
+We do not want the ```__proto__``` to refer to  userFunctionStore for a lookup if a property is not present in the paidUserCreator.
 We want the paidUser function to be referenced instead.
 
 
@@ -373,7 +372,8 @@ We want the paidUser function to be referenced instead.
 Object.setPrototypeOf(paidUser,paidUserFunctions)
 ```
 
-The paid user object returned out by paidUserCreator is this
+The object returned by the paidUserCreator has the shape shown below.
+
 ```javascript
 {
 name:'Gideon',
@@ -452,7 +452,7 @@ user1.sayName();
 
 ```
 
-Here we use the new creator which creates an object implicitly with it's
+Here we use the ***new Keyword*** which creates an object implicitly with it's
 ```__proto__``` reference to ```userCreator.prototype```.
 
 ```javascript
@@ -474,8 +474,8 @@ paidUser.increaseBalance();
 paidUser.sayName();
 ```
 
-The ```userCreator.call()``` sends this as reference to the newly created object in userCreator. This userCreator function
-assigns the values name and score to the object which is essentially one layer above. Hence if we observe, the userCreator.
+The ```userCreator.call()``` sends ***this*** as reference to the newly created object in userCreator. This userCreator function
+assigns the values to name and score. If we observe, the userCreator.
 The function does not return the object as we have not used a new keyword. It is just manipulating the object in the
 paidUserCreator.
 
@@ -553,10 +553,8 @@ __proto__:userCreator
 }
 
 ```
-
 The ***extends*** keyword also sets the proto reference
 to the userCreator object-function combo.
-
 
 ```javascript
 paidUser1=new paidUserCreator('Alyssa',8,25)
@@ -592,11 +590,11 @@ the returned object's proto reference is set
 to userCreator.prototype.
 
 However, the super keyword overrides the proto
-referece in our new object to paidUserCreator.prototype
+reference in our new object to paidUserCreator.prototype
 which we did manually before.
 
 The new object returned is assigned to 
-this in paidUserCreator.
+***this*** in paidUserCreator.
 
 
 -----------------------------------------------------------------------------------------------------
