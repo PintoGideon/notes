@@ -616,13 +616,13 @@ this in paidUserCreator.
 
 - Class is just syntactical sugar and abstracts the implementational details of javaScript's prototypal inheritance and helps you focus just on business logic. 
 
-- ```javascript const friends=new Array()```
+- ``` const friends=new Array()```
 
 - The methods like forEach, filter, map live on the Array.prototype.
 
 - Object.getPrototypeOf() gives you the prototype object a specific instance delegates to.
 
-- ***YOu can use a 'new' keyword on an arrow function***
+- ***Yuu can use a 'new' keyword on an arrow function***
 
 
 
