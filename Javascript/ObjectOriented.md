@@ -609,8 +609,8 @@ this in paidUserCreator.
 - The prototype is a property on a function that point to an object.
 
 - There are two ways in which Object.create() can be used.
-    - We can explicitly create an object with some function definitions and pass a reference of it to Object.create.
-    - We can define the functions on the prototype property and have Object.prototype reference that.
+    1. We can explicitly create an object with some function definitions and pass a reference of it to Object.create.
+    2. We can define the functions on the prototype property and have Object.prototype reference that.
 
 - The 'new' keyword implicity creates an empty project and creates a link to the property which has the methods defined on it. It also implicity returns an object. 
 
