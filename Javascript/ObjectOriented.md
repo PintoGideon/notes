@@ -44,7 +44,7 @@ return newUser;
 }
 
 let userFunctionStore={
-increment:function(){this.score++}
+increment:function(){this.score++},
 login:function(){console.log('You are logged in');}
 }
 
@@ -158,7 +158,7 @@ this ```{name:'Gidi', score:10, __proto__:User.prototype}```
 
 When the increment function is called, the this inside the function is
 set to user1. However, the this inside function add1 is set to the window
-object. The arrow function has it's this assignment lexically scoped. 
+object. The arrow function has it's this assignment lexically bound. 
 
 Now we can do the following the above code
 
@@ -340,8 +340,6 @@ return paidUser;
 
 }
 
-
-
 const paidUserfunction={
 displayFees: function(){console.log(this.monthlyFees));
 }
@@ -349,7 +347,7 @@ displayFees: function(){console.log(this.monthlyFees));
 Object.setPrototypeOf(paidUserFunction, userFunctionStore);
 
 
-const subscribedUser=paidUser('Gideon',1-0,500);
+const subscribedUser=paidUserCreator('Gideon',10,500);
 subscribedUser.displayFees() //500
 subsribedUser.sayName()  // 'Gideon'
 
@@ -364,12 +362,12 @@ score:8,
 __proto__:userFunctionStore
 }
 ```
-
-We do not want the ```__proto__``` to reference userFunctions.
+t
+We do not want the ```__proto__``` to refer to  userFunctionStore.
 We want the paidUser function to be referenced instead.
 
 ```javascript
-Object.setPrototypeOf(newPaidUser,paidUserFunctions)
+Object.setPrototypeOf(paidUser,paidUserFunctions)
 ```
 
 The paid user object returned out by paidUserCreator is this
@@ -474,8 +472,8 @@ paidUser.sayName();
 ```
 
 The ```userCreator.call()``` sends this as reference to the newly created object in userCreator. This userCreator function
-assigns the values name and score to the object which is essentially one layer above. Hence if we observe, the userCreator
-function does not return the object as we have not used a new keyword. It is just manipulating the object in the
+assigns the values name and score to the object which is essentially one layer above. Hence if we observe, the userCreator.
+The function does not return the object as we have not used a new keyword. It is just manipulating the object in the
 paidUserCreator.
 
 The paidUserCreator function returns an object which looks like this
@@ -544,7 +542,6 @@ The ***extends*** keyword sets the proto reference to
 the UserCreator.prototype.
 
 ```javascript
-
 {prototype: {
            increaseBalance:function(){},
           __proto__:UserCreator.prototype
@@ -591,12 +588,37 @@ an object using the ***new*** keyword infront of userCreator,
 the returned object's proto reference is set
 to userCreator.prototype.
 
-However, with the super keyword overrides the proto
+However, the super keyword overrides the proto
 referece in our new object to paidUserCreator.prototype
 which we did manually before.
 
 The new object returned is assigned to 
 this in paidUserCreator.
+
+### Summary
+
+- The Object.create() creates a delegation pattern. If a property does not exist in the current object, the JS engine performs a lookup to the object to which the link is created to.
+
+- The prototype is a property on a function that point to an object.
+
+- There are two ways in which Object.create() can be used.
+    - We can explicitly create an object with some function definitions and pass a reference of it to Object.create.
+    - We can define the functions on the prototype property and have Object.prototype reference that.
+
+- The 'new' keyword implicity creates an empty project and creates a link to the property which has the methods defined on it. It also implicity returns an object. 
+
+- Class is just syntactical sugar and abstracts the implementational details of javaScript's prototypal inheritance and helps you focus just on business logic. 
+
+- ```javascript const friends=new Array()```
+
+- The methods like forEach, filter, map live on the Array.prototype.
+
+- Object.getPrototypeOf() gives you the prototype object a specific instance delegates to.
+
+- ***YOu can use a 'new' keyword on an arrow function***
+
+
+
 
 
 
