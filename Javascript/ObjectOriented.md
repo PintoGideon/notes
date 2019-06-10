@@ -622,7 +622,7 @@ this in paidUserCreator.
 
 - Object.getPrototypeOf() gives you the prototype object a specific instance delegates to.
 
-- ***Yuu can use a 'new' keyword on an arrow function***
+- ***You can use a 'new' keyword on an arrow function***
 
 
 
