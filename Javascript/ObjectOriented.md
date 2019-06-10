@@ -23,6 +23,8 @@ user1.increment();
 The increment function has a common behavior for both objects. This code is not scalable to 10000
 users as we are making copies of the function for each user.
 
+------------------------------------------------------------
+
 ### __proto__
 
 ***Mental Model***
@@ -73,6 +75,9 @@ __proto__:userFunctionStore
 The ```__proto__``` is a reference to the userFunctionStore in which the increment function is defined.
 
 
+-----------------------------------------------------------------------------------------------------
+
+
 ### new operator
 
 In JavaScript, a function is an object first.
@@ -103,7 +108,6 @@ user1.increment();
 
 User is an object and a function. It has a property on it called prototype to which we add an increment
 function.
-
 It's going to look something like this
 
 ```javascript
@@ -113,7 +117,6 @@ prototype:{
 increment:function(){},
 login:function(){}
 }
-
 }
 
 ```
@@ -172,7 +175,7 @@ add()
 ```
 ***Arrow functions bind 'this' lexically***
 
-
+----------------------------------------------------------------------------------------------
 
 ### Class keyword
 
@@ -594,6 +597,10 @@ which we did manually before.
 
 The new object returned is assigned to 
 this in paidUserCreator.
+
+
+-----------------------------------------------------------------------------------------------------
+
 
 ### Summary
 
