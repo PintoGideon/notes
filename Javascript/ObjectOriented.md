@@ -609,10 +609,23 @@ The new object returned is assigned to
 
 ### Summary by example to get this etched in your brain
 
+***Creating a function that takes in two parameters and define a function on it's prototype***
+
 ![Prototype](https://user-images.githubusercontent.com/15992276/59235390-ef848f80-8bbe-11e9-9119-6222e336fa6e.JPG)
+
+***Creating a function that extends the Animal function using the .call syntax.***
+
 ![Prototype2](https://user-images.githubusercontent.com/15992276/59235391-ef848f80-8bbe-11e9-92f5-737592dbeded.JPG)
+
+***Set the __proto__ reference of the Dog.prototype object to Animal.Prototype for lookup.***
+
 ![Prototype3](https://user-images.githubusercontent.com/15992276/59235392-ef848f80-8bbe-11e9-941a-26e258a2dbf2.JPG)
+
+***Class syntax as a syntactical sugar***
+
 ![Prototype4](https://user-images.githubusercontent.com/15992276/59235393-ef848f80-8bbe-11e9-8d96-a907ec26384a.JPG)
+
+***Class vs Prototype comparison***
 
 ![class vs prototype](https://user-images.githubusercontent.com/15992276/59235386-ef848f80-8bbe-11e9-835f-c2ac034210e6.JPG)
 
