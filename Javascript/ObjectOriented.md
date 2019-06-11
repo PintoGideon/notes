@@ -21,7 +21,9 @@ user1.increment();
 The increment function has a common behavior for both objects. This code is not scalable to 10000
 users as we are making copies of the function for each user.
 
-### **proto**
+------------------------------------------------------------
+
+### __proto__
 
 **_Mental Model_**
 Store the increment function in just one object and have the interpreter,
@@ -70,6 +72,9 @@ __proto__:userFunctionStore
 
 The `__proto__` is a reference to the userFunctionStore in which the increment function is defined.
 
+-----------------------------------------------------------------------------------------------------
+
+
 ### new operator
 
 In JavaScript, a function is an object first.
@@ -103,16 +108,17 @@ user1.increment();
 
 User is an object and a function. It has a property on it called prototype to which we add an increment
 function.
-
 It's going to look something like this
 
 ```javascript
-User = {
-	prototype: {
-		increment: function() {},
-		login: function() {}
-	}
-};
+
+User={
+prototype:{
+increment:function(){},
+login:function(){}
+}
+}
+
 ```
 
 The function User returns out is an object which looks
@@ -163,8 +169,9 @@ UserCreator.prototype.increment = function() {
 	add();
 };
 ```
+***Arrow functions bind 'this' lexically***
 
-**_Arrow functions bind 'this' lexically_**
+----------------------------------------------------------------------------------------------
 
 ### Class keyword
 
@@ -324,11 +331,10 @@ __proto__:userFunctionStore
 ```javascript
 function paidUserCreator(paidUserName,paidUserScore, monthlyFees)
 {
-const paidUser=userCreator('Gideon',8);
+const paidUser=userCreator(paidUserName,paidUserScore);
 Object.setPrototypeOf(paidUser, paidUserFunction);
 paidUser.monthlyFees=monthlyFees;
 return paidUser;
-
 }
 
 const paidUserfunction={
@@ -336,7 +342,6 @@ displayFees: function(){console.log(this.monthlyFees));
 }
 
 Object.setPrototypeOf(paidUserFunction, userFunctionStore);
-
 
 const subscribedUser=paidUserCreator('Gideon',10,500);
 subscribedUser.displayFees() //500
@@ -346,7 +351,7 @@ subsribedUser.sayName()  // 'Gideon'
 
 ### Factory function approach
 
-userCreator is going to return an object
+userCreator when called is going to return an object of the shape shown below.
 
 ```javascript
 {
@@ -355,16 +360,15 @@ score:8,
 __proto__:userFunctionStore
 }
 ```
-
-t
-We do not want the `__proto__` to refer to userFunctionStore.
+We do not want the ```__proto__``` to refer to  userFunctionStore for a lookup if a property is not present in the paidUserCreator.
 We want the paidUser function to be referenced instead.
+
 
 ```javascript
 Object.setPrototypeOf(paidUser, paidUserFunctions);
 ```
 
-The paid user object returned out by paidUserCreator is this
+The object returned by the paidUserCreator has the shape shown below.
 
 ```javascript
 {
@@ -534,8 +538,7 @@ __proto__:userCreator
 }
 
 ```
-
-The **_extends_** keyword also sets the proto reference
+The ***extends*** keyword also sets the proto reference
 to the userCreator object-function combo.
 
 ```javascript
@@ -571,13 +574,15 @@ the returned object's proto reference is set
 to userCreator.prototype.
 
 However, the super keyword overrides the proto
-referece in our new object to paidUserCreator.prototype
+reference in our new object to paidUserCreator.prototype
 which we did manually before.
 
-The new object returned is assigned to
-this in paidUserCreator.
+The new object returned is assigned to 
+***this*** in paidUserCreator.
 
-### Composition vs Inheritance
+
+-----------------------------------------------------------------------------------------------------
+
 
 ### Summary
 
@@ -600,7 +605,96 @@ this in paidUserCreator.
 
 - Object.getPrototypeOf() gives you the prototype object a specific instance delegates to.
 
-- **_YOu can use a 'new' keyword on an arrow function_**
+- ***You can use a 'new' keyword on an arrow function***
+
+### Summary by example to get this etched in your brain
+
+![Prototype](https://user-images.githubusercontent.com/15992276/59235390-ef848f80-8bbe-11e9-9119-6222e336fa6e.JPG)
+![Prototype2](https://user-images.githubusercontent.com/15992276/59235391-ef848f80-8bbe-11e9-92f5-737592dbeded.JPG)
+![Prototype3](https://user-images.githubusercontent.com/15992276/59235392-ef848f80-8bbe-11e9-941a-26e258a2dbf2.JPG)
+![Prototype4](https://user-images.githubusercontent.com/15992276/59235393-ef848f80-8bbe-11e9-8d96-a907ec26384a.JPG)
+
+![class vs prototype](https://user-images.githubusercontent.com/15992276/59235386-ef848f80-8bbe-11e9-835f-c2ac034210e6.JPG)
+
+
+### Hold on, there is more, Composition vs Inheritance
+
+>By favoring composition over inheritance and thinking in terms of what things do rather than what things are, you free yourself of fragile and tightly couple inhertiance structures-Abraham Lincoln
+
+![composability](https://user-images.githubusercontent.com/15992276/59235387-ef848f80-8bbe-11e9-9741-bfe69228c72d.JPG)
+![composability1](https://user-images.githubusercontent.com/15992276/59235388-ef848f80-8bbe-11e9-832c-f1aca72727e2.JPG)
+![composability3](https://user-images.githubusercontent.com/15992276/59235389-ef848f80-8bbe-11e9-92e6-4022d744c810.JPG)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 ### Summarizing through an example so this is etched into your brain
 

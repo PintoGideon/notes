@@ -24,7 +24,7 @@ me.sayName(); //Tyler
 you.sayName(); //Joey
 ```
 
-##Explicit Binding
+## Explicit Binding
 
 ### Call, Apply and Bind
 
