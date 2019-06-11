@@ -609,10 +609,23 @@ The new object returned is assigned to
 
 ### Summary by example to get this etched in your brain
 
+### Creating a function that takes in two parameters and define a function on it's prototype
+
 ![Prototype](https://user-images.githubusercontent.com/15992276/59235390-ef848f80-8bbe-11e9-9119-6222e336fa6e.JPG)
+
+### Creating a function that extends the Animal function using the .call syntax.
+
 ![Prototype2](https://user-images.githubusercontent.com/15992276/59235391-ef848f80-8bbe-11e9-92f5-737592dbeded.JPG)
+
+### Set the __proto__ reference of the Dog.prototype object to Animal.Prototype for lookup.
+
 ![Prototype3](https://user-images.githubusercontent.com/15992276/59235392-ef848f80-8bbe-11e9-941a-26e258a2dbf2.JPG)
+
+### Class syntax as a syntactical sugar
+
 ![Prototype4](https://user-images.githubusercontent.com/15992276/59235393-ef848f80-8bbe-11e9-8d96-a907ec26384a.JPG)
+
+### Class vs Prototype comparison
 
 ![class vs prototype](https://user-images.githubusercontent.com/15992276/59235386-ef848f80-8bbe-11e9-835f-c2ac034210e6.JPG)
 
@@ -696,18 +709,4 @@ The new object returned is assigned to
 
 
 
-### Summarizing through an example so this is etched into your brain
 
-![Prototype](https://user-images.githubusercontent.com/15992276/59235241-3faf2200-8bbe-11e9-9d05-1b9d2e73fd06.JPG)
-![Prototype2](https://user-images.githubusercontent.com/15992276/59235242-3faf2200-8bbe-11e9-9ff6-fb91363ef579.JPG)
-![Prototype3](https://user-images.githubusercontent.com/15992276/59235243-3faf2200-8bbe-11e9-8530-5a3ce751dc15.JPG)
-![Prototype4](https://user-images.githubusercontent.com/15992276/59235244-3faf2200-8bbe-11e9-8d74-f08ebda84907.JPG)
-![class vs prototype](https://user-images.githubusercontent.com/15992276/59235237-3f168b80-8bbe-11e9-9a1b-b34412460dcb.JPG)
-
-### Composability vs inheritance
-
-> By favoring composition over inheritance and thinking in terms of what things do rather than what things are, you free yourself of fragile and tightly couple inhertiance structures- Abraham Lincoln
-
-![composability](https://user-images.githubusercontent.com/15992276/59235238-3f168b80-8bbe-11e9-9c41-62cf811cc31a.JPG)
-![composability1](https://user-images.githubusercontent.com/15992276/59235239-3f168b80-8bbe-11e9-8824-971014072b48.JPG)
-![composability3](https://user-images.githubusercontent.com/15992276/59235240-3faf2200-8bbe-11e9-9ca4-ba8de086d98d.JPG)
