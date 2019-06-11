@@ -14,7 +14,7 @@ You can find detailed notes [here](https://github.com/PintoGideon/JS-for-referen
 
 There are a few downsides to an IIFE.
 We still have a single property on the global namespace.
-The order of the script import tags matter.
+The order of the script tags matter.
 
 ### Our Module Standard
 
