@@ -112,5 +112,8 @@ console.log(superclone);//{a:'a',b:'b',c:{deep:'Copy me'}};
 ```
 
 
+### Recreating Arrays from Scratch
+
+
 
 
