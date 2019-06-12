@@ -99,9 +99,9 @@ our function differently, our app breaks.
 
 ### Promises
 
--pending
--fulfilled
--rejected
+- pending
+- fulfilled
+- rejected
 
 Promises exist to make the complexity of async requests more manageable.
 
