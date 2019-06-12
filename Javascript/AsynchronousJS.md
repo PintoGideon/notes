@@ -1,8 +1,7 @@
 ### Async JS
 
-const Http=new XMLHttpRequest();
-
 ```javascript
+const Http=new XMLHttpRequest();
 const url='https://.....'
 Http.open('GET',url);
 Http.send();
