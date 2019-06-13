@@ -1,8 +1,7 @@
 ### Async JS
 
-const Http=new XMLHttpRequest();
-
 ```javascript
+const Http=new XMLHttpRequest();
 const url='https://.....'
 Http.open('GET',url);
 Http.send();
@@ -100,9 +99,9 @@ our function differently, our app breaks.
 
 ### Promises
 
--pending
--fulfilled
--rejected
+- pending
+- fulfilled
+- rejected
 
 Promises exist to make the complexity of async requests more manageable.
 
