@@ -4,8 +4,8 @@ It may not be immediately clear which component show own
 what state.
 State is created in the component and stays in the component. It can be passed to a children as it's props.
 
-**_Model state_**: This is likely the data in your application. This could be the items in a given list
-**_Ephemeral State_**: Stuff like the value of an input field that will be wiped away when you hit enter.
+- **_Model state_**: This is likely the data in your application. This could be the items in a given list.
+- **_Ephemeral State_**: Stuff like the value of an input field that will be wiped away when you hit enter.
 
 ### this.setState() is asynchronous
 
