@@ -83,19 +83,20 @@ p::first-letter {
 
 ```css
 li a:hover {
-    text-decoration:none;
+	text-decoration: none;
 	color: white;
 }
 
-li a:after{
-    content: "(Link)";
-    color:red;
+li a:after {
+	content: '(Link)';
+	color: red;
 }
 
 li a:active {
 	color: white;
 }
 ```
+
 ![nav](https://user-images.githubusercontent.com/15992276/59135859-93b3cf80-894e-11e9-91d4-dce564a59aee.JPG)
 
 Here the li will behave as an inline element but also give you
@@ -216,5 +217,37 @@ the ability to set margin and padding to it.
 .button:active {
 	background: white;
 	color: green;
+}
+```
+
+### Styling a hamurger menu
+
+```html
+<div>
+	<button class="toggle-button">
+		<span class="toggle-button__bar"></span>
+		<span class="toggle-button__bar"></span>
+		<span class="toggle-button__bar"></span>
+	</button>
+</div>
+```
+
+```css
+.toggle-button {
+	width: 3rem;
+	background: transparent;
+	border: none;
+	cursor: pointer;
+	padding-top: 0;
+	padding-bottom: 0;
+	vertical-align: middle;
+}
+
+.toggle-button__bar {
+	width: 100%;
+	height: 0.2rem;
+	background: black;
+	margin: 0.6rem 0;
+	display: block;
 }
 ```

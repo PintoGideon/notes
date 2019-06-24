@@ -24,34 +24,27 @@ increment(){
 }
 ```
 
+```javascript
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+increment(){
+    this.setState(state=>{
+        if(state.count>=5) return;
+        return {count:state.count+1}
+    })
+}
 
 ```
+
+### this.setState also takes a callback
+
+### Patterns and Anti-Patterns
+
+- Don't use this.state for derivations of props
+- Don't use state for things you aren't going to render
+
+
+### The Peris of Prop Drilling
+
+
+
+

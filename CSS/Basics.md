@@ -137,7 +137,7 @@ An element with position: fixed; is positioned relative to the viewport, which m
 
 ### absolute
 
-An element with position: absolute; is positioned relative to the nearest positioned ancestor (instead of positioned relative to the viewport, like fixed).
+An element with position: absolute; is positioned relative to the nearest positioned ancestor (instead of being positioned relative to the viewport, like fixed).
 
 However; if an absolute positioned element has no positioned ancestors, it uses the document body, and moves along with page scrolling.
 
@@ -174,7 +174,36 @@ Sticky is a combination of relative and fixed.
 	<div class="image-3">Image</div>
 </div>
 <div class="contact-us">Contact-us</div>
-
 ```
 
 ![Stacking Context](https://user-images.githubusercontent.com/15992276/59557512-72d02780-8fa9-11e9-8d39-cf240b6a6fd4.JPG)
+
+### Working with Modals
+
+```html
+<div class="backdrop"></div>
+<div class="modal">
+	<h1 class="modal__title">Do you want to continue?</h1>
+	<div class="modal__actions">
+		<a href="start-hosting/index.html" class="modal__action">Yes</a>
+		<button class="modal__action modal__action--negative" type="button">
+			No
+		</button>
+	</div>
+</div>
+```
+
+```css
+.modal {
+	position: fixed;
+	z-index: 200;
+	display: none;
+	top: 20%;
+	left: 30%;
+	width: 40%;
+	background: white;
+	padding: 1rem;
+	border: 1px solid #ccc;
+}
+```
+
