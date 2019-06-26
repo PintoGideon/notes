@@ -42,9 +42,58 @@ increment(){
 - Don't use this.state for derivations of props
 - Don't use state for things you aren't going to render
 
-
 ### The Peris of Prop Drilling
 
+### Higher order components
 
+We can take a container and wrap a component in it and pass out a new component with the state.
 
+### Render props
 
+### A simple example
+
+```javascript
+
+export default class withCount extends Component{
+state={count:0}
+
+increment=()=>{
+this.setState(state=>({count:state.count+1});
+}
+
+render(){
+return (
+<div className="withCount">
+{
+this.props.render(this.state.count, this.increment)
+}
+</div>
+)
+}
+}
+
+```
+
+```javascript
+<WithCount
+	render={(count, increment) => (
+		<Counter count={count} onIncrement={increment} />
+	)}
+/>
+```
+
+### State Architecture Patterns
+
+1. Seperating out a presentation component from a state component
+
+2. Identify every component that renders something based on the state
+
+3. Find a common owner component ( a single component above all the components that need the state in the hierarchy)
+
+### Context API
+
+Context provides a way to pass data through the component tree without having to pass props down manually at every level.
+
+```
+
+```

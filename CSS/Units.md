@@ -110,11 +110,14 @@ margin:3rem 0;
 ### Using auto to center elements
 
 ```css
-
 {
 margin:auto
 }
 ```
+
+
+
+
 
 
 
