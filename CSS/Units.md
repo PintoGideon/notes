@@ -36,7 +36,7 @@ right properties.
 4. Percentage
    How is the box size for % units calculated?
 
-### 3 basic rules for percentages
+### Three basic rules for percentages
 
 1. Whenever an element has a position of fixed applied, the percentage is calcualted in reference to the containing block which will be the view port.
 
