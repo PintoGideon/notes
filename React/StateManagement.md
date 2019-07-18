@@ -9,7 +9,7 @@ State is created in the component and stays in the component. It can be passed t
 
 ### this.setState() is asynchronous
 
-Effective, you're queuing up state changes. React will
+ You're queuing up state changes. React will
 batch them, figure out the result and efficiently make that
 change.
 
