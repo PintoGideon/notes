@@ -25,7 +25,7 @@ architectures.
 
 ```
 
-In Recent years, REST has been at th3 forefront of the modern API design. Every enterprise has defined their own custom API format, usually a JSON response that
+In Recent years, REST has been at the forefront of the modern API design. Every enterprise has defined their own custom API format, usually a JSON response that
 maps neatly to their own data model. A Facebook API client cannot communicate with a Twitter API and vice versa.
 By using hypermedia in our responses we can offer links between API endpoints and documentation, potential actions and related enpoints. Furthermore, by standardizing on a
 hypermedia type clients  developed for one API can understand the format of another API and communicate with minimal duplicated effort.
