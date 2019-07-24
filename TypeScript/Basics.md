@@ -9,24 +9,9 @@
    and transforming it into a data structure which other parts of the typescript compiler will
    use and understand.
    
-  # TypeScript?
-
-  - An open-source typed, syntactic superset of JavaScript, developed by Microsoft.
-  - Compiles to readable JavaScript
-  - Comes in three parts: Language, Language Server and compiler.
-
-
-# Points covered
-
-- Adding type information to variables, functions and classes
-- Configuring the compiler
-- Converting JS to TS
-- Parameterizing interfaces and type aliases with generics
-- TS Compiler API Basics
-
-
-http://bit.ly/fem-ts
-
+   # Getting Started
+   
+   
 ```javascript
 
 let words=['red', green, 'blue']
@@ -42,7 +27,6 @@ for (let i=0;i<words.length;i++){
 
 ### Type Inference
 
-```javascript
 
 Type annotations for functions are the code that we tell Typescript what Type
 of arguments a function will receive and what type of values it will return
@@ -123,7 +107,7 @@ const {age}:number=profile;
 const {age}:{age:number}=profile;
 
 
-Similarly
+//Similarly
 
 const coords:{lat:number, lng:number}=profile.coords.
 const lat=coors.lat;
@@ -177,10 +161,6 @@ importantDate.push(new Date());
 Tuples are array like structures where each element represents
 some property of a record. If we are working with a CSV file,
 we might use a tuple.
-
-
-
-
 
 ```javascript
 
@@ -305,6 +285,7 @@ printSummary(drink)
  ```
 
 
+```javascript
 
 
 
@@ -374,28 +355,3 @@ printSummary(drink)
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  
