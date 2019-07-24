@@ -68,9 +68,10 @@ const forecast={
 
 
 // Destructuring in Typescript
+
 const todaysWeather={
     date:new Date(),
-    weather:'sunny;
+    weather:'sunny';
 }
 
 
@@ -91,10 +92,7 @@ const profile={
     },
     setAge(age:number):void{
           this.age=age;
-    }
-
-
-    
+    }   
 }
 
 const age=profile.age
@@ -284,8 +282,6 @@ printSummary(drink)
  const vehicle=new Vehicle('orange');
  ```
 
-
-```javascript
 
 
 
