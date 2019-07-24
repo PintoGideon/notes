@@ -251,3 +251,25 @@ the ability to set margin and padding to it.
 	display: block;
 }
 ```
+
+### Stying Navigation using Flexbox
+
+Changing the display property from display property to flex
+to inline block. The align-items will center the elements
+on the cross axis. justify-content will center the elements
+on the main axis.
+
+```css
+.main-header {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}
+
+.main-nav__items {
+	list-style: none;
+	display: flex;
+}
+```
+
+

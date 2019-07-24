@@ -1,21 +1,7 @@
 ### Basic Idea
 
 A web server can be seen as a function that takes in a request and outputs a response. Middlewares are functions executed in the middle after the incoming
-request then produces an output which could be the final output passed or could be used by the next middleware until the cycle is completed.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+request then produces an output which could be the final output passed or could be used by the next middleware until the cycle is completed
 
 
 Attempt #1: Logging Manually
