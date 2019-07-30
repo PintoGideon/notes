@@ -14,6 +14,21 @@ Get an overview of the width and height of the devices
 Change design depending on the size.
 Design changes defined by us.
 
+```css
+/*Smartphones*/
+media (max-width:500px) {
+}
+
+/*Tablet*/
+media (max-width:768px) {
+}
+
+/* Normal */
+
+media(max-width:1200px) {
+}
+```
+
 ### Understanding the viewport metatag
 
 Apply the ratio conversion to the smaller device.
@@ -32,4 +47,4 @@ Apply the ratio conversion to the smaller device.
 }
 ```
 
-### Finding the Right Breakpoints
+##

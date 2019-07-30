@@ -37,3 +37,63 @@ function factorial(n) {
 }
 ```
 
+### IIFE
+
+### Modularity
+
+```javascript
+
+var api=(function(){
+
+var local=0;
+
+var publicInterface={
+counter:function(){
+return ++local;
+}
+
+}
+
+return publicInterface;
+}
+```
+
+### Promises
+
+```javascript
+const promise = new Promise(function(fulfill, reject) {
+	if (xhr.status >= 200 && xhr.status < 300) {
+		fulfill(xhr.response);
+	} else {
+		reject(new Error(xhr.responseText));
+	}
+});
+```
+
+### Events from scratch
+
+```javascript
+function emitter(thing) {
+	var events = {};
+
+	if (!thing) {
+		thing = {};
+	}
+
+	thing.on = function on(type, listener) {
+		if (!events[type]) {
+			events[type] = [listener];
+		} else {
+			events[type].push(listener);
+		}
+	};
+
+	return thing;
+}
+
+```
+
+
+### Testing JS Apps Crash Course
+
+
