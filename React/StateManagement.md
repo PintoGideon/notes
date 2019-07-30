@@ -9,7 +9,7 @@ State is created in the component and stays in the component. It can be passed t
 
 ### this.setState() is asynchronous
 
- You're queuing up state changes. React will
+You're queuing up state changes. React will
 batch them, figure out the result and efficiently make that
 change.
 
@@ -37,63 +37,112 @@ increment(){
 
 ### this.setState also takes a callback
 
-### Patterns and Anti-Patterns
+### Refresher on state architecture patterns
 
-- Don't use this.state for derivations of props
-- Don't use state for things you aren't going to render
+### Higher Order Components
 
-### The Peris of Prop Drilling
-
-### Higher order components
-
-We can take a container and wrap a component in it and pass out a new component with the state.
-
-### Render props
-
-### A simple example
+Generate the ability to take a container and wrap other components in it creating a container factory.
 
 ```javascript
 
-export default class withCount extends Component{
-state={count:0}
-
-increment=()=>{
-this.setState(state=>({count:state.count+1});
+const withCount=function(WrappedComponent){
+    return {
+        class extends Component{
+            state={count:9};
+            increment=()=>{
+                this.setState(state=>({count:state.count+1}))
+            }
+            render(){
+                <WrappedComponent count={this.state.count} onIncrement={this.increment} {...this.props}/>
+            }
+        }
+    }
 }
 
-render(){
-return (
-<div className="withCount">
-{
-this.props.render(this.state.count, this.increment)
-}
-</div>
-)
-}
-}
+
+const CounterWithCount=withCount(Counter)
 
 ```
+
+### Render Properties
+
+One issue with the higher order component is that we might pass data as props to components which might not need it. For example, a card
+assignment card would not need a onCreateUser and onUpdateUser functionalities.
 
 ```javascript
-<WithCount
-	render={(count, increment) => (
-		<Counter count={count} onIncrement={increment} />
-	)}
-/>
+<withUsers>{({ users, createUser }) => <User key={user.id} />}</withUsers>
 ```
 
-### State Architecture Patterns
+### Flux Implementation
 
-1. Seperating out a presentation component from a state component
+Flux is a design pattern,not a specific library of implementation.
 
-2. Identify every component that renders something based on the state
+### The Redux workflow
 
-3. Find a common owner component ( a single component above all the components that need the state in the hierarchy)
+The views dispatch actions to the store. When the store receives an action from the views, the store uses a reducer function to process the action. The store provides the reducer function with the current state and the action.
 
-### Context API
+Consider a store with a current state of 5. The store receives an increment action. The store uses its reducer to derive the next state.
 
-Context provides a way to pass data through the component tree without having to pass props down manually at every level.
+### The counter's actions
 
+```javascript
+function reducer(state, action) {
+  if (action.type === "INCREMENT") {
+    return state + 1;
+  }
+}
 ```
 
+### Building the store
+
+We have been calling our reducer and manually supplying the last version of the state along with an action.
+
+The redux library provides a function for creating stores, createStore(). The function returns a store object that keeps an internal variable state. In additiion, it provides a few methods for interacting with the store.
+
+```javascript
+
+const createStore=(reducer)=>{
+const state=0;
+
+const getState=()=>{
+    return state;
+}
+
+const dispatch=(action)=>{
+    reducer(state,action)
+}
+
+return {
+    getstate,
+    dispatch
+}
+
+}
+}
 ```
+### The core of Redux
+
+As it stands out, our createStore() function closely resembles the createStore() function that ships with the Redux library.
+
+- All the application's data is in a single data structure called the state which is held in the store
+
+- Your app reads the state from this store
+
+- the state is never mutated directly outside the sotre.
+
+- The views emit actions that describe what happened
+
+- A new state is created by combining the old state and the action by a function called the reducer.
+
+
+### Subscribing to the store
+
+Our store so far provides methods for the view to dispatch actions
+and to read the current version of the state.
+
+While the view can read the state at any time with getState(), the view needs to know when the state has cnahged.
+
+Now state is being modified outside of React and inside of the store.  our views are unaware of when it changes. If we are going to keep our views up to date with most current state in the store, the our views should receive a notification.
+
+
+
