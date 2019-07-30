@@ -109,7 +109,7 @@ const getState=()=>{
 }
 
 const dispatch=(action)=>{
-    reducer(state,action)
+    state=reducer(state,action)
 }
 
 return {
@@ -120,6 +120,7 @@ return {
 }
 }
 ```
+
 ### The core of Redux
 
 As it stands out, our createStore() function closely resembles the createStore() function that ships with the Redux library.
@@ -134,7 +135,6 @@ As it stands out, our createStore() function closely resembles the createStore()
 
 - A new state is created by combining the old state and the action by a function called the reducer.
 
-
 ### Subscribing to the store
 
 Our store so far provides methods for the view to dispatch actions
@@ -142,7 +142,111 @@ and to read the current version of the state.
 
 While the view can read the state at any time with getState(), the view needs to know when the state has cnahged.
 
-Now state is being modified outside of React and inside of the store.  our views are unaware of when it changes. If we are going to keep our views up to date with most current state in the store, the our views should receive a notification.
+Now state is being modified outside of React and inside of the store. our views are unaware of when it changes. If we are going to keep our views up to date with most current state in the store, the our views should receive a notification.
 
+The store uses the observer patter to allow the views to immediately update when the state changes. The views will register a clalback function that they would like to be invoked when the state changes. The store will keep a list of all these callback functions. When the state changes, the store will invoke each function notifying the listeners of the change.
 
+Inside createStore() , we will
 
+1. Define an array called listeners
+2. Add a subscriber() method which adds a new listener to listeners
+3. Call each listener function when the state is changed.
+
+```javascript
+function createStore(reducer, initalState) {
+  let state = initialState;
+  const listeners = [];
+}
+```
+
+```javascript
+const subscribe = listener => {
+  listeners.push(listener);
+};
+```
+
+The listener argument of subscribe() is a function. the function that the view would like invoked whenever the state changes. To make subscribe accessible, we need to expose subscribe by adding it to the store object returned by createStore();
+
+### createStore() in full.
+
+```javascript
+
+function createStore(initialState, reducer){
+    let state=intialState;
+    const listeners=[];
+
+    const subscribe=(listener)=>{
+        listeners.push(listener)
+    }
+
+    const getState=()=>(state);
+
+    const dispatch=(action)=>{
+        state=reducer(state,action);
+        listeners.forEach(listener=>return{
+            l();
+        })
+    }
+
+    return {
+        subscribe,
+        getState,
+        dispatch
+    }
+}
+```
+
+### Connection Redux to React
+
+### Using sore.dispatch().
+
+```javascript
+class Message extends React.Component {
+  handleDeleteClick = () => {
+    store.dispatch({
+      type: "DELETE_MESSAGE",
+      index: this.props.index
+    });
+  };
+}
+```
+
+The dispatch() call will modify the state.dispatch() which will then invoke the listener which we registered with subscribe().This forces the App component to re-render. When render() is invoked, the App component reads from this store again with getState() and then passes the latest version of the state down to it's child components.
+
+### Breaking up the reducer function
+
+With reducer composition, we can break up the state management logic of our app into smaller functions.
+
+We will still pass in a single reducer function to createStore(). But this top level function will call one or more functions.
+
+### A new reducer()
+
+We'll still call our top-level function reducer(). We'll have two other reducer function each managing their part of the state's top level properties.
+
+When reducer() receives a state of undefined , state is set to {}.
+
+### Using Presentational and Container Components with Redux.
+
+Container Components have similar behavior:
+
+1. They subscribe to the store in componentDidMount
+2. They might have some Logic to massage Data from state into a format fit as a prop for the presentational component
+3. The map actions on the presentational component such as functions that dispatch to the store.
+
+### connect()
+
+The connect() function in react-redux generates container components. For each presentational component, we can write function that specify how state should map to props and how events should map to dispatches.
+
+### The Provider Component
+
+Before we can use connect() to generate container components, we need to make a small addition to our app.
+
+In order for connect() to be able to generate container components, it needs some canonical mechanism for containers to access the redux store. The `react-redux` library supplies a special Provider component. You can wrap your top level component in Provider. Provuder will then make the store available to all components via React's context feature.
+
+When we use connect() to generate container components, those container components will assume that the store is available to them via context.
+
+```javascript
+const WrappedApp=()=>{
+return (<Provider store={store}><App/><Provider>);
+}
+```
