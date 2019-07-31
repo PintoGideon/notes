@@ -1,5 +1,69 @@
 ### How React really works?
 
+There are two ways to declare React Components.
+
+- As ES6 classes
+- Importing and using createReactClass() method
+
+```
+class HelloWorld extends React.Component{
+  render(){
+    return <p>Hello World</p>
+  }
+}
+
+```
+
+The render() method of a component needs to describe how the view should be represented
+as HTML. React builds our apps with a fake representation of the DOM model.
+
+### ReactDOM.render()
+
+```javascript
+class ProductList extends React.Component {
+  render() {
+    return (
+      <div className="ui unstackable items">
+        Hello Friend! I am basic React Comp
+      </div>
+    );
+  }
+}
+
+ReactDom.render(<ProductList />, document.getElementById("content"));
+```
+ We pass in two arguments to the ReactDOM.render() method. The first argument is what we would like to render and the second where to render it.
+
+ For what, we are passing in a reference to our ProductList component, from where you might recall index.html
+ contains a div tag with an id of content
+
+ ```
+<div id="content"></div>
+ ```
+We pass in a reference to the DOM node as the second argument to see ReactDOM.render().
+
+
+
+### this keyword
+
+this is a special keyword in JS. The details of 'this' are a bit nuanced. In React, 'this'
+will be bount to the React Component Class. When we write this.props, we are accessing
+the props property on the component. 
+
+
+### Building Custom Component methods
+
+In react, inside render(), this is bound to the component. Understanding the binding of this
+is one of the trickiest parts of learning Javascript programming.For a render() function, React binds this to the component for us. React specifies a default set of special API methods. render() is one such method. constructor() is a special function in a JS class. JS invokes constructor() whenever an object is created via a class. If you've never worked 
+with an Object Oriented language before, it's sufficient to know that React invokes constructor() first thing when initializing our component. React invokes constructor() with the component's props.
+
+The constructor() function defined by React.component will bind this inside our constructor() to the component. Because of this, it's a good practice to always call super() first whenever you declare a constructor() for your component. After calling super(),we call bind() on our custom component method.
+
+### Component
+A component should ideally only be responsible for one piece of functionality.
+
+
+
 ```javascript
 import React from "react";
 import ReactDOM from "react-dom";
@@ -331,7 +395,6 @@ const NewsPaper = props => {
     </Container>
   );
 };
-
 ```
 
 The container above contains a single child, the Article component and the article component contains a single child the text Content here.
@@ -347,14 +410,12 @@ class Container extends React.Component{
 
 ```
 
-Let's rewrite the previous Container to allow a configurable wrapper component for each child. 
+Let's rewrite the previous Container to allow a configurable wrapper component for each child.
 
 1. A prop component which is going to wrap each child
 2. A prop children which is list of children we are going to wrap.
 
-
 ### Routing in React
-
 
 A URL is a reference to a web resource. A typical URL looks something like this.
 
@@ -375,7 +436,7 @@ With React,
 1. Browser makes a request to the server
 2. The server doesn't care about the pathname. Instead it returns a standard index.html that includes the React app and any static assets
 3. The React app mounts
-4. The React app extracts the identifiers from the URL and uses the identifiers to make an api call to fetch the data for the artist and the album. It might 
+4. The React app extracts the identifiers from the URL and uses the identifiers to make an api call to fetch the data for the artist and the album. It might
    takes this call to the same server. The React app renders the page using data it received from the API call.
 
 With React Routing this would look like this,
@@ -383,9 +444,8 @@ With React Routing this would look like this,
 1. User visits https://example.com/artists/87589/albums/1758221
 2. The server delivers the standard index.html that includes the React app and assets
 3. The React app mounts and populates itself by making an API call to the server
-4. User clicks on the Account button.  The React app re-renders, checks the url. It sees the user is viewing /feeds and it swaps in the Account View Component.
+4. User clicks on the Account button. The React app re-renders, checks the url. It sees the user is viewing /AccountView and it swaps in the Account View Component.
 5. The React app makes an API call to populate the AccountView Component.
-
 
 ### Building Router
 
@@ -416,9 +476,6 @@ The match object contains the following properties.
 
 If a user visits a page on the site they can't access because they are not logged in, we redirect them to /login. When they log in, we should send them back to whichever page they came from. In order to do this, Login needs some way to know where the user came from.
 
+### What is Dynamic Routing?
 
-
-
-
-
-
+Routing that takes place as your app is rendering,
