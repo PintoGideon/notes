@@ -47,7 +47,7 @@ We pass in a reference to the DOM node as the second argument to see ReactDOM.re
 ### this keyword
 
 this is a special keyword in JS. The details of 'this' are a bit nuanced. In React, 'this'
-will be bount to the React Component Class. When we write this.props, we are accessing
+will be bound to the React Component Class. When we write this.props, we are accessing
 the props property on the component. 
 
 

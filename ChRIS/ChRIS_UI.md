@@ -34,7 +34,8 @@ The Dashboard page needs the user , ui pieces of the state from the store so we 
 A simple workflow to undestanding the working React, Patterfly and TypeScript.
 
 ```javascript
-// The wrapper returns this markup by passing down the following information to the Page Component from Patternfly
+// The wrapper returns this markup by passing down the following information 
+//to the Page Component from Patternfly
 
 onToggle = () => {
   const { isSidebarOpen, onSidebarToggle } = this.props;

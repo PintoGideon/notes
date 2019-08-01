@@ -1,47 +1,30 @@
-### Basic Idea
+### Middleware in Redux
 
-A web server can be seen as a function that takes in a request and outputs a response. Middlewares are functions executed in the middle after the incoming
-request then produces an output which could be the final output passed or could be used by the next middleware until the cycle is completed
+In Redux, you can use a middleware. Every dispatched action flows through a middleware. You can opt-in a specific feature in between of dispatching an action and the moment it reaches the reducer.
 
-
-Attempt #1: Logging Manually
+It is the Redux store which can be initialized with it. The createStore() functionality from Redux takes as third argument a so called enhancer. The redux library comes with one of the enhancers: applyMiddleware().
 
 ```javascript
 
-store.dispatch(addTodo('Use Redux'))
+import {applyMiddleware, createStore} from 'redux';
 
-const action=addTodo('Use Redux');
+const store=createStore(reducer, undefined, applyMiddleware(....))
 
-console.log('dispatching',action)
-store.dispatch(action);
-console.log('next state',store.getState())
 
 ```
 
-
-
-Attempt #2: Wrapping Dispatch
-
-You can extract logging into a function
+### Redux logger
 
 ```javascript
+const logger = createLogger();
 
-function dispatchAndLog(store,action){
-    console.log('dispatching',action)
-    store.dispatch(action)
-
-    console.log('next state',store.getState())
-}
-
-dispatchAndLog(store,addTodo('Use Redux'))
-
+const store = createStore(reducer, undefined, applyMiddleware(logger));
 ```
 
-Attempt #3 MonkeyPatching Dispatch
+The applyMiddleware() takes any number of middleware. The action will flow through all middleware before it reaches the reducers.
 
+### Normalized State
 
-
-
-
+A best practice in Redux is a flat state structure. You don't want to maintain an immutable structure for your state when it is deeply nested. It becomes tedious and unreadable even with spread operators.
 
 
