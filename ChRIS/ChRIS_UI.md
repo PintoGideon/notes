@@ -34,7 +34,7 @@ The Dashboard page needs the user , ui pieces of the state from the store so we 
 A simple workflow to undestanding the working React, Patterfly and TypeScript.
 
 ```javascript
-// The wrapper returns this markup by passing down the following information 
+// The wrapper returns this markup by passing down the following information
 //to the Page Component from Patternfly
 
 onToggle = () => {
@@ -87,11 +87,68 @@ const mapDispatchToProps = (dispatch: Dispatch) => {
 </LoginPage>
 ```
 
-
-
 ```javascript
 // A async action creator
 const getAuthToken = () => action(UserActionTypes.FETCH_TOKEN, user);
 
 //
 ```
+
+### Create notes in detail
+
+The browser renders the FeedView component when the user clicks on an individual feed link.
+
+I needs the details of the feed. The feed Details component need not re-render hence we create a seperate component for it.
+
+### Feed Details Component
+
+I pass in details as the prop. The ChRIS JS api takes an object oriented approach in which every API resource object is an instance of a JS class that inherits from either or two base classes.
+
+In particular every object inherits a get method that updates the internal state of the object with the new data fetched from the ChRIS server.
+
+The feed details workflow works like this:
+
+```javascript
+import ChrisAPIClient from "../../../api/chrisapiclient";
+import { IFeedItem } from "../../api/models/feed.model";
+
+export interface FeedData {
+  feedDescription: string;
+}
+
+const client = ChrisAPIClient.getClient();
+```
+
+Hey Jorge, I am working on displaying the note content
+as a part of the Feed Description in the UI.
+
+Please let me know if I am understanding this correctly.
+
+Currently, the note.content can be called in such a way
+
+const note= await feed.getNote();
+const {content}=note;
+
+For this, I need the feed from the client. However, the Feed class is currently created as a subclass of ItemResource.
+
+I cannot call client.getFeed(feedId).
+
+
+
+
+
+
+class FeedDetails extends React.Component<AllProps, INoteState> {
+  constructor(props: AllProps) {
+    super(props);
+    this.state = {
+      note_content: " "
+    };
+  }
+
+  async componentDidMount() {
+    const noteData = await this.fetchNote(2);
+    this.setState({
+      note_content: noteData
+    });
+  }
