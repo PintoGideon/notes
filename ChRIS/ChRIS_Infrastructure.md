@@ -221,7 +221,7 @@ A Docker image is like a stopped container. If you're a developer you can think 
 
 Images are made up of multiple layers that get stacked on top of each other and represented as a single object. Inside of the image is a cut down operating system and all of the files and dependencies required to run an application. Because containers are intended to be fast and lightweight, images need to be small.
 
-Images are considered build time constructs whereas containers are run-time constructs.
+Images are considered build time constructs whereas containers are run-time constructs. We use the ```docker container run``` and ```docker service ``` commands to start one or more containers from a single image.
 
 
 
