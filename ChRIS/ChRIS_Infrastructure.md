@@ -221,7 +221,79 @@ A Docker image is like a stopped container. If you're a developer you can think 
 
 Images are made up of multiple layers that get stacked on top of each other and represented as a single object. Inside of the image is a cut down operating system and all of the files and dependencies required to run an application. Because containers are intended to be fast and lightweight, images need to be small.
 
-Images are considered build time constructs whereas containers are run-time constructs. We use the ```docker container run``` and ```docker service ``` commands to start one or more containers from a single image.
+Images are considered build time constructs whereas containers are run-time constructs. We use the ```docker container run``` and ```docker service ``` commands to start one or more containers from a single image. Once you have started a container from an image, the two constructs become independent on each other and you cannot delete the image until the last container using it has been stopped and destroyed.
+
+### Images are usually small.
+
+The whole purpose of a container is to run an application or service. This means that the image a container is created from must contain all OS and application
+files required to run the app/service. However containers are all being fast and lightweight. This means that the images they're built from are usually small and stripped of all non-essential parts.
+
+Image registries contain multiple image repositories. In turn, image repositories can contain multiple images. 
+
+### Image naming and tagging
+
+Addressing images from official repositories is as simple as giving the repository name and tag seperated by a colon: The format for docker image pull , when working with an image from an official repository is
+```
+docker image pull <repository> :<tag>
+```
+
+
+```
+docker image pull alpine: latest
+docker image pull ubuntU: latest
+
+```
+
+These two commands pull the images tagged as "latest" from the "Alpine" and "ubuntu" repositories. The following examples show how to pull various different images from official repositories.
+
+```
+
+$ docker image pull mongo:3.3.11
+
+$ docker image pull redis:latest
+
+$ docker image pull alpine
+
+```
+
+
+### Searchjng Docker Hub from the CLI
+
+The ```docker search command``` lets you search Docker from the CLI. You can pattern match against strings in the "NAME" field and filter output based on any of the returned columns. In its simplest form , it searches for all repos containing a certain string in the "NAME field".
+
+```
+$ docker search gideonpinto
+
+```
+
+### Images and Layers
+
+A docker image is just a bunch of loosely connected read only layers. Docker takes care of stacking these layers and representing them as a single unified object. 
+
+```
+$ docker image pull ubuntu:latest
+
+```
+
+Each line in the output above that ends with "Pull complete" representsa a layer in the image that was pulled. All Docker images start with a base layer and as changes are made  and new content is added, new layers are added on top.
+
+As an example, lets create a new image based off Ubuntu Linux 16.04. This would be your image's first layer. If you later add the Python package, this would be added as a second layer on top of the base layer. Docker employes a ***storage driver*** that is responsible for stacking layers and presenting them in a single unified file system. 
+
+
+### Sharing image layers
+
+Multiple images can and do share layers. This leads to efficiencies in space and performance.  So far we have seen that pulling images by tag is the most common way. But it has a problem, tags are mutable.
+
+Docker introduced a new content addresable storage model. As a part of this model, each image gets a cryptographic content hash. For the purposes of this discussion, we will refer to that hash as the digest. Because the digest is a hash of the contents of the image, it is not possible to change the contents of the image without the digest also changing.
+
+Since Docker version 1.10, an imageis a very loose collection of independent layers. The image itself is really just a configuration object that lists the layers and some metadata. The layers are where the data lives. Each one is fully independent and has no concept of being part of a collective image.
+
+Each image is identified by a crypto ID that is a hash of the config object. Each layer is identified by a crypto ID that is a hash of the content it contains.
+
+This means that changing the content of the image, or any other layers will cause the assosciate crypto hashes to change. As a result, images and layers are immutable and we can easily identify any changes made to either.
+
+
+
 
 
 
