@@ -261,19 +261,19 @@ The most important subdirectories in root:
 
 - /bin contains ready-to-run programs including most of the basic Unix commands such as ls and cp. Most of the programs in /bin are in binary format, having been created by a C compiler , but some are shell scripts in modern systems.
 
-* /dev contains device files.
+- /dev contains device files.
 
-* /etc This core system config directory contains the user password, boot, device, networking, and other setup files. Many files in /etc are specific to the machines hardware.
+- /etc This core system config directory contains the user password, boot, device, networking, and other setup files. Many files in /etc are specific to the machines hardware.
 
 - /home Holds personal directories for regular users.
 
 - /lib holds library files containing code that executables can use.
 
-* /proc provides system statistics through a browsable directory and file-interface. Most of the /proc subdirectory structure on Linux is unique. The /proc directory contains info about currently running processes as well as some kernel parameters.
+- /proc provides system statistics through a browsable directory and file-interface. Most of the /proc subdirectory structure on Linux is unique. The /proc directory contains info about currently running processes as well as some kernel parameters.
 
-* /sys This directory is similar to /proc in that it provides a device and system interface.
+- /sys This directory is similar to /proc in that it provides a device and system interface.
 
-* /usr A storage area for smaller , temp files that you don't care much about. Any user may read to and write from /tmp.
+- /usr A storage area for smaller , temp files that you don't care much about. Any user may read to and write from /tmp.
 
 - /usr It contains a large directory hierarchy including the bulk of the Linux system.
 
