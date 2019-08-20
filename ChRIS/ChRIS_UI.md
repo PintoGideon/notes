@@ -88,13 +88,7 @@ I need the following details here as props from Add Node.
 I am going to batch the last to into their seperate components
 
 
-
-
-
-
-
-
-
+5. Basically we are creating a plugin
 
 
 ### A slight detour to analyze a JS implementation of adding a node.
@@ -146,4 +140,50 @@ Tree.prototype.findBFS = function(data) {
 var tree = new Tree(); //Create a new instance of the tree.
 tree.add("ceo");
 tree.add("cto", "ceo"); // Want to add cto to ceo's children's array
-````
+```
+
+### Content Editable
+
+```html
+<div contenteditable="true">
+This text can be edited by the user
+</div>
+
+```
+
+The goal with the parameter editor is to render an HTML 
+
+When an HTML element has contenteditable set to true, the document.execCommand() method is made available. This lets you run commands to manipulate the contents of the editable region. Most commands affects the document's selection for example, by applying a style to the text, while other insert new elements or affect an entire line. When using contentEditable, calling execCommand() will affect the currenly active editable element.
+
+DOM space is the set of all web pages that you can express in HTML. All pages can be represented as a tree of elements, with text nodes as the leaves of those trees.
+
+
+Visible space is the set of all visible pages. The browser's rendering engine is a mapping from DOM space onto Visible space. 
+
+
+Any selection in the text editor is expressed as two points. Each point is a paragraph index and text offset into that paragraph and a type. Most selections are text-type selections. We also have media-type selections.
+
+
+With content editable , DOM===State
+
+### Some good parts of Contenteditable
+
+1. Works in all browsers
+2. Native cursor and selection behavior
+3. Native input events
+4. Any rich text features we want
+5. Automatic autogrowing
+6. Accessible
+
+My Goal- How do I implement this in react?
+
+
+
+dangerouslySetInnerHTML
+
+dangerouslySetInnerHTML is React's replacement for using innerHTML in the browser DOM. In general, setting HTML from code is risky, because it's easy to inadvertently exporse your users to a cross-site scripting (XSS) attack.
+
+You can set HTML directly from React, but you have to type out dangerouslySetInnerHTML and pass an object with a __html key to remind yourself it's dangerous.
+
+
+
