@@ -529,7 +529,7 @@ git push origin master
 
 ```
 
-```
+
 
 All the output means that Git has taken your master branch changes, bundled them up and sent them to the remote repository named origin. 
 
