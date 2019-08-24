@@ -505,7 +505,7 @@ The authoritative upstream repository would likely already be hosted on some ser
 
 ```
 git clone http://url.git
-``
+```
 
 If you initialize a repo using git init and not via a clone, it lacks an origin. Infact it has no remote configured at all.
 
