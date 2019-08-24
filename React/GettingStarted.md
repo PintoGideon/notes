@@ -5,7 +5,7 @@ There are two ways to declare React Components.
 - As ES6 classes
 - Importing and using createReactClass() method
 
-```
+```javascript
 class HelloWorld extends React.Component{
   render(){
     return <p>Hello World</p>
@@ -99,7 +99,7 @@ JSX is compiled down to JS by Babel.
 
 A ReactCompponent is a JS object that at minimum has a render() function which is expected to return a ReactElement.
 
-render() returns a ReactElement tree. After the compnent is mounted and initalized, render() willl be called. The render() function's job is to provide React
+render() returns a ReactElement tree. After the component is mounted and initalized, render() willl be called. The render() function's job is to provide React
 a virtual representation of the native DOM component.
 
 ## Communication with Parent components
@@ -479,3 +479,43 @@ If a user visits a page on the site they can't access because they are not logge
 ### What is Dynamic Routing?
 
 Routing that takes place as your app is rendering,
+
+### Ref's in React
+
+When we define a ref attribute on the input elemenet and use a function , for its value, Reac will execute that function when the input element gets mounted with the Component. React will also pass a reference to the DOM input element as an argument to the ref function. Inside the ref function we can access the Component instance via the this keyword so when we can store in input reference as an instance variable.
+
+
+Every React Component has a story.
+
+Here's how its story starts
+
+
+```javascript
+
+class Quote extends React.Component{
+render(){
+return(
+<div className="quote-container">
+ <div className="quote-body">{this.props.body}</div>
+ <div className="quote-author-name">{this.props.authorName}</div>
+</div>
+)
+}
+}
+
+```
+
+Our quote container story continues, the next major event in it's history is when we instanitate it. This is when we tell the component class to generate a copy from the template to represent the actual quote data object.
+
+
+```html
+<Quote body="..." authorName="..."/>
+
+```
+
+The instantiated <Quote/> element is now full-term and ready to be born. We can render it somewhere in the browser.
+
+
+
+
+

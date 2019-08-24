@@ -44,7 +44,6 @@ shouldComponentUpdate() is a special function called before the render function 
 
 componentWillUpdate() Invoked immediately before rendering when new props or state are being received. Any state changes via this.setState are not allowed as this function should be strictly used to prepare for an upcoming update and not trigger an update itself.
 
-
 componendDidUpdate() is invoked immediately after the comonent's updates are flushed to the DOM.
 
 
