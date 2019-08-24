@@ -249,8 +249,126 @@ That means the write template is conceptually equivalent to this HTML form
 
 ```html
 <form action="http://www.youtypeitwepostit/api/" method="post">
-  <label for="text">Text of the message </label>
-  <input id="text" />
-  <input type="submit" />
+	<label for="text">Text of the message </label>
+	<input id="text" />
+	<input type="submit" />
 </form>
 ```
+
+### An item's data
+
+At the core of any Collection+JSON application are the application-level semantics you're trying to convey; the bits of data assisciated with each individual item. Most of this data goes into an item's data slot. That slot needs to contain a list of JSON objecs, each with the properties name and value, each describing a single key-value pair.
+
+```html
+<a href="/authors/441" id="author" rel="author">Author of this book</a>
+```
+
+```javascript
+
+{
+    "name":"author",
+    "rel":"author",
+    "prompt":"Authors of this book",
+    "href":"/authors/441",
+    "render":"link"
+}
+
+```
+
+### Generic Collection
+
+### GET
+
+Like most resources, a collecion response to GET by serving a representation. Although the three main collection standards don't say much about what an item should look like within a collection, they go into great detail about what a collection's representation should look like.
+The media type of the representation tells you what you can do with the resource.
+
+### Pagination
+
+A collection may contain tons of items, but again, the server is under no obligation to serve millions of links in a sinlge document. The most common alternative is pagination.
+
+A server can choose to serve the first 10 items in the collection and give the client a link to the rest.
+
+### Example
+
+Take another look at this Collection + JSON representation of a microblog post:
+
+```javascript
+{
+    "collection":{
+        "version":"1.0",
+        "href":"http://www.youtypeitwepostit.com/api",
+        "items":[
+            {
+                "href":"http://www.youtypeitwepostit.com/api/messages/212",
+                "data":[
+                    {
+                        "name":"text",
+                        "value":"Test",
+                        "prompt":"The text of the mircoblog post"
+                    },
+                    {
+                        "name":"data_posted",
+                        "value":"2012=02-01"
+                    }
+                ]
+
+            }
+        ]
+    }
+}
+
+```
+
+POST /api/messages/212 HTTP/1.1
+Host:www.youtypeitwepostit.com
+Content-Type:application/vnd.collection+json
+
+"template":{
+"data":[
+{
+"prompt":"Text of message",
+"name":"text",
+"value":"The new value"
+}
+]
+}
+
+### Pure Hypermedia Designs
+
+HTML was designed to represent the nested structure of a text document. Any HTML tag may contain a mixture of textual content and other tags.
+
+```html
+<p>
+	This 'p' tag contains text
+	<a href="http://www.example.com">Add a link</a>
+</p>
+```
+
+### Hypermedia Controls
+
+HTML has built in hypermedia controls.
+
+- The <link> and <a> tag are simple outbound links. They tell the client to make a GET request to a specific URL in order to get a representation. That representation becomes the current view.
+
+- The <img> and <script> tags are embedded links. They tell the client to automatically make a GET request to another resource and to embed the representation of that resource in the current view. The <img> tag says to embed the other representation as an image.
+
+- When the <form> tag has the string "GET" as its method attribute, it acts as a templated outbound link. This works like a URI template or the queries slot in Collection+JSON.
+
+- The server provides the client with a base URL and some input fields. The client plugs in values for those fields, combines them with the base URL to form a one-of-a-kind destination URL and makes a GET request to the URL.
+
+### The rel attribute
+
+HTML's <a> and <link> tags have an attribute called rel, which defines the relationship between the resource being link to and this one.
+
+### The id attribute
+
+Almost an HTML tag can define a value for the id attribute. The attribute uniquely indentifies an element within a document.
+
+```html
+<div id="content"></div>
+```
+
+
+### Two-Step Design Procedure
+
+1. Choose a media type to use in your representation. 
