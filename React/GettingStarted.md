@@ -97,7 +97,7 @@ JSX is compiled down to JS by Babel.
 
 ### Deep Dive
 
-A ReactCompponent is a JS object that at minimum has a render() function which is expected to return a ReactElement.
+A React Component is a JS object that at minimum has a render() function which is expected to return a ReactElement.
 
 render() returns a ReactElement tree. After the component is mounted and initalized, render() willl be called. The render() function's job is to provide React
 a virtual representation of the native DOM component.
