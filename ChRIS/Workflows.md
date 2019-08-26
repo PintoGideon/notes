@@ -387,3 +387,48 @@ There are two types of plugin apps: "fs" and "ds". The former is given to plugin
 
 ### What are my options to create a plugin?
 
+The state of the Add Node Components looks like this
+
+```javascript
+this.state = {
+  open: false,
+  step: 0,
+  data: {
+    parentNode:{},
+    plugin:{}
+  },
+  nodes: [{},{}.{}]
+};
+
+
+```
+
+1. Get the plugin instance by plugin_id.
+2. Get the all the nodes with the plugin_id
+3. Add a node modal
+4. handleModalClose===>this.handleCreate();
+5. ScreenOne && ScreenTwo
+
+  
+6. In ScreenOne, The default selectedPlugin, parent, nodes, handleParentSelect, handlePluginSelect are passed down as props
+
+7. The PluginSelect gets the selected plugin and the handlePluginSelect method as props
+
+8. PluginList gets all the pluguins, the selected plugin and the handlePluginSelect method.
+
+9. Once the user selects the plugin, we change the state of the data to
+```javascript
+{
+    ...prevSate.data,
+    plugin
+}
+```
+
+9, In ScreenTwo, fetch the parametes for the plugin. You send the paramString as an intialParamString prop, params and a function for error handling.
+
+```javascript
+
+
+
+
+```
