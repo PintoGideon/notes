@@ -372,3 +372,71 @@ Almost an HTML tag can define a value for the id attribute. The attribute unique
 ### Two-Step Design Procedure
 
 1. Choose a media type to use in your representation. 
+### The internal workings of the api
+
+For the plugin select, I need a list of all the available plugins and I can choose any one of the plugin.
+
+Items are the meat of a Collection+JSON response. The items key in the collection body will contain an array of multiple json objects and each object will contain data and a href.
+
+```javascript
+
+"items":[
+    {
+        "data":[],
+        "href":"",
+        "links":["...."]
+    }
+]
+```
+
+```javascript
+
+"data":[
+    {
+        "name":"id",
+        "value":695269
+    }
+]
+```
+
+### Template
+
+A template is a recipe for updating or creating an object via the API. Each template will contain a data array which will contain acceptable data to POST or PATCH again the collection or object's href.
+
+```javascript
+
+"template":{
+    "data":[
+        {
+            "name":"first_name",
+            "value":null
+        }
+    ]
+}
+
+
+```
+
+```javascript
+
+async fetchAllPlugins(){
+    const client=ChRISAPIClient.getClient();
+    const pluginList=await client.getPlugins();
+    const plugins=pluginList.getItems();
+    this.setState({
+        allPlugins:plugins
+    })
+}
+```
+
+### Understanding the Add Node workflow
+
+The second page of the floating dialog is the user's opportunity to fill in required parameters without defaults as well as review the parameters that are optional and/or have defaults in order to provide values for those as well. The user clicks 'add node'
+
+The node is added to the graph, greyed out at first. As it begins to run, the node circle begins to pulse to indicate it is processing.
+
+```
+
+
+
+```
