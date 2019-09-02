@@ -1,62 +1,54 @@
 ### Type Checking State
 
-Adding types to each slice of state is a good place to start since it 
-does not rely on other types. 
+Adding types to each slice of state is a good place to start since it
+does not rely on other types.
 
 ### Example
-
-
 
 ```javascript
 // src/store/chat/types.js
 
-export interface Message{
-user:string,
-message:string,
-timestamp:number
-
+export interface Message {
+	user: string;
+	message: string;
+	timestamp: number;
 }
 
-export interface ChatState{
-    messages:Messgae[]
+export interface ChatState {
+	messages: Messgae[];
 }
 
-export interface SystemState{
-    loggedIn:boolean,
-    session:string,
-    username:string
+export interface SystemState {
+	loggedIn: boolean;
+	session: string;
+	username: string;
 }
-
 ```
-
 
 ### Type Checking Actions & Action Creators
 
 ```javascript
 //src/store/chat/types.js
 
-export const SEND_MESSAGE='SEND_MESSAGE';
-export const DELETE_MESSAGE='DELETE_MESSAGE';
+export const SEND_MESSAGE = 'SEND_MESSAGE';
+export const DELETE_MESSAGE = 'DELETE_MESSAGE';
 
-
-interface SendMessageAction{
-    type:typeof SEND_MESSAGE,
-    payload:messsage
+interface SendMessageAction {
+	type: typeof SEND_MESSAGE;
+	payload: messsage;
 }
 
-
-interface DeleteMessageAction{
-type:typeof DELETE_MESSAGE,
-meta:{
-    timestamp:number
+interface DeleteMessageAction {
+	type: typeof DELETE_MESSAGE;
+	meta: {
+		timestamp: number
+	};
 }
-}
 
-export type ChatActionTypes=SendMessageAction | DeleteMessageAction
-
+export type ChatActionTypes = SendMessageAction | DeleteMessageAction;
 ```
 
-***We have now provide shape to our actions***
+**_We have now provide shape to our actions_**
 
 ```javascript
 //src/store/chat/actions.ts
@@ -84,21 +76,19 @@ export function deleteMessage(timestamp:number):ChatActionTypes{
 
 ```
 
-
 ### System Action Constants & Shape
 
 ```javascript
 //src/store/system/types.js
 
-export const UPDATE_SESSION='UPDATE_SESSION';
+export const UPDATE_SESSION = 'UPDATE_SESSION';
 
-interface UpdateSessionAction{
-    type:typeof UPDATE_SESSION,
-    payload:SystemState
+interface UpdateSessionAction {
+	type: typeof UPDATE_SESSION;
+	payload: SystemState;
 }
 
-export type SytemActionTypes=UpdateSessionAction;
-
+export type SytemActionTypes = UpdateSessionAction;
 ```
 
 ```javascript
@@ -119,50 +109,45 @@ export function updateSession(newSession:SystemState):SystemActionTypes{
 Reducers are just pure functions that take the previous state, an action and return the next state. In this example, we explicitly declare the type of actions this reducer will receive along with what it should return. With these
 additions, TypeScript will give rich intellisense on the properties of our actions and state.
 
-
-***Type Checked Chat Reducer***
+**_Type Checked Chat Reducer_**
 
 ```javascript
-
 //src/store/chat/reducers.ts
 
 import {
-    ChatState,
-    ChatActions,
-    ChatActionTypes,
-    SEND_MESSAGE,
-    DELETE_MESSAGE
-} from './types'
+	ChatState,
+	ChatActions,
+	ChatActionTypes,
+	SEND_MESSAGE,
+	DELETE_MESSAGE
+} from './types';
 
-const initialState:ChatState={
-    messages:[]
+const initialState: ChatState = {
+	messages: []
+};
+
+export function chatReducer(
+	state = intialState,
+	action: ChatActionTypes
+): ChatState {
+	switch (action.type) {
+		case SEND_MESSAGE:
+			return {
+				messages: [...state.messages, action.payload]
+			};
+		case DELETE_MESSAGE:
+			return {
+				messages: state.messages.filter(
+					message => message.timestamp !== action.meta.timestamp
+				)
+			};
+		default:
+			return state;
+	}
 }
-
-
-export function chatReducer(state=intialState,action:ChatActionTypes):ChatState{
-    switch(action.type){
-        case SEND_MESSAGE:
-        return {
-            messages:[...state.messages,action.payload]
-        }
-        case DELETE_MESSAGE:
-        return{
-            messages:state.messages.filter(
-                message=>message.timestamp!==action.meta.timestamp
-            )
-        }
-        default:
-        return state
-    }
-}
-
-
-
 ```
 
-
-
-***Type Checked System Reducer***
+**_Type Checked System Reducer_**
 
 ```javascript
 
@@ -201,24 +186,21 @@ swtich(action.type){
 
 ```
 
-We now need to generate the root reducer function which is normally using combineReducers. ***Note that we do not have to explicitly declare a new interface for AppState. We can use ReturnType to infer state shape from the root reducer
+We now need to generate the root reducer function which is normally using combineReducers. \*\*\*Note that we do not have to explicitly declare a new interface for AppState. We can use ReturnType to infer state shape from the root reducer
 
 ```javascript
-
 //src/store/index.ts
 
-import {systemsReducer} from './systems/reducers';
-import {chatReducer} from './chat/reducers'
+import { systemsReducer } from './systems/reducers';
+import { chatReducer } from './chat/reducers';
 
+const rootReducer = combineReducers({
+	system: systemReducer,
+	chat: chatReducer
+});
 
-const rootReducer=combineReducers({
-    system:systemReducer,
-    chat:chatReducer
-})
-
-export type AppState=ReturnType<typeof rootReducer>
+export type AppState = ReturnType<typeof rootReducer>;
 ```
-
 
 ### Usage with React Redux
 
@@ -228,42 +210,28 @@ npm i @types/react-redux -D
 ```
 
 ```javascript
-
 //src/App.tsx
 
-import {SystemState} from './store/system/types'
-import {ChatState} from './store/chat/types'
-import {AppState} from './store';
+import { SystemState } from './store/system/types';
+import { ChatState } from './store/chat/types';
+import { AppState } from './store';
 
-
-interface AppProps{
-    chat:chatState,
-    system:SystemState
+interface AppProps {
+	chat: chatState;
+	system: SystemState;
 }
 
+class App extends React.Component<AllProps> {}
 
-class App extends React.Component<AllProps>{
-    
-}
+const mapStateToProps = (state: AppState) => ({
+	system: state.system,
+	chat: state.chat
+});
+```
 
+### Typescript config
 
-const mapStateToProps=(state:AppState)=>({
-    system:state.system,
-    chat:state.chat
-})
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+```javascript
+npx tsc --init
+npm install -D @types/react @types/react-dom @types/react-router
+```

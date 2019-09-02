@@ -7,7 +7,7 @@ this.energy=energy
 
 
 Animal.prototype.eat=function(amount){
-console.log(`${this.name} is eating);
+console.log(`${this.name} is eating`);
 }
 
 Animal.prototype.sleep=function(length){
