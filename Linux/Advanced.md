@@ -51,7 +51,6 @@ Two major versions:
 
 - IPv4
   A standard address of four octets containing numbers between 0 and 255 for each octet.
-- 192.168.0.30
 
 - IPv6
   replacement for IPv6 contains a 128 but hexadecimal number for addressing.
@@ -96,7 +95,6 @@ This is short for 'connection' which contains the network configuration settings
 
 ```bash
 nmcli con add con-name "backup" type ethernet ip4 192.168.122.75/24 gw4 192.168.22.1 ifname ens11 autoconnect
-
 nmcli con show
 
 ```
@@ -110,16 +108,16 @@ nmcli -f ipv4.dns con show backup
 
 The command below will show you all the configured addresses.
 
-``bash
+```bash
 ip addr show
 
-````
+```
 
 You can also view the routing table with the command below
 
 ```bash
 ip route show
-````
+```
 
 If you want to add a IP address to a specific interface we can use
 
