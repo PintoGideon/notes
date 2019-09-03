@@ -15,6 +15,7 @@ $> ./sladp restart
 
 
 ```
+
 ### In a different terminal
 
 ```bash
@@ -35,7 +36,6 @@ $> checkDB.bash -h /neuro/chris/users -n chris -u chris
 ```bash
 cd /etc/init.d/
 ```
-
 
 ### How to create a user account for a lab member
 
@@ -65,3 +65,15 @@ Logout and log back in.
 
 ```
 
+```bash
+
+The path /python3 (from --python=/python3) does not exist
+```
+
+**_ Cannot connect to chris website _**
+
+```bash
+ssh toor@chris-tmp
+sudo service apache2 restart
+
+```
