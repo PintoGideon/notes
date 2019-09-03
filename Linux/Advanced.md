@@ -396,10 +396,116 @@ mount /dev/vdb1 /opt
 
 ```
 
+### APT (Advanced Package Tool)
 
+- Installs applications (and their dependencies)
+- Removes applications
+- Updates and upgrades packages
 
+### Basics of how it works
 
+- Reads the /etc/apt/sources.list
+- The sources.list contains all the url listings for all software repositories that you can install software from your particular installation.
+- Directs installation and uninstallation of packages to dkpg.
 
+Let's see some of the components and commands we can use.
 
+```bash
+cat /etc/apt/sources.list
+sudo apt-get update
+Enter Password for root:
 
+```
 
+Now we have a local cache of all the available package that we can install on our hard-drive.
+
+Let's upgrade packages:
+
+```bash
+sudo apt-get upgrade
+```
+
+We can also use the apt command to install applications.
+
+```bash
+sudo apt-get install chromium-browser
+```
+
+To remove an application,
+
+```bash
+sudo apt-get remove chromium-browser
+sudo apt autoremove
+```
+
+In order to remove the config files as well,
+
+```bash
+sudo apt-get purge chromium-browser
+```
+
+To get the distibution up to the latest level, we can use
+
+```bash
+sudo apt-get dist-upgrade
+```
+
+The dist-upgrade will bring everything on the system up to date.
+We can also download a package but not install it.
+
+```bash
+apt-get download htop
+```
+
+We can use the apt-cache search command to search through our local apt cache for a package that can be installed.
+
+### The Debian Package Utility
+
+The deb package contains
+
+- application or utility
+- default config files
+- how and where to install the files that come with the package
+- listing of dependencies the package requires.
+
+Some of the commonly used dkpg commands.
+
+```bash
+// Displays information on a package
+
+dpkg --info htop
+
+```
+
+```bash
+// Lists out packages that match the string provided
+dpkg -l nano
+
+```
+
+```bash
+// Installs the package
+sudo dpkg -i htop
+
+```
+
+We can also list out all the files that were installed with a specific package
+
+```bash
+dpkg -L
+
+```
+
+To remove a package
+
+```bash
+sudo dpkg -r htop
+sudo dpkg -P htop
+```
+
+We can also search for a package to see if have the config files for it.
+
+```bash
+dpkg -S nano
+
+```
