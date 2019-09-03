@@ -236,7 +236,7 @@ mount
 The fdisk command can be used to list out partition information on the specified disk.
 
 ```bash
-fdis k-l/dev/diskname
+fdisk -l/dev/diskname
 ```
 
 ### Filesystem Hierarchy Standard
