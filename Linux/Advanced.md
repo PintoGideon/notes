@@ -149,3 +149,257 @@ netstat command is used to display network connections and their state on a syst
 ```bash
 netstat
 ```
+
+### The Basics of DNS resolution from Linux
+
+Local configuration files that Linux uses to translate IP addresses into host names.
+
+```bash
+/*Text file that will contain the localhost entry mapped to the loopback addresses (Both ipv4 and ipv6). This file can also be used map other hostnames to IP addresses.
+*/
+
+cat /etc/hosts
+
+/* Systems will use this file for a computer's hostname. The hostnamectl file will write a system's new hostname to this file
+*/
+
+ping -c 1 centos7
+/*
+64 bytes from centos7 (192.168.122.41)
+
+*/
+/etc/hostname
+/etc/resolv.conf
+/etc/nsswitch.conf
+```
+
+### Pseudo File System
+
+- A regular file system is a method of laying out files and folder on a physical hard disk
+- A pseudi file system that does not exist on a physical hard disk. Only exists in RAM while system is running
+
+-Two primary pseudo file system locations in Linux
+a. /proc - Contains information about the processes running on a system.
+b. /sys - Contains information about the systems hardware and kernel modules
+
+```bash
+
+cd /proc/
+ls
+cat cpuinfo
+
+```
+
+**_Finding detailed information about the various components of your computer_**
+
+```bash
+cd /sys/
+ls
+cat kernel
+ls fs
+ls fs/xfs
+ls fs/xfs/xvda1
+ls fs/xfs/xvda1/stats
+cat fs/xfs/xvda1/stats/stats
+```
+
+### Main Filesystem Locations
+
+Primary Locations that you must know
+
+- / Bottom of the directory tree, the 'root'
+- /var The variable location, log files and dynamic content
+- /home The users home directory where personal files are stored
+- /boot The boot directory where the Linux kernel and supporting files are stored
+- /opt
+
+### Swap space
+
+Swap is temporary storage that acts like RAM
+
+- When a percentage of RAM is full, the kernel will move less used data to swap
+- Swap partition
+- Swap file
+
+### Partitions
+
+Suppose you have a single hard disk (/dev/sda).
+The /dev/sda1 indicates the first partition of the sda A single hard disk may be divided into different partitions of varying sizes. Each partition can have a specific function within a system.
+
+A mount point takes a partition or disk and mounts it to a directory.
+The mount will list out every partition and show existing mounts.
+
+```bash
+mount
+```
+
+The fdisk command can be used to list out partition information on the specified disk.
+
+```bash
+fdis k-l/dev/diskname
+```
+
+### Filesystem Hierarchy Standard
+
+Where Computer data is stored on a storage device within a certain manner
+
+- The data is organized and easily located
+- The data can be saved in a persistent manner
+- Data integrity is preserved
+- The data can be quickly retrieved for a user in a later point in time
+
+### In Practice
+
+With unix type operating systems, there is only one root. It's just that UNIX file systems handle their naming very differently.
+
+1. /bin- This directory contains executable programs that regular users on the system can run.
+
+2. /boot- Files necessary to boot the system up. THe kernel resides in this directory
+
+3. /dev- Locations from where all devices are referenced from. This includes sound drives, keyboards.
+
+4. /etc- contains config files for system confifuration
+
+### Legacy MBR Partitions
+
+The lsblk command used to list out block devices (such as hard drives).
+
+```bash
+lsblk
+```
+
+To run our MBR partition we can use the fdisk.
+
+```bash
+fdisk /dev/sda
+```
+
+### GPT Partitions
+
+We can determine our partition setup using the lsblk command. We can also use the fdisk command to see the blocks.
+
+Steps to create a GPT partitions.
+
+```bash
+
+gdisk /dev/sda
+
+```
+
+Use the menu driven commands to create a partition.
+
+For the location of the beginning of the sector we are going to use the default. We can specify the size of the last sector. For example for a 1gb disk, we can partition for 500mb.
+
+The Partition IDs look a bit different under the GPT partitions. We can use the `p` key to look at our new partition table. We use the `w` key to write the changes to the disk.
+
+We can use the `lsblk` commands to check our updated devices.
+
+### How to create swap partitions.
+
+Swap partitions are created when your system's ram is completely full. The kernel takes the older applications that have not been used for a while and places them in the swap space.
+
+THe common scenario is to use a swap partition which means dedicated some space for swap.
+
+Let's go ahead and create a swap partition
+
+```bash
+lsblk
+gdisk /dev/sda
+
+Press the 'n' key.
+First Sector: default (Press Enter)
+Last Sector: (Press enter and let gdisk allocated the remaining space)
+Partition ID: 8200
+Press the 'p' key to see the partition
+```
+
+To use this swap space, We need to put a filesystem here.
+The mkswap command is used to format a partition to be used as swap space. To create a label on a file system, we use the -L command
+
+```bash
+mkswap -L SWAP /dev/sda2
+```
+
+The free command helps use to monitor swap space. Now we have to tell the system that it is okay to use the swap space
+
+```bash
+free
+swapon -L SWAP
+```
+
+We run the free command again to check if the swap space in our system has increased.
+
+```bash
+free
+```
+
+As soon as reboot the computer, the swap space does not come on.
+
+```bash
+vim /etc/fstab
+```
+
+The fstab is what your computer used when it boots up to locate where all your filesystems are so it knows what applications to use for your home directories and many more.
+
+```bash
+/dev/sda2
+```
+
+### Creating Linux File Systems
+
+1. Non-Journaling
+
+- ext2- Legacy file system , released in 1993
+
+2. Journaling
+
+- Uses a journal to keep track of changes that have not yet been written to the file system
+- ext3- released in 2001, introduced journaling to ext2
+- ext4- released in 2006, added extra features meant to be a 'stop-gap' until a better solution comes along.
+- XFS
+
+### Making File systems
+
+Let's create a file system. To create a file system on a partition that is ready to be used, we used mkfs which creates a new file system on a partition.
+We can also add a label (using -L) to the filesystem.
+
+```bash
+mkfs -t ext4 or mkfs.ext4 -L SRV /dev/sda1
+
+lsblk -f
+```
+
+### Understanding Mount Points
+
+How mounting works?
+
+On a typical Linux installation, we have the /opt directory on top of the local file system. Let's say that we need more the opt directory. So we setup a seperate disk with a partition on it and a filesystem setup on it.
+
+We can mount it to our opt directory with the mount command.
+
+```bash
+mount /dev/sdb1 /opt
+```
+
+### Mounting and Unmounting File systems
+
+When we run the mount command, we end up with every individual mount point existent on this system.
+
+```bash
+mount -t ext4
+```
+
+When we mount a filesystem, we specify a device and a directory to which this filesystem will get mounted to.
+
+```bash
+mount /dev/vdb1 /opt
+
+```
+
+
+
+
+
+
+
+
