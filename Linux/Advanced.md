@@ -176,7 +176,7 @@ ping -c 1 centos7
 ### Pseudo File System
 
 - A regular file system is a method of laying out files and folder on a physical hard disk
-- A pseudi file system that does not exist on a physical hard disk. Only exists in RAM while system is running
+- A pseudo file system does not exist on a physical hard disk. Only exists in RAM while system is running
 
 -Two primary pseudo file system locations in Linux
 a. /proc - Contains information about the processes running on a system.
