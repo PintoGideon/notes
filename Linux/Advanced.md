@@ -509,3 +509,121 @@ We can also search for a package to see if have the config files for it.
 dpkg -S nano
 
 ```
+
+### What is a Shared Library?
+
+Files containing functionality that other applications can use. These files end in a 'so' extension for 'shared object'. They are found in the following locations on a Linux system.
+
+- /lib
+- /usr/lib and usr/lib64 (for 64bit systems)
+- /usr/local/lib
+- /usr/share
+
+Two types of library files:
+
+- Dyanamic (ends in so)-
+- Statically Linked(ends in a)
+
+### Investigating Hardware
+
+How Linux handles hardware?
+
+There is a service that runs on linux which is called udev which is the actual device manager. When you bring in a hard drive and connect it to your computer, the udev service detects the hardrive and passes the info through the data bus service to the /dev pseudo file system. When an admin runs the lsblk command, the information for hardware gets passed through the data bus service and you can get the info.
+
+Commands for listing devices
+
+```bash
+lspci
+lsusb
+lscpu
+lsblk
+```
+
+If we want to list the devices connected to the pci bus, we run the following command.
+
+```bash
+lspci
+
+```
+
+If you want to display information on processors on a system we use the following command.
+
+```bash
+lscpu
+```
+
+The lsblk command lists out the hard drive of the system and the partitions on the disk.
+
+The ldd command what libaries are linked to a particular binary. The Ldd command
+
+```bash
+ldd /bin/cp
+
+```
+
+The ls command and the cp command are linked to the same binaries.
+The ldconfig command creates a cache based on library directories and can show you what is currently cached.
+
+```bash
+sudo ldconfig
+cat /etc/ld.so.conf
+```
+
+### The Primary Linux Desktop Environments
+
+GTK+ Based Desktops
+GTK+ is primarily a C language libarary. Desktops that use this library include
+
+- GNOME
+- XFCE
+
+Qt Based Desktops
+
+Qt is a C++ language library used for graphical applications. Desktops that use this library include:
+
+- KDE
+
+Linux is a multiuser operating system.
+
+### Adding or removing users
+
+Basics of User management.
+
+The useradd commands is for the creation of new user account on a Linux system.
+
+```bash
+
+useradd -m username
+ls /home
+passwd username
+
+// Temporary password
+passwd -e username
+
+```
+
+The `userdel` command removes a user's acccount from the system. Without the -r option, the user's home directory will not be removed.
+
+### Adding and Removing Groups
+
+The `groups` command will allow to see that primary and secondary groups they are a member of.
+
+```bash
+groups
+```
+
+The `groupadd` command is used to create a new group on the system.
+
+```bash
+group groupname
+```
+
+```bash
+useradd -G supplemenatrygroupname
+
+```
+
+The lowercase 'g' assigns the user to a primary group.
+We can also remove groups from our system.
+
+### User and Group Configuration Files
