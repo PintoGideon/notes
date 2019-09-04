@@ -411,9 +411,9 @@ mount /dev/vdb1 /opt
 Let's see some of the components and commands we can use.
 
 ```bash
-cat /etc/apt/sources.list
-sudo apt-get update
-Enter Password for root:
+$> cat /etc/apt/sources.list
+$> sudo apt-get update
+$> Enter Password for root:
 
 ```
 
@@ -422,39 +422,39 @@ Now we have a local cache of all the available package that we can install on ou
 Let's upgrade packages:
 
 ```bash
-sudo apt-get upgrade
+$> sudo apt-get upgrade
 ```
 
 We can also use the apt command to install applications.
 
 ```bash
-sudo apt-get install chromium-browser
+$> sudo apt-get install chromium-browser
 ```
 
 To remove an application,
 
 ```bash
-sudo apt-get remove chromium-browser
-sudo apt autoremove
+$> sudo apt-get remove chromium-browser
+$> sudo apt autoremove
 ```
 
 In order to remove the config files as well,
 
 ```bash
-sudo apt-get purge chromium-browser
+$> sudo apt-get purge chromium-browser
 ```
 
 To get the distibution up to the latest level, we can use
 
 ```bash
-sudo apt-get dist-upgrade
+$> sudo apt-get dist-upgrade
 ```
 
 The dist-upgrade will bring everything on the system up to date.
 We can also download a package but not install it.
 
 ```bash
-apt-get download htop
+$> apt-get download htop
 ```
 
 We can use the apt-cache search command to search through our local apt cache for a package that can be installed.
@@ -473,40 +473,40 @@ Some of the commonly used dkpg commands.
 ```bash
 // Displays information on a package
 
-dpkg --info htop
+$> dpkg --info htop
 
 ```
 
 ```bash
-// Lists out packages that match the string provided
-dpkg -l nano
+//Lists out packages that match the string provided
+$> dpkg -l nano
 
 ```
 
 ```bash
 // Installs the package
-sudo dpkg -i htop
+$> sudo dpkg -i htop
 
 ```
 
 We can also list out all the files that were installed with a specific package
 
 ```bash
-dpkg -L
+$> dpkg -L
 
 ```
 
 To remove a package
 
 ```bash
-sudo dpkg -r htop
-sudo dpkg -P htop
+$> sudo dpkg -r htop
+$> sudo dpkg -P htop
 ```
 
 We can also search for a package to see if have the config files for it.
 
 ```bash
-dpkg -S nano
+$> dpkg -S nano
 
 ```
 
@@ -533,23 +533,23 @@ There is a service that runs on linux which is called udev which is the actual d
 Commands for listing devices
 
 ```bash
-lspci
-lsusb
-lscpu
-lsblk
+$> lspci
+$> lsusb
+$> lscpu
+$> lsblk
 ```
 
 If we want to list the devices connected to the pci bus, we run the following command.
 
 ```bash
-lspci
+$> lspci
 
 ```
 
 If you want to display information on processors on a system we use the following command.
 
 ```bash
-lscpu
+$> lscpu
 ```
 
 The lsblk command lists out the hard drive of the system and the partitions on the disk.
@@ -557,7 +557,7 @@ The lsblk command lists out the hard drive of the system and the partitions on t
 The ldd command what libaries are linked to a particular binary. The Ldd command
 
 ```bash
-ldd /bin/cp
+$> ldd /bin/cp
 
 ```
 
@@ -565,8 +565,8 @@ The ls command and the cp command are linked to the same binaries.
 The ldconfig command creates a cache based on library directories and can show you what is currently cached.
 
 ```bash
-sudo ldconfig
-cat /etc/ld.so.conf
+$> sudo ldconfig
+$> cat /etc/ld.so.conf
 ```
 
 ### The Primary Linux Desktop Environments
@@ -593,12 +593,12 @@ The useradd commands is for the creation of new user account on a Linux system.
 
 ```bash
 
-useradd -m username
-ls /home
-passwd username
+$> useradd -m username
+$> ls /home
+$> passwd username
 
 // Temporary password
-passwd -e username
+$> passwd -e username
 
 ```
 
@@ -609,17 +609,17 @@ The `userdel` command removes a user's acccount from the system. Without the -r 
 The `groups` command will allow to see that primary and secondary groups they are a member of.
 
 ```bash
-groups
+$> groups
 ```
 
 The `groupadd` command is used to create a new group on the system.
 
 ```bash
-group groupname
+$> group groupname
 ```
 
 ```bash
-useradd -G supplemenatrygroupname
+$> useradd -G supplemenatrygroupname
 
 ```
 
