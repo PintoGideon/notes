@@ -1,6 +1,6 @@
 ### Virtual DOM
 
-Here is a link to the code sanbox: (VDOM)[https://codesandbox.io/s/epic-bird-xv83].
+Here is a link to the code sanbox: [VDOM](https://codesandbox.io/s/epic-bird-vvx83)
 
 Virtual DOM usually refer to plain objects representing actual DOMs.
 
