@@ -1,6 +1,7 @@
 # Adding a file to your repo
-
+```
 git add index.html
+```
 
 ### Repositories
 
