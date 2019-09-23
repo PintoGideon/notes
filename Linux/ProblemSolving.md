@@ -75,5 +75,4 @@ The path /python3 (from --python=/python3) does not exist
 ```bash
 ssh toor@chris-tmp
 sudo service apache2 restart
-
 ```

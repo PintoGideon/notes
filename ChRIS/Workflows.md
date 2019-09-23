@@ -444,7 +444,6 @@ command=`${command}\n /incoming /outgoing`.trim();
 }
 ```
 
-
 - I have a set of strings.
 - I have a valid flag.
 
@@ -452,10 +451,9 @@ I want to check if the flag consists in the strings.
 
 If no, check the current status of string. If the user types a string, I want the editor to scream that the path is not syntactically valid.
 
+### Steps to perform today
 
-```
+Input validation
+Input Error Checking
 
-
-
-;
-var
+s
