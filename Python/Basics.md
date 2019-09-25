@@ -348,4 +348,58 @@ class SnowTire(Tire):
         return super().__repr__() + "(Snow)"
 ```
 
-### Polymorphism
+### Working with Third Party Packages
+
+pip is a primary installer while installing modules. On Linux systems, a Python installation will typically be included as part of the distribution. Installing into this Python installation requires root access to the system, and may interfere with the operation of the system package manager and other components of the system if a component is unexpectedly upgraded using pip.
+
+On such systems, it is often better to use a virtual environment or a per-user installation when installing packages with pip.
+
+```python
+python3.4 -m pip install SomePackage  # specifically Python 3.4
+pip3 freeze > requirements.txt
+pip3 install --user -r requirements.txt
+```
+
+### Creating a virtual env
+
+```python
+mkdir ~/venvs
+python3.7 -m venv ~/venvs/pg
+source ~/venvs/pg/bin/activate
+which python
+
+```
+
+**_IMPORTANT_**
+Some general tips on Linux:
+
+It's a good habit to use --user whenever outside a venv.
+
+```
+pip install --upgrade --user pip
+```
+
+Never run pip with sudo unless you know what you're doing.
+
+### To Create a virtual env
+
+```python
+mkvirtualenv --python=python3 chris_env
+To activate chris_env:
+
+workon chris_env
+```
+
+### Aspects of a Web App
+
+1. Send HTTP Request
+2. Route and handle
+3. Return Response
+
+### Working with Flask
+
+```python
+export FLASK_ENV=development
+export FLASK_APP='.'
+flask run --host=0.0.0.0 --port=3000
+```
