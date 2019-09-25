@@ -4,42 +4,39 @@ pfioh- File handling service
 pman- Compute service
 pfcon- File and compute co-ordinator service.
 
-
 # Basic Workflow
 
-```pman``` manages processes i.e programs or applications that are run by the underlying system. Typically, these processes are command line applications
+`pman` manages processes i.e programs or applications that are run by the underlying system. Typically, these processes are command line applications
 and usually do not interact really with a user at all. The primary purpose of pman is to provide other software agents the ability to execute processes via http.
 
- ### The Barebones
+### The Barebones
 
- cURL is a tool to do internet transfers for resources specified as URLs using internet protocols.
+cURL is a tool to do internet transfers for resources specified as URLs using internet protocols.
 
- Networking means communicating between two endpoints on the Internet. The internet is just a bunch of interconnected machines , each using their own private
- IP addresses. The addresses each machine have can be of different types and machines can even have temporary addresses. These computers are often called hosts.
+Networking means communicating between two endpoints on the Internet. The internet is just a bunch of interconnected machines , each using their own private
+IP addresses. The addresses each machine have can be of different types and machines can even have temporary addresses. These computers are often called hosts.
 
- When you want to initiate a transfer to one of the machines out there (a server), you usually do not know it's IP addresses but instead you usually know its name. The name of the machine you will talk to is embedded in the URL that you work with when you use curl. Once we know the host name, we need to figure out which IP addresses that host has so that we can contact it. Converting the name to an IP address is often called 'name resolving'.
+When you want to initiate a transfer to one of the machines out there (a server), you usually do not know it's IP addresses but instead you usually know its name. The name of the machine you will talk to is embedded in the URL that you work with when you use curl. Once we know the host name, we need to figure out which IP addresses that host has so that we can contact it. Converting the name to an IP address is often called 'name resolving'.
 
- The name is 'resoved' to a set of addresses. The is usually done by a DNS server. DNS being like a big lookup table that can covert names to addresses. Your computer
- normally already knows the address of a computer that runs the DNS server as that is part of setting up the network.
+The name is 'resoved' to a set of addresses. The is usually done by a DNS server. DNS being like a big lookup table that can covert names to addresses. Your computer
+normally already knows the address of a computer that runs the DNS server as that is part of setting up the network.
 
- ```curl`` will therefore ask the DNS server to provide it with all the addresses for 'example.com' and the server will respond with a list of them. With a list of IP addresses for the host curl wants to contact, curl sends out a contact request. The connection curl wants to establish is called TCP and it works sort of like connecting an invisible string between two computers. Once established, it can be used to send a stream of data in both directions.
+``curl` will therefore ask the DNS server to provide it with all the addresses for 'example.com' and the server will respond with a list of them. With a list of IP addresses for the host curl wants to contact, curl sends out a contact request. The connection curl wants to establish is called TCP and it works sort of like connecting an invisible string between two computers. Once established, it can be used to send a stream of data in both directions.
 
- ### Connects to "port numbers"
+### Connects to "port numbers"
 
- When connecting with TCP to a remote server, a client selects which port number to do that on. A port number is just a dedicated place for a particular service, which allows that same server to listen to other services on other port numbers at the same time.
-
+When connecting with TCP to a remote server, a client selects which port number to do that on. A port number is just a dedicated place for a particular service, which allows that same server to listen to other services on other port numbers at the same time.
 
 When the connecting "string" we call TCP is attached to the remote computer, there is an established connection between the two machines and that connection can then be used to exchange data. Protocal is the language used to ask for data to get send. The protocal describes exactly how to ask the server for data , or to tell the server that the data is coming.
 
 ### The Anantomy of URLs
 
+URLs start with a scheme which is the official name for the `http://`. That tells which protocal the URL uses. The scheme identifier is seperated from the rest of the URL by the :// sequence.
 
-URLs start with a scheme which is the official name for the ```http://```. That tells which protocal the URL uses. The scheme identifier is seperated from the rest of the URL by the :// sequence.
-
-The host name part of the URL is ofcourse a name that can be resolved to a numberical IP address. Each protocol has a "default port" that curl will use for it. 
+The host name part of the URL is ofcourse a name that can be resolved to a numberical IP address. Each protocol has a "default port" that curl will use for it.
 
 Every URL contains a path. The path is sent to the specified server to identify exactly which resource that is requested or that will be provided. The exact use
-of the path is protocol independent.  For example , getting a file README from the default anonymous user from an FTP server.
+of the path is protocol independent. For example , getting a file README from the default anonymous user from an FTP server.
 
 ```
 curl ftp://ftp.example.com/README
@@ -57,10 +54,9 @@ Connected to example.com (93.184.216.34) port 80
 
 ```
 
-
 ### Persistent Connections
 
-When setting up TCP connections to sites, curl will keep the old connection around for a while so that if the next transfer is to the same host it can reuse the same connection again and this save a lot of time. 
+When setting up TCP connections to sites, curl will keep the old connection around for a while so that if the next transfer is to the same host it can reuse the same connection again and this save a lot of time.
 
 ### Client Differences
 
@@ -68,15 +64,13 @@ Curl only gets exactly what you ask it to get and it never parses the actual con
 
 ### Server Differences
 
-The server that receives the request and delivers data is often setup to act in certain ways depending on what kind of client it thinks communicates with it. 
+The server that receives the request and delivers data is often setup to act in certain ways depending on what kind of client it thinks communicates with it.
 
 ### Intermediaries Findings.
 
 Intermediaries are proxies , explicit or implicit ones. Some environments will force you to use one or you may choose to use one for various reasons, but there are also the transparent ones that will intercept your network traffic silently and proxy it for you no matter what you want.
 
 Proxies are middle men that terminate the traffic and then act on your behalf to the remote server. This can introduce all sorts of explicit filtering and saving you from certain content or even protecting the remote server from what data you try to send to it, but even more so, it introduces another software's view on how the protocol works and what the right things to do are.
-
-
 
 ### Local Port number
 
@@ -117,7 +111,6 @@ Host: example.com
 
 ```
 
-
 The server could respond with response headers and a response body
 
 ```
@@ -130,7 +123,6 @@ hello
 ```
 
 Each HTTP request can be made authenticated. If a server or a proxy wants the user to provide proof that they have the correct credentials to access a URL or perform an action . It can send back a HTTP response code that it informs the client that it needs to provude a correct HTTP authenticaion header in the request to be allowed.
-
 
 ### Docker (Quick bits)
 
@@ -153,7 +145,7 @@ Getting images in your docker host is called "pulling". The images contain enoug
 
 # Containers
 
-Now that we have an image pulled locally, we can use the ```docker container run command``` to launch a container from it.
+Now that we have an image pulled locally, we can use the `docker container run command` to launch a container from it.
 
 ```
 
@@ -162,9 +154,9 @@ root@6dc20d508db0
 
 ```
 
-The docker container run command ```docker container run``` tells the Docker Daemon to start a new container. The -it flags tell Docker to make the container interactive and to attach our current shell to the container's terminal.
+The docker container run command `docker container run` tells the Docker Daemon to start a new container. The -it flags tell Docker to make the container interactive and to attach our current shell to the container's terminal.
 
-The format of the docker container exec command is: ```docker container exec <options> <container-name or container-id> <command/app>```
+The format of the docker container exec command is: `docker container exec <options> <container-name or container-id> <command/app>`
 
 ### The Dev Perspective
 
@@ -186,18 +178,16 @@ docker image build -t test:latest
 
 The Docker engine is the core software that runs and manages containers. We often refer to it simply as Docker, or the Docker platform. As a car engine is made from many specialized parts that work together to make a car drive, the Docker engine is made up from many specialized tools that work together to create and run containers. The Docker Daemon no longer contains any container runtime code. All container runtime code is implemented in a seperate OCI compliant layer. Docker Inc developed their own tool called libcontainer as a replacement for LXC. The goal of libcontainer was to be a platform agnostic tool that provided Docker with access to the fundamental container building blocks that exist inside the kernel.
 
-
 The Docker Daemon no longer contains any container code. All container code is implemented in a seperate OCI- compliant layer. Docker uses a tool called runc for this, runc is the reference implementation of the OCI container-runtime spec. runc has a single purpose in life- create containers.
 
 containerd is available as a daemon for Linux and Windows and Docker has been using it on Linux since the 1.11 release. In the Docker engine stack, containerd sits between the daemon and run at the OCI layer. Container was originally designed for a single task in life-container life cycle operations. The most common way of starting containers is using the Docker CLI.
 
-The following ```docker container run ``` command will start a simple new container based on the alpine:lastest image.
+The following `docker container run` command will start a simple new container based on the alpine:lastest image.
 
 ```
 $ docker container run --name ctr1 -it alpine:lastest sh
 
 ```
-
 
 When you type commmands like this into the Docker CLI, the Docker client converts them into the appropriate API payload and POSTs them to the correct API endpoint.
 
@@ -218,25 +208,24 @@ Once a container's parent run process exits, the assosciated containerd shim pro
 
 A Docker image is like a stopped container. If you're a developer you can think of them as being similar to classes. You start by pulling images from the image registry. The most popular registry is Docker Hub, but others do exist. The pull operation downloads the image to your local Docker Host, you can use it to start one or more Docker Containers.
 
-
 Images are made up of multiple layers that get stacked on top of each other and represented as a single object. Inside of the image is a cut down operating system and all of the files and dependencies required to run an application. Because containers are intended to be fast and lightweight, images need to be small.
 
-Images are considered build time constructs whereas containers are run-time constructs. We use the ```docker container run``` and ```docker service ``` commands to start one or more containers from a single image. Once you have started a container from an image, the two constructs become independent on each other and you cannot delete the image until the last container using it has been stopped and destroyed.
+Images are considered build time constructs whereas containers are run-time constructs. We use the `docker container run` and `docker service` commands to start one or more containers from a single image. Once you have started a container from an image, the two constructs become independent on each other and you cannot delete the image until the last container using it has been stopped and destroyed.
 
 ### Images are usually small.
 
 The whole purpose of a container is to run an application or service. This means that the image a container is created from must contain all OS and application
 files required to run the app/service. However containers are all being fast and lightweight. This means that the images they're built from are usually small and stripped of all non-essential parts.
 
-Image registries contain multiple image repositories. In turn, image repositories can contain multiple images. 
+Image registries contain multiple image repositories. In turn, image repositories can contain multiple images.
 
 ### Image naming and tagging
 
 Addressing images from official repositories is as simple as giving the repository name and tag seperated by a colon: The format for docker image pull , when working with an image from an official repository is
+
 ```
 docker image pull <repository> :<tag>
 ```
-
 
 ```
 docker image pull alpine: latest
@@ -256,10 +245,9 @@ $ docker image pull alpine
 
 ```
 
-
 ### Searchjng Docker Hub from the CLI
 
-The ```docker search command``` lets you search Docker from the CLI. You can pattern match against strings in the "NAME" field and filter output based on any of the returned columns. In its simplest form , it searches for all repos containing a certain string in the "NAME field".
+The `docker search command` lets you search Docker from the CLI. You can pattern match against strings in the "NAME" field and filter output based on any of the returned columns. In its simplest form , it searches for all repos containing a certain string in the "NAME field".
 
 ```
 $ docker search gideonpinto
@@ -268,21 +256,20 @@ $ docker search gideonpinto
 
 ### Images and Layers
 
-A docker image is just a bunch of loosely connected read only layers. Docker takes care of stacking these layers and representing them as a single unified object. 
+A docker image is just a bunch of loosely connected read only layers. Docker takes care of stacking these layers and representing them as a single unified object.
 
 ```
 $ docker image pull ubuntu:latest
 
 ```
 
-Each line in the output above that ends with "Pull complete" representsa a layer in the image that was pulled. All Docker images start with a base layer and as changes are made  and new content is added, new layers are added on top.
+Each line in the output above that ends with "Pull complete" representsa a layer in the image that was pulled. All Docker images start with a base layer and as changes are made and new content is added, new layers are added on top.
 
-As an example, lets create a new image based off Ubuntu Linux 16.04. This would be your image's first layer. If you later add the Python package, this would be added as a second layer on top of the base layer. Docker employes a ***storage driver*** that is responsible for stacking layers and presenting them in a single unified file system. 
-
+As an example, lets create a new image based off Ubuntu Linux 16.04. This would be your image's first layer. If you later add the Python package, this would be added as a second layer on top of the base layer. Docker employes a **_storage driver_** that is responsible for stacking layers and presenting them in a single unified file system.
 
 ### Sharing image layers
 
-Multiple images can and do share layers. This leads to efficiencies in space and performance.  So far we have seen that pulling images by tag is the most common way. But it has a problem, tags are mutable.
+Multiple images can and do share layers. This leads to efficiencies in space and performance. So far we have seen that pulling images by tag is the most common way. But it has a problem, tags are mutable.
 
 Docker introduced a new content addresable storage model. As a part of this model, each image gets a cryptographic content hash. For the purposes of this discussion, we will refer to that hash as the digest. Because the digest is a hash of the contents of the image, it is not possible to change the contents of the image without the digest also changing.
 
@@ -291,9 +278,3 @@ Since Docker version 1.10, an imageis a very loose collection of independent lay
 Each image is identified by a crypto ID that is a hash of the config object. Each layer is identified by a crypto ID that is a hash of the content it contains.
 
 This means that changing the content of the image, or any other layers will cause the assosciate crypto hashes to change. As a result, images and layers are immutable and we can easily identify any changes made to either.
-
-
-
-
-
-
