@@ -9,6 +9,10 @@ OpenStack also doesn't execute commands, but rather relays them to the base OS. 
 
 ### The OpenStack components
 
+![OpenStack](https://user-images.githubusercontent.com/15992276/65698611-cc38ff80-e04a-11e9-8f60-3c44429eeabf.png)
+
+
+
 There are 6 stable, core services that handle compute, networking, storage, identity and images while more than a dozen optional ones vary in developmental maturity. Those 6 core services are the infrastructure that allows the rest of the projecs to handle dashboarding, orchestration, bare-metal provisioning, messaging, containers and governance.
 
 ### What are Linux Containers
@@ -43,6 +47,8 @@ OpenStack turns hypervisors in a datacenter or across several datacenters, into 
 
 ### KeyStone Architecture
 
+![keystone](https://user-images.githubusercontent.com/15992276/65698610-cba06900-e04a-11e9-87c7-7a84cad76469.png)
+
 - Uses Python-based library and daemon to receive service and admin API requests
 
 Keystone concepts
@@ -50,6 +56,8 @@ Keystone concepts
 1. User- A digital representation of a person , system or service who uses OpenStack services and has assosciated information such as username and password
 2. Tenants/ Projects- A container used to group or isolate resources
 3. Role- A role includes a set of rights and provileges that specifies what operations a user is permitted to perform in a given tenant/project they are a part of.
+
+![Importance of Keystone](https://user-images.githubusercontent.com/15992276/65698609-cba06900-e04a-11e9-9897-81321f0356c4.png)
 
 ### What is Neturon?
 
@@ -62,6 +70,8 @@ The Horizon dashboard integrates with the Networking API, enabling admins and pr
 
 ### Swift Object Storage
 
+![Swift Overview](https://user-images.githubusercontent.com/15992276/65698616-ccd19600-e04a-11e9-8d08-4e4c7e01acfd.png)
+
 Object Storage(Swift) is robust, highly scalable and falut tolerant storage platform for unstructured data such as objects.
 
 The CAP Theorem- Distributed system can not simultaneously guarantee consistency (same view), partition tolerance (Node Access) and Availability(Data Access).
@@ -71,7 +81,9 @@ The Swift proxy ties the rest of the Swift Architecture and it handles API reque
 We should have a minimum of 2 proxy servers.
 
 Each object must belong to a container when the object belongs to the cluster. From the user's perspective, the object location is where they find the object. Swift object is a binary blob of data like a file
-O
+
+![CAP Theorem](https://user-images.githubusercontent.com/15992276/65698604-cba06900-e04a-11e9-8c4b-2e36d687d0cb.png)
+
 
 Account---->Many Containers---->Many Objects.
 
@@ -114,13 +126,21 @@ A ring represents a mapping between the names of entities stored on a disk and t
 
 ### Zones
 
+
+![Configuring Zones](https://user-images.githubusercontent.com/15992276/65698606-cba06900-e04a-11e9-9dbb-273f902f43eb.png)
+
+
 Object storage allows configuring zones in order to isolate failure boundaries.
 The goal of zones is to allow the cluster to tolerate significant outtages.
+
+![Partitions](https://user-images.githubusercontent.com/15992276/65698612-cc38ff80-e04a-11e9-838b-fd8e1a631b3d.png)
 
 ### Accounts and Containers
 
 Each account and container is an individual SQLite database that is distributed across the cluster. An Account database
 contains the list of containers in that account
+
+![Rings](https://user-images.githubusercontent.com/15992276/65698615-cc38ff80-e04a-11e9-9916-f86b41d5b73b.png)
 
 A container database contains the list of objects in that container.
 
