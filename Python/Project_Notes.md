@@ -83,7 +83,7 @@ Hello world , from __main__
 Hello world, from __module__
 ```
 
-### Concepts: Python Package Index
+### Concept: Python Package Index
 
 The Python Package index is a repository of software for the Python programming language. There have 75883 pacakges currently.
 
@@ -111,7 +111,7 @@ last_four=nums[-4]
 
 This is a programming idiom unique to Python.
 
-### Named Tuples
+### Concept:Named Tuples
 
 Tupes group disparate types of data into one bound item
 
@@ -142,8 +142,7 @@ quality=m.quality
 print(m)
 ```
 
-
-### Virtual Envirnonments
+### Concept:Virtual Envirnonments
 
 ```python
 pip3 install virtualenv
@@ -152,3 +151,21 @@ python3 -m virtualenv ./local_env
 cd local_env/bin
 . activate
 ```
+
+
+### Concept: class Structure
+
+Classes are defined with the class Keyword. self is explicitly passed everywhere.
+__init__ is the intializer and is where fields are defined.
+
+def defines methods on the classes (instance and static)
+
+```python
+class Creature:
+    def __init__(self,name,level):
+         self.name=name
+         self.level=level
+
+    def walk(self):
+        print('{} walks around'.format(self.name))
+```        
