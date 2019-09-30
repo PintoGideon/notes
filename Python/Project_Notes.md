@@ -169,6 +169,7 @@ class Creature:
         print('{} walks around'.format(self.name))
 ```
 
+<<<<<<< HEAD
 ### Concept: Dictionaries
 
 ```python
@@ -297,3 +298,76 @@ interesting_tx=(
   if is_interesting(tx)
 )
 ```
+
+### Concept: Classes vs Objects
+
+Classes are blueprints for creating objects
+
+```python
+class Creature:
+   def __init__(self,power):
+      # ....
+
+   def walk(self):
+     # ...
+```
+
+Objects are created via Classes
+
+```python
+squirrel=Creature(7)
+dragon=Creature(50)
+
+squirrel.walk()
+dragon.walk()
+
+```
+
+### Concept: Inheritance
+
+Dragon is a specialization of Creature. Indicated via class Type(BaseType) syntax.
+
+```python
+class Dragon(Creature):
+    def __init__(self,name,level,scale_thickness):
+        super().__init__(name,level)
+        self.scale_thickness=scale_thickness
+
+    def breath_fire()
+```
+
+**_Aside_**
+The strip() method returns a copy of the string in which all chars have been stripped from the beginning and the end of the string (default whitespace characters).
+
+### Concept: Recursion
+
+A recursive function calls iteself with modified data.
+
+```python
+
+def factorial(n):
+    if n<=1:
+    return 1
+
+    return n* factorial(n-1)
+```
+
+### Concept:Generator Methods
+
+```python
+
+def fibonacci(limit):
+   current=0
+   current=1
+
+   while current < limit:
+        current,next=next,next+current
+        yield current
+```
+
+The yield keyword returns one element of a sequence
+After the item is returned and processed, execution returns and resumes.
+
+***Aside***
+The '.' assumes we are using the data directory right above the working directory
+WS
