@@ -152,11 +152,10 @@ cd local_env/bin
 . activate
 ```
 
-
 ### Concept: class Structure
 
 Classes are defined with the class Keyword. self is explicitly passed everywhere.
-__init__ is the intializer and is where fields are defined.
+**init** is the intializer and is where fields are defined.
 
 def defines methods on the classes (instance and static)
 
@@ -168,4 +167,133 @@ class Creature:
 
     def walk(self):
         print('{} walks around'.format(self.name))
-```        
+```
+
+### Concept: Dictionaries
+
+```python
+
+lookup={}
+lookup=dict()
+lookup={'age':42,'loc':'Italy'}
+lookup=dict(age=42, loc='Italy')
+
+print(lookup)
+print(lookup['loc'])
+
+lookup['cat']='Fun code demos'
+
+if 'cat' in lookup:
+    print(lookup['cat'])
+```
+
+### A real world example
+
+```python
+
+import collections
+
+User= collections.namedTuple('User', 'id,name,email')
+
+users=[
+  User(1,'user1','user1@talkpython.fm'),
+  User(2,'user2','user2@talkpython.fm'),
+  User(3,'user3','user3@talkpython.fm')
+]
+
+lookup=dict()
+
+for user in users:
+    lookup[user.email]=user
+
+print(lookup['user3@talkpython.fm'])
+
+```
+
+Dictonaries store data by key and provide extraordinary performance on lookup.
+
+### Concept: Lambdas
+
+Lambdas are small inline methods
+
+```python
+
+def find_sig_nums(nums,predicate):
+  for n in nums:
+     if predicate(n):
+         yield n
+
+numbers=[1,2,3,5,8,13,21,24]
+sig= find_sig_nums(numbers, lambda x:x%2==1)
+```
+
+### Programming 101
+
+```python
+# Calculating the average price of the house
+
+prices=[]
+
+for pur in  data:
+    prices.append(pur.price)
+
+avg_price=statistics.mean(prices)
+print("The average price is ${:.}".format(int(avg_price)))
+
+```
+
+### Concept: List Comprehension
+
+A procedural user search might look like this
+
+```python
+users=get_active_customers()
+paying_usernames=[]
+
+for u in users:
+    if u.last_purchase==today:
+       paying_usernames.append(u.name)
+```
+
+Using a list comprehension
+
+```python
+paying_usernames=[
+  u.name #projection
+  for u in get_active_customers(): #source
+   if u.last_purchage==today  # filter
+
+]
+
+```
+
+### Concept: Generator Expressions
+
+```python
+
+paying_usernames=(
+  u.name
+  for u in get_active_customers()
+  if u.last_purchase===today
+)
+
+# () indicate a generator expression
+```
+
+### Concept: Data pipelines + generators
+
+Task 1: Find all houses that match my requirements(3 bedroom, near a city etc)
+
+Task 2: Find all houses that are for sale that I might buy in theory
+
+Task 3: Find all houses that I might buy near me
+
+```python
+
+all_transactions=get_tx_stream()
+interesting_tx=(
+  tx
+  for tx in all_transactions
+  if is_interesting(tx)
+)
+```
