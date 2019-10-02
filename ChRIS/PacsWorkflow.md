@@ -31,7 +31,7 @@ We want to create a feed browser (or something similar) which allows the user to
 ![Workflow](https://user-images.githubusercontent.com/15992276/66072057-d58f0400-e543-11e9-900f-b12b7ea66640.jpg)
 
 
-As shown in the image above, a hook already exists to import files from the Swift Storage.
+As shown in the image above, a hook already exists to search and filter files from the Swift Storage.
 
 
 ![CreatedFeed(7)](https://user-images.githubusercontent.com/15992276/66070684-54cf0880-e541-11e9-95b2-01eb45a52eaf.png)
