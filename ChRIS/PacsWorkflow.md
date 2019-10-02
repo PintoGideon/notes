@@ -28,7 +28,8 @@ We can pass a <jsonstring> to set 'pdfcm' internal lookup and add new PACS entri
 Currently while creating the Feed, The UI only allows us to import files into Swift Storage from our local filesystem.
 A possible workflow would be perform a search operation on the Swift storage, receive a number of files as our results, choose the files we want to pull to return to the dircopy plugin. Similar workflow to the PACS operation below.
 
-![Workflow](https://user-images.githubusercontent.com/15992276/66072057-d58f0400-e543-11e9-900f-b12b7ea66640.jpg)
+
+![Workflow](https://user-images.githubusercontent.com/15992276/66072769-3408b200-e545-11e9-8006-780866d37ee3.jpg)
 
 
 As shown in the image above, a hook already exists to search and filter files from the Swift Storage in our current workflow.
