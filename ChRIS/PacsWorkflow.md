@@ -31,4 +31,3 @@ We want to create a feed browser (or something similar) which allows the user to
 
 ![CreatedFeed(7)](https://user-images.githubusercontent.com/15992276/66070684-54cf0880-e541-11e9-95b2-01eb45a52eaf.png)
 
-![CreateFeed(6)](https://user-images.githubusercontent.com/15992276/66070663-4bde3700-e541-11e9-8b9a-af13a4a5818f.png)
