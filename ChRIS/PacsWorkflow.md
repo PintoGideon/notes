@@ -40,3 +40,10 @@ As shown in the image above, a hook already exists to import files from the Swif
 
 
 
+### An example of the feed browser would look like this.
+
+
+![container](https://user-images.githubusercontent.com/15992276/66073241-3fa8a880-e546-11e9-8958-d0679867765d.png)
+
+
+Source: https://github.com/mgeisler/swift-browser
