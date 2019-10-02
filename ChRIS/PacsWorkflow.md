@@ -25,13 +25,14 @@ We can pass a <jsonstring> to set 'pdfcm' internal lookup and add new PACS entri
 
 ![CreateFeed(5)](https://user-images.githubusercontent.com/15992276/66061933-f6e5f500-e52f-11e9-82fe-8e9c8068f843.png)
 
-Currently while creating the Feed, The UI only allows us to import files into ChRIS Storage from our local filesystem.
-We want to create a feed browser (or something similar) which allows the user to select files from the swift storage and pull them as part of the local feed. A possible workflow would be perform a search operation on the Swift storage, receive a number of files as our results, choose the files we want to pull to return to the dircopy plugin. Similar workflow to the PACS operation below.
-
-![Workflow](https://user-images.githubusercontent.com/15992276/66072057-d58f0400-e543-11e9-900f-b12b7ea66640.jpg)
+Currently while creating the Feed, The UI only allows us to import files into Swift Storage from our local filesystem.
+A possible workflow would be perform a search operation on the Swift storage, receive a number of files as our results, choose the files we want to pull to return to the dircopy plugin. Similar workflow to the PACS operation below.
 
 
-As shown in the image above, a hook already exists to import files from the Swift Storage.
+![Workflow](https://user-images.githubusercontent.com/15992276/66072769-3408b200-e545-11e9-8006-780866d37ee3.jpg)
+
+
+We want to mimick this workflow in our ChRIS_UI with the Swift Storage. We do have a hook to search and filter files from the Swift Storage in our current workflow.
 
 
 ![CreatedFeed(7)](https://user-images.githubusercontent.com/15992276/66070684-54cf0880-e541-11e9-95b2-01eb45a52eaf.png)
