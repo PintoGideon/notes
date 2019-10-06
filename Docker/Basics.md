@@ -31,12 +31,11 @@ Docker registries
 ### How to create a docker image
 
 Docker images:
+
 - Use images to create an instance of a container
 - Comprised of multiple layers
 - Build Time constructs
 - Build from the instructions
-
-
 
 Create an onboarding image.
 
@@ -143,3 +142,27 @@ Creating a container:
 - containerd creates an OCI bundle from the Docker image
 - Tells runc to create a container using the OCI bundle
 - runc interfaces with the OS kernel to get the constructions to create a container
+
+### Docker Hub
+
+- Public Docker registry
+- Teams and Organziations
+- Official images
+git
+### Docker commands
+
+```
+docker -h
+docker image pull nginx
+docker container -h
+
+# List all the containers
+docker container ls -a
+
+# Run the container
+docker container run -P -d nginx
+docker container inspect
+
+curl http://172.17.0.2
+We get the default page from nginx
+```
