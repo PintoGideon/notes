@@ -44,7 +44,7 @@ cd /etc/init.d/
 ssh root@fnndsc
 ssc
 history | grep neuro
-494 neuro-adduser.sh -u mohammed.fouda -g grantlab.chrisgp
+494 neuro-adduser.sh -u mohammed.fouda -g grantlab,chrisgp
 ssh mohammed.fouda@rc-drno
 neuro-adduser.sh -x
 neuro-adduser.sh -u mohammed.fouda -G nirsgp
