@@ -157,6 +157,25 @@ cd local_env/bin
 Classes are defined with the class Keyword. self is explicitly passed everywhere.
 **init** is the intializer and is where fields are defined.
 
+Defining a class named Creature creates a class object:
+
+```
+>>>Creature
+<class '__main__.Creature'>
+```
+
+```
+blank=Creature()
+>>>blank
+
+<__main__.Creature object at 0xb7e9d3ac>
+```
+
+The return value is a reference to a Creature object, which we assign to blank.
+The expression blank.x means "Go to the object blank refers to and get the value of x". 
+
+Objects are mutable. 
+
 def defines methods on the classes (instance and static)
 
 ```python
@@ -169,7 +188,12 @@ class Creature:
         print('{} walks around'.format(self.name))
 ```
 
-<<<<<<< HEAD
+
+
+
+
+
+
 ### Concept: Dictionaries
 
 ```python
@@ -368,6 +392,6 @@ def fibonacci(limit):
 The yield keyword returns one element of a sequence
 After the item is returned and processed, execution returns and resumes.
 
-***Aside***
+**_Aside_**
 The '.' assumes we are using the data directory right above the working directory
 WS

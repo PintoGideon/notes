@@ -30,6 +30,54 @@ myList.pop()
 
 **_Note: Lists are mutable_**
 
+The most common way to traverse the elements of a list is with a for loop. The syntax is the same for strings.
+
+```python
+# To read a list
+
+for cheese in cheeses:
+    print(cheese)
+
+# To write or update a list, we need the indices
+
+for i in range(len(numbers)):
+     numbers[i]=numbers[i]*2
+
+
+```
+
+List methods include append, extend, sort, map, filter, reduce.
+
+A string is a sequence of characeters and list is a sequence of values, but a list of characters is not the same as a string.
+To convert from a string to a list of characters , you can use list.
+
+```python
+
+s='spam'
+t=list(s)
+t
+['s','p','a','m']
+```
+
+The append method and slice operator create a new list. For example:
+
+```python
+t4=[1,2,3]
+bad_delete_head(t4)
+
+def bad_delete_t4(t):
+    t=t[1:]
+
+t4 # [1,2,3]
+
+```
+
+**_ Important things to note while working with lists_**
+
+1. Most list methods modify the argument and return none. t=t.sort() return NONE and the next operation you perform with
+   t will likely fail
+2. Make copies to avoid aliasing (A circumstance where two or more variables refer to the same object). t=[3,1,2] , t2=t[:], t2.sort()
+
 ### Tuples and Ranges
 
 Tuples are fixed-width immutable data structures.
