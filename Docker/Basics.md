@@ -192,11 +192,83 @@ Listing all port mappings or a specific mapping for a container
 docker container port <name>
 
 ```
-### Executing Container commands
 
+### Executing Container commands
 
 ```
 docker container run container_id
 docker container run exec it nginx /bin/bash
+
+```
+
+### What is a Dockerfile
+
+Dockerfiles are instructions on how to build an image
+
+The file contains all the commands used to start a container.
+
+1. Docker image consists of read-only layers.
+2. Each Layer represents a Dockerfile instruction.
+3. Layers are stacked
+4. Each layer is a delta of the changes from the previous layer
+5. Images are built using the docker image build command
+
+### Dockerfile
+
+```
+FROM ubuntu.15.04
+COPY ./app
+RUN make /app
+CMD python /app/app.y
+
+
+```
+
+### Layers:
+
+1. FROM creates a layer from the ubuntu:15.04 Docker image
+2. COPY adds files from your Docker client's current directory
+3. RUN builds your application with make
+4. CMD specifies what command to run with the container.
+5.
+
+### General guidelines:
+
+1. Keep your containers as ephemeral as possible
+2. Avoid including unnecessary file
+3. Use .dockerignore
+   4 Use multi stage builds
+4. Don't install unnecessary packages
+5. Decouple applications
+6. Sort multi-line arguments
+7. Leverage the build cache
+
+### Working with instructions
+
+```
+FROM node
+LABEL org.label-schema.version=v1.1
+RUN mkdir -p/var/node/
+ADD src/ /var/node/
+WORKDIR /var/node
+RUN npm install
+EXPOSE 3000
+CMD ./bin/www
+~
+```
+
+FROM- Initializes a new build stage and sets the Base image
+RUN- Will execute any commands in a new layer
+CMD- Provides a default for an executing container. There can be only one CMD instruction in a Dockerfile.
+LABEL: Adds metadata to an image
+EXPOSE: Informs Docker that the container listens to the specified network ports at runtime
+ENV: Sets the environment variable <key> to the value <value>
+ADD: Copies new files, directories or remote file URLs from <src> and adds them to the filesystem of the image at path <dest>
+WORKDIR: Sets the working directory for any RUN, CMD, ENTRYPOINT, COPY and ADD instructions that follow it in the Dockerfile.
+
+```
+docker image build -t linuxacademy/weather-app:v1 .
+docker image ls
+docker container run -d --name=weather-app1 -p 8081:3000 linuxacademy/weather-app:v1
 
 ```

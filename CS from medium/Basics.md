@@ -25,3 +25,24 @@ I think that bytes are particularly interesting because a single byte can repres
 Bits, the building blocks of bytes, are incredibly fundamental and worth understanding. They’re important because different computers can process a different number of bits at a time. An 8-bit machine, for example, breaks up and processes 8 bits at a time. A 16-bit machine would break up and process 16 bits at a time. The number of bits that are processed at a time are known as a computer word, so we can think of bits as the “letters” that make up a computer word. Most computers now have a word length of 32 or 64 bits. And now you know what that means: that your machine passes around and processes 32 or 64 bits at a time. In other words, your computer processes binary strings that are 32 or 64 digits long!
 
 Let’s take a single character of a word. That character requires 8 bits (or 1 byte) in order to represent it. So, what about something longer? What about a page of text that’s somewhere around 1,000 words long? That would require a lot more bytes!
+
+
+Source: https://medium.com/basecs/whats-a-linked-list-anyway-part-1-d8b7e6508b9d
+### Linked Lists
+
+
+One characteristic of linked lists is that they are linear data structures which means that there is a sequence aand an order to how they are constructed and traversed.
+
+In non-linear data structures, items don't have to be arranged in order, which means that we could traverse the data structure non-sequentially.
+
+When an array is created, it needs a certain amount of memory. If we had 7 letters that we needed to store in an array, we would need 7 bytes of memory to represent that array. But, we’d need all of that memory in one contiguous block. That is to say, our computer would need to locate 7 bytes of memory that was free, one byte next to the another, all together, in one place.
+
+
+The fundamental difference between arrays and linked lists is that arrays are static data structures, while linked lists are dynamic data structures. A static data structure needs all of its resources to be allocated when the structure is created; this means that even if the structure was to grow or shrink in size and elements were to be added or removed, it still always needs a given size and amount of memory. If more elements needed to be added to a static data structure and it didn’t have enough memory, you’d need to copy the data of that array, for example, and recreate it with more memory, so that you could add elements to it.
+
+
+On the other hand, a dynamic data structure can shrink and grow in memory. It doesn’t need a set amount of memory to be allocated in order to exist, and its size and shape can change, and the amount of memory it needs can change as well.
+
+The starting point of the list is a reference to the first node, which is referred to as the head. Nearly all linked lists must have a head, because this is effectively the only entry point to the list and all of its elements, and without it, you wouldn’t know where to start! The end of the list isn’t a node, but rather a node that points to null, or an empty value.
+
+
