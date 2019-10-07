@@ -273,7 +273,7 @@ Multiple images can and do share layers. This leads to efficiencies in space and
 
 Docker introduced a new content addresable storage model. As a part of this model, each image gets a cryptographic content hash. For the purposes of this discussion, we will refer to that hash as the digest. Because the digest is a hash of the contents of the image, it is not possible to change the contents of the image without the digest also changing.
 
-Since Docker version 1.10, an imageis a very loose collection of independent layers. The image itself is really just a configuration object that lists the layers and some metadata. The layers are where the data lives. Each one is fully independent and has no concept of being part of a collective image.
+Since Docker version 1.10, an image is a very loose collection of independent layers. The image itself is really just a configuration object that lists the layers and some metadata. The layers are where the data lives. Each one is fully independent and has no concept of being part of a collective image.
 
 Each image is identified by a crypto ID that is a hash of the config object. Each layer is identified by a crypto ID that is a hash of the content it contains.
 
