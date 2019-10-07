@@ -43,7 +43,8 @@ ChRIS takes in input from the data source , pulls it to itself and pushes it out
 
 ### Architecture.
 
-![2019-10-07 (7)](https://user-images.githubusercontent.com/15992276/66349878-63eef580-e949-11e9-9c3f-1cef2a5c4c22.png)
+
+![2019-10-07 (9)](https://user-images.githubusercontent.com/15992276/66349877-63eef580-e949-11e9-903e-1fe02d4b8c00.png)
 
 First Data is sent to OpenShift through the IO handler. Then the data is stored inside of Swift. Swift storage policies enable segmentation of Swift Backend clusters. All operations are available through the swift client.
 The Process Manager then gets set in operation and that operation is of the form of some docker image to run. The process manager launches a job which has a number of pods in it.
@@ -55,7 +56,6 @@ The image processor is packaged as a docker image. In this case, we have built i
 
 ### GPU example - Prostate Segmentation
 
-![2019-10-07 (9)](https://user-images.githubusercontent.com/15992276/66349877-63eef580-e949-11e9-903e-1fe02d4b8c00.png)
-
+![2019-10-07 (7)](https://user-images.githubusercontent.com/15992276/66349878-63eef580-e949-11e9-9c3f-1cef2a5c4c22.png)
 
 A graphics processing unit (GPU) is a specialized electronic circuit designed to rapidly manipulate and alter memory to accelerate the creation of images in a frame buffer intended for output to a display device. GPUs are used in embedded systems, mobile phones, personal computers, workstations, and game consoles. Modern GPUs are very efficient at manipulating computer graphics and image processing.
