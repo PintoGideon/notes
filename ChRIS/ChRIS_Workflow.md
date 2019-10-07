@@ -35,11 +35,12 @@ OpenStack also doesn't execute commands, but rather relays them to the base OS. 
 
 ### Introduction.
 
+![2019-10-07 (3)](https://user-images.githubusercontent.com/15992276/66349879-63eef580-e949-11e9-9ed3-3a681c153d4a.png)
+
 Medical image processing on the research side can take maybe an hour or two to simulate. If you do this on a GPU in a MOC, this is reduced to seconds.
 
 ChRIS takes in input from the data source , pulls it to itself and pushes it out to the compute environment. At the same time, it queries the ChRIS store and pulls one of the plugins in the compute environment. This computer produces an output which is pulled back into ChRIS which allows the user to interact with the data source both input and output.
 
-![2019-10-07 (3)](https://user-images.githubusercontent.com/15992276/66349879-63eef580-e949-11e9-9ed3-3a681c153d4a.png)
 
 ### Architecture.
 
