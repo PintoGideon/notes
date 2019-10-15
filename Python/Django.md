@@ -174,7 +174,78 @@ test(12,72)
 
 Typically, functions are called with all the necessary arguments at the time the function should be executed.
 
-Sometimes, however arguments may be known in advance, long before the function will be called. 
+Sometimes, however arguments may be known in advance, long before the function will be called.
 
+### Django core
 
+In the django tree structure, the settings.py file controls our project's settings, urls.py tells Django which pages to build in response to a browser or URL request, wsgi.py , which stands for Web Server Gateway Interface, helps Django serve our eventual web pages. The last file, manage.py is used to execute various Django commands such the running the local web server or creating a new app.
 
+### Creating an App
+
+Django uses the concept of projects and apps to keep the code clean and readable. A single Django project contains one or more apps within it that all work together to power a web applicaton.
+
+When we create a new app, Django creates a few files for us.
+
+1. admin.py is a config file for the built-in Django Admin app
+2. apps.py is a config file for the app itself
+3. migrations keep track of any changes to our models.py file so our models.py and database stay in sync
+4. tests.py is for our app-specific tests
+5. views.py is where handle the request/response for our web app
+
+### The Django request - response cycle
+
+When we type in an url, the first that happens in our Django project us a URL pattern is found that matches the homepage. The URL patters specifies a view which then determines the content for the page (usually from a database model) and then ultimately a template for styling and basic logic.The end result is sent back to the user as a HTTP response.
+
+Our url pattern has three parts:
+
+1. A python regular expression for the empty string
+2. a reference to the view called homePageView
+3. a optional named URL pattern called 'home'
+
+### Templates
+
+Every web framework needs a convenient way to generate HTML files and in Django, the approach to use templates: individual HTML files that can be linked together and also include basic logic.
+
+When you run python manage.py migrate, a db.sqlite3 file is created, however migrate will sync the database with the current state of any database models contained in the project and listed in INSTALLED_APPS. In other words, to make sure the database reflects the current state of your project, you'll need to run migrate each time you update a model.
+
+### Database
+
+Django's ORM will automatically turn models into a database table for us.
+
+1. Create a migrations files with the makemigrations command. Migration files create a reference of any changes to the database models which means we can track changes and debug errors over time
+
+2. Second, we build the actual database with the migrate command which executes the instructions in our migrations file.
+
+```python
+
+urlpatterns=[
+    path('post/<int:pk>',BlogDetailView.as_view(),name='post_detail')
+]
+```
+
+The primary key of our post entry will be represented as an integer <int:pk>. Django automatically adds an auto-incrementing primary key to our database models. While we declared the fields title, author, and body o our Post Model, under-the-hood Django also added another field called id, which is our primary key.
+
+### Forms
+
+Forms are very common and very complicated to implement correctly.
+Any time you are accepting user input, there are security concerns like XSS attacks, proper error handling is required and there are UI considerations around how to alert the user to the problems with the form.
+
+### Creating a form in Django
+
+```python
+<form action="" method="post">
+{% csrf_token %}
+{{form.as_p}}
+<input type="submit" value="save"/>
+</form>
+
+```
+
+Django provides a {%csrf_token %} to protect our form from cross site scripting attacks. We should use it for all our Django forms.
+
+To ouput our from we use {{form.as_p}} which renders it withing
+<p> tags.
+
+#### Reverse
+
+Reverse is a handy utility function Django provides us to reference an object by its URL template name.
