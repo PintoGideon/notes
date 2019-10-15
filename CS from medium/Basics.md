@@ -26,10 +26,9 @@ Bits, the building blocks of bytes, are incredibly fundamental and worth underst
 
 Let’s take a single character of a word. That character requires 8 bits (or 1 byte) in order to represent it. So, what about something longer? What about a page of text that’s somewhere around 1,000 words long? That would require a lot more bytes!
 
-
 Source: https://medium.com/basecs/whats-a-linked-list-anyway-part-1-d8b7e6508b9d
-### Linked Lists
 
+### Linked Lists
 
 One characteristic of linked lists is that they are linear data structures which means that there is a sequence aand an order to how they are constructed and traversed.
 
@@ -37,12 +36,67 @@ In non-linear data structures, items don't have to be arranged in order, which m
 
 When an array is created, it needs a certain amount of memory. If we had 7 letters that we needed to store in an array, we would need 7 bytes of memory to represent that array. But, we’d need all of that memory in one contiguous block. That is to say, our computer would need to locate 7 bytes of memory that was free, one byte next to the another, all together, in one place.
 
-
 The fundamental difference between arrays and linked lists is that arrays are static data structures, while linked lists are dynamic data structures. A static data structure needs all of its resources to be allocated when the structure is created; this means that even if the structure was to grow or shrink in size and elements were to be added or removed, it still always needs a given size and amount of memory. If more elements needed to be added to a static data structure and it didn’t have enough memory, you’d need to copy the data of that array, for example, and recreate it with more memory, so that you could add elements to it.
-
 
 On the other hand, a dynamic data structure can shrink and grow in memory. It doesn’t need a set amount of memory to be allocated in order to exist, and its size and shape can change, and the amount of memory it needs can change as well.
 
 The starting point of the list is a reference to the first node, which is referred to as the head. Nearly all linked lists must have a head, because this is effectively the only entry point to the list and all of its elements, and without it, you wouldn’t know where to start! The end of the list isn’t a node, but rather a node that points to null, or an empty value.
 
+### Non-Linear Data Structures (Trees)
 
+Source: https://medium.com/basecs/how-to-not-be-stumped-by-trees-5f36208f68a7
+
+In non-linear data structures, the data doesn't really follow an order. Trees like linkedLists are made up of nodes and links.
+
+In tree data structures, you must always have a root, even if you don't have anything else.
+A root node can have links to multiple other nodes.
+
+Some terms to note when talking about trees:
+
+1. Root
+2. Link/Edge
+3. Child
+4. Parent
+5. Sibling
+6. Internal
+7. Leaf
+
+### Truths about Trees.
+
+1. If a tree has n nodes, it will always have one less number of edges (n-1).
+2. Trees are recursive data structures. Trees can contain trees nested within them, since a child node could be the root of a subtree.
+
+There are two properties that are the most important ones to talk about when it comes to what type of tree we deal with.
+
+### Depth and Height
+
+A simple way to think about the depth of a tree is by answering: How far away is the node from the root of the tree?
+There is only one way to traverse or search through a tree by making a path and following the edges/links from the root node down.
+
+A cool thing about the height property in particular is that the root node is automatically the height of the entire tree itself.
+
+### Unearthing Tree roots
+
+In order to truly appreciate the power of a tree, we have to look at them in the context of their application.
+
+The process of assembling a tree is similar to the process of assembling a linkedList.
+
+```python
+
+
+class Tree:
+     def __init__(self,cargo,left=None,right=None):
+         self.cargo=cargo
+         self.left=left
+         self.right=right
+
+    def __repr__(self):
+         return str(self.cargo)
+
+
+left= Tree(2)
+right-Tree(1)
+
+tree=Tree(1,left,right)
+
+```
