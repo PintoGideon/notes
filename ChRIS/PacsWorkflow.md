@@ -34,6 +34,7 @@ A possible workflow would be perform a search operation on the Swift storage, re
 
 We want to mimick this workflow in our ChRIS_UI with the Swift Storage. We do have a hook to search and filter files from the Swift Storage in our current workflow.
 
+![2019-10-07 (10)](https://user-images.githubusercontent.com/15992276/66407914-8df1f780-e9dd-11e9-84bc-82d238165a8f.png)
 
 ![CreatedFeed(7)](https://user-images.githubusercontent.com/15992276/66070684-54cf0880-e541-11e9-95b2-01eb45a52eaf.png)
 
