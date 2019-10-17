@@ -1,24 +1,45 @@
-### What you see
-When you are looking at a website, it is most likely that your browser will be receiving HTML and CSS from the web server that hosts the site.
+### This is the complete roadmap for a web developer.
 
-The web browser interprets the HTML and CSS Code that you see.
+### ssh
 
-### How it all works?
+```
+ssh user@host
 
-When you visit a website, the web server hosting that site could be anywhere in the world. In order for you to find the location of the web server, your browser will first connect to a DNS server.
+# Example
+ssh toor@fnndsc
 
+```
 
-THe DNS server will then tell the browser the location of the web server hosting the site. You connect to the web via an ISP. You type a domain name or web address into your browser.
+# A quick note on how ssh works
 
-Your computer contacts a network of servers called DNS. These act like phone books; they tell your computer the IP address assosciated with the request domain name. An IP address is a number of upto to 12 digits seperated by periods/full stops. Every device connected to the web has a unique IP address.
+1. Symmetrical Encryption
 
-The unique number that the DNS server returns to your computer allows your browser to contact the web server that hosts the website you requested. A web server is a computer that is constantly connected to the web. 
+A key change alogrithm is implemented for a safer use of shared keys.
 
+2. Asymmetrical Encryption
 
-HTML stands for HyperText Markup Language. The HyperText part refers to the fact that the HTML allows you to create links that allow visitors to move from one page to another. 
+The client and a host posess a public and a private key. The public keys are linked with private keys in terms of functionality.
+The private and the public have a one way relationship.
 
+For example, Suppose a client and a server both send their public keys to each other. The client is going to send a message by encrypting it with the host's public key. The server can decrypt the message using it's own private key.
 
-### Semantic Markup
+A message encrypted by a public key of a client can only be decrypted by the priavte key of the client.
 
-There are some text elements that are not intended to affect the structure of your web pages, but they do add extra information to the pages known as semantic markup
+```
+cd ~/.ssh
+ls
 
+# Do you see id_rsa id_rsa.pub
+
+ssh-keygen -C "test@gmail.com"
+
+# Give the folder path and rename the key accordingly.
+ls
+id_rsa_digitalocean.pub
+
+# You can share the public key with the host
+
+pbcopy < ~/.ssh/id_rsa_digitalocean.pub
+ssh {user}@{host}
+
+```

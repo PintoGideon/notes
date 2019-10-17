@@ -244,8 +244,20 @@ Any time you are accepting user input, there are security concerns like XSS atta
 Django provides a {%csrf_token %} to protect our form from cross site scripting attacks. We should use it for all our Django forms.
 
 To ouput our from we use {{form.as_p}} which renders it withing
+
 <p> tags.
 
 #### Reverse
 
 Reverse is a handy utility function Django provides us to reference an object by its URL template name.
+
+### User Authentication
+
+Django comes with a powerful built-in user authentication system that we can use.
+It provides a user which contains
+
+1. username
+2. password
+3. email
+4. first_name
+5. last_name
