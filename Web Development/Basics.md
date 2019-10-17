@@ -25,7 +25,7 @@ For example, Suppose a client and a server both send their public keys to each o
 
 A message encrypted by a public key of a client can only be decrypted by the priavte key of the client.
 
-```
+```bash
 cd ~/.ssh
 ls
 
@@ -34,6 +34,7 @@ ls
 ssh-keygen -C "test@gmail.com"
 
 # Give the folder path and rename the key accordingly.
+
 ls
 id_rsa_digitalocean.pub
 
@@ -41,5 +42,34 @@ id_rsa_digitalocean.pub
 
 pbcopy < ~/.ssh/id_rsa_digitalocean.pub
 ssh {user}@{host}
+
+
+# Look for a .ssh file on the host.
+
+ls
+authorized_keys known_hosts
+
+# Add your public key to authorized keys through an editor
+
+
+```
+
+### Setting up a ssh key on Github.
+
+Github recommends the following command to generate a key-value pair
+
+```bash
+ssh-keygen -t rsa -b 4096 -C "test@example.com"
+pbcopy < ~/.ssh/id_rsa_github.pub
+
+
+# Add a new key through the settings in your github account.
+# Add your identity
+
+ssh-add ~/.ssh/id_rsa_github
+
+# Useful commands to list and delete identities
+ssh-add -l
+ssh-add -D
 
 ```
