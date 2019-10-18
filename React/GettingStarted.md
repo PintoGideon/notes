@@ -267,7 +267,7 @@ user:{
 name:"somebody",
 age:26
 },
-prodcuts:[]
+products:[]
 }
 
 ```

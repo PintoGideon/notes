@@ -52,12 +52,15 @@ neuro-adduser.sh -u mohammed.fouda -G nirsgp
 
 ```
 
-### How to fix the login issue
+### How to fix the login issue in the display manager
 
 ```bash
 
 Press Crtl + Alt +F7 to switch to an text interface
 Try username@computername
+sudo dpkg-reconfigure ssdm
+sudo service ssdm restart
+
 Alt F7 to switch out
 apt install ssdm
 apt install kubuntu-desktop

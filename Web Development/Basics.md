@@ -109,7 +109,3 @@ This is the critical render path.
 We can write scripts to load stylesheets as per our need. When the browser comes across the js tag, it will request the server for the js script which can manipulate both the DOM and the CSSOM before rendering the tree.
 
 PageSpeedInsights and WebPageTest are two websites which help us gauge performance issues.
-
-### React
-
-The package-lock.json makes sure the dependencies numbers are locked in.

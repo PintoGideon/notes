@@ -67,7 +67,7 @@ const CounterWithCount=withCount(Counter)
 ### Render Properties
 
 One issue with the higher order component is that we might pass data as props to components which might not need it. For example, a card
-assignment card would not need a onCreateUser and onUpdateUser functionalities.
+assignment would not need a onCreateUser and onUpdateUser functionalities.
 
 ```javascript
 <withUsers>{({ users, createUser }) => <User key={user.id} />}</withUsers>
