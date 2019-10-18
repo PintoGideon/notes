@@ -1,5 +1,7 @@
 ### The React Ecosystem
 
+As our app scales, we need a bundler to bundle these files together. 
+
 ### Babel
 
 Before we give our React code with JSX to a browser, we first need to transform it to a syntax which the browser will understand.

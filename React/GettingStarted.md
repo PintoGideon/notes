@@ -285,7 +285,7 @@ React replaces the content of the one single instance.
 
 ### What to put in state
 
-Data stored in state should be reference inside the render
+Data stored in state should be referenced inside the render
 somewhere. Component state is for storing UI state- things
 that affect the visual rendering of the page. Anytime
 the state is updated, the component will re-render.

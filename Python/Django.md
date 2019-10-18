@@ -261,3 +261,12 @@ It provides a user which contains
 3. email
 4. first_name
 5. last_name
+
+### Login
+
+Django provides us with a default view for a log in page via LoginView.
+Django's built in User model allows us to start working with users right away.
+
+However the Django official documentation highly recommends using a custom user model.
+
+
