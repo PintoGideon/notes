@@ -167,10 +167,33 @@ console.log('coconut', indexof('u'));
 
 **_One difference between the string's indexof can search for a string containing more than one character, whereas the corresponding array method looks only for a single element._**
 
-
-
 The padStart function takes the desired length and padds charcters as arguments
 
 ```javascript
 console.log(String(6).padStart(3, '0'));
 ```
+
+As we have seen, Math is grab bag of number-related utility functions such as Math.max(maximum). Math.min(minimum and Math.sqrt (square root)
+
+If you need to do trignometry, Math can help. It contains cos(cosine), sin(sine) and tan(tangent) as well as their inverse functions.
+
+```javascript
+function randomPointOnCircle(radius) {
+	let angle = Math.random() * 2 * Math.PI;
+	return {
+		x: radius * Math.cos(angle),
+		y: radius * Math.sin(angle)
+	};
+}
+```
+
+Though computers are deterministic machines, they always teact the same way if given the same input.
+
+It is possible to have them produce numbers that appear random.
+
+The machine keeps some hidden value, and whenever you ask for a new random number, it performs complicated computations on this hidden value to create a new value. It stores a new value and returns some number derived from it.
+
+```javascript
+console.log(Math.floor(Math.random) * 10);
+```
+

@@ -103,4 +103,247 @@ for (let current = 20; ; current = current + 1) {
 
 When continue is encountered in a loop body, control jums out the body and continues with the loop's next iteration.
 
+### JSON
 
+Because properties only grasp their value, rather than contain it, objects and arrays are stored in the computer's memory as sequence of bits holding the addresses- the place in memory - of their contents.
+
+If you want to save data in a file for later or send it to another computer over the network, you have to somehow covert these tangle of memory address to a description that can be stored or sent. You could send over your entire computer memory along with the address of the value you are interested in,
+
+What we can do is serialize data. That means it is converted into a flat description.
+
+A popular serialization format is called JSON.
+
+```javascript
+
+{
+    "squirrel":False,
+    "events":["Work","touched tree","pizza"]
+}
+```
+
+JS gives us the function JSON.stringify and JSON.parse to convert data to and fro from this format.
+
+### Higher Order Functions
+
+A large program is a costly program and not just because of the time it takes to build. Size almost always involves complexity and complexity confuses programmers.
+
+```javascript
+let total = 0,
+	count = 1;
+
+while (count <= 10) {
+	total += count;
+	count += 1;
+}
+```
+
+Functions that operate on other functions, either by taking them as arguments or by returning them are called higher order functions. Since we have already seen that functions are regular values, there is nothing particularly remarkable about the fact that such functions exist.
+
+Filter takes in a function as a test and returns an array with the values that pass the test.
+
+Map transforms the orginal array using a transformation function and gives us the new array of the same length.
+
+```javascript
+function reduce(array, combine, start) {
+	let current = start;
+	for (let element of array) {
+		current = combine(current, element);
+	}
+	return current;
+}
+```
+
+### Using a reduce function to flatten an array
+
+```javascript
+function flatten(array) {
+	//Extract each index out
+	//Check if it's an array
+	//Push it to the new array
+
+	return array.reduce(function(newArr, toFlatten) {
+		return newArr.concat(
+			Array.isArray(toFlatten) ? flatten(toFlatten) : toFlatten
+		);
+	}, []);
+}
+
+flatten([[1, 3, 4], [2, 3]]);
+```
+
+### Encapsulation
+
+The core idea in object oriented programming is to divide programs into smaller pieces.
+
+### Methods
+
+Methods are nothing more tha properties that hold function values.
+
+```javascript
+let rabbit = {};
+rabbit.speak -
+	function(line) {
+		console.log(`The rabbit says ${line}`);
+	};
+
+rabbit.speak("I'm alive");
+```
+
+### Prototypes
+
+```javascript
+let empty = {};
+console.log(empty.toString);
+//Function
+
+console.log(empty.toString());
+//object
+```
+
+Most objects have a prototype.
+A prototype is another object that is used as a fallback source of properties.
+
+You can use Object.create to create an object with a specific prototype.
+
+```javascript
+let protoRabbit = {
+	speak(line) {
+		console.log(`The ${this.type} rabbit says ${line}`);
+	}
+};
+
+let killerRabbit = Object.create(protoRabbit);
+```
+
+The proto rabbit acts as a container for the properties that are shared by all rabbits.
+
+Constructors (all functions, in fact) automatically get a property named prototype which by default holds a plain empty object that derives from Object.prototype.
+
+It is important to understand the distinction between the way a prototype is assosciated with a constructor and the way objects have a prototype
+
+### Maps
+
+```javascript
+let ages = new Map();
+
+ages.set('Boris', 39);
+ages.set('Liang', 22);
+ages.set('Julia', 61);
+```
+
+### Polymorphism
+
+When we call the String function on an object, it will call the toString method on the object to created a meaningful string from it.
+
+### Inheritance
+
+Javascript's prototype makes it possible to create a new class much like the old class but with new definitions for some of it's properties. The prototype for the new class derives from the old prototype but adds a new definition.
+
+```javascript
+class App extends React.component {
+	constructor() {
+		super();
+	}
+}
+```
+
+The use of the word extends indicates that the class shouldn't be directly based on the default Object prototype but on some other class.
+
+To initialize App instance, the constructor calls it's superclass's constructor through the super keyword. This is necessary because if this new object is going to behave roughly like a Component, it going to need the instance properties the react.component has.
+
+### Tests
+
+```javascript
+function test(label, body) {
+	if (!body) console.log(`Failed: ${label}`);
+}
+
+test('convert latin text to uppercase', () => {
+	return 'hello'.toUpperCase() == 'Hello';
+});
+```
+
+One way to address this is to use fewer side effects. Again, a programming style that computes new values instead of changing existing data helps. If a piece of code stops running in the middle of creating a new value, no one ever sees the half-finished value, and there is no problem. But that isn’t always practical. So there is another feature that try statements
+
+### Regular Expressions
+
+Programming tools and techniques
+
+A regular expression is a type of object. It can be either constructed with the RegExp constructor or written as a literal value by enclosing a pattern in forward slash(/) characters.
+
+### Sets of Characters
+
+In regular expressions, putting a set of characters between square brackets makes that part of the expression match any of the characters between the brackets.
+
+To invert a set of characters that is to express that you want to match any character execept the ones in the set-- you can write a caret(^) character after the opening bracket.
+
+```javascript
+let notBinary = /[^01]/;
+notBinary.test('11001000100110');
+```
+
+### Repeating Parts of a PAttern
+
+We not know how to match a sinle digit. What if we want to match a whole number- a sequence of one or more digits.
+
+When we put a + sign after something in a regular expression, it indicates that the element may be repeated more than once.
+
+```javascript
+console.log(/'\d+'/.test("'123'"));
+
+//true
+```
+
+The star(\*) has a similar meaning but also allows the pattern to match zero times.
+
+A question marks makes a part of a pattern optional meaning it may occur zero times or one time.
+In the following example, the u character is allowed to occur, but the pattern also matches when it is missing.
+
+```javascript
+let neighbor = /neighbou?r/;
+
+neighbor.test('neighbour');
+//true
+neighbor.test('neighbor');
+//true
+```
+
+To indicate that a pattern should occur a precise number of times, use braces. Putting {4} after an element, for example, requires it to occur exactly four times. It is also possoble to specify a range this way: {2,4} means the element must occur at least twice and at most four times.
+
+```javascript
+
+let dateTime=/\d{1,2}-\d{1,2}-\d{4} \d{1,2}:\d{2/}
+dateTime.test("1-30-2003 8:45")
+//true
+```
+
+### Grouping Subexpressions
+
+To use an operator like \* or + on more than one element at a time, we need to use paranthesis.
+
+```javascript
+let cartoonCrying = /boo+(hoo+)+/i;
+```
+
+The test method is the simplest way to match a regular expression. It tells you only whether it matched and nothing else.
+
+Regular expressions have an exec method. An object returned from an exec method has index as a property which tells us where in the string the successful match begins.
+
+It will return null if no match was found.
+
+```javascript
+let match = /\d+/.exec('one two 100');
+
+console.log(match);
+//100
+```
+
+The object returned looks like an array of strings, whose first element is the string that was unmatched. In the previous example, this is sentence of digits that we were looking for.
+
+String values have a match metho that behaves similarly.
+
+When the regular expression contains subexpressions grouped with paranthesis, the text that matches those groups will show up in the array. The whole match is always the first elemet.
+
+The next element is the part matched by the first group.
+
+The \_ (underscore) binding is ignored and used only to skip the full match element in the array returned by exec.
