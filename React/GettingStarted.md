@@ -42,7 +42,17 @@ ReactDom.render(<ProductList />, document.getElementById("content"));
  ```
 We pass in a reference to the DOM node as the second argument to see ReactDOM.render().
 
+### JSX
 
+Browsers do not understand JSX and babel transpiles jsx into javascript. 
+
+### Pure functions
+
+Pure functions are those that only depend on their arguments and it does not modify them while executing.
+
+Writing pure functions help us create solid React Components.
+
+React components are JS functions that return view.
 
 ### this keyword
 

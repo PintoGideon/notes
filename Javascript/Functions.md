@@ -1,287 +1,176 @@
-### Hoisting
+### Function declaration
 
 ```javascript
 
-console.log(teddy)
-var teddy='bear;
-sing();
-function sing(){
-console.log('Oh hey hi')
-}
-
-```
-
-**_Output_**
-```
-undefined
-Oh hey hi
-```
-
-The JS engine is a 2 pass system. In the first pass,
-it is going to hoist or assign a memory location to variables and functions and in the 2nd pass, it's going to assign a value.
-Variables are partially hoisted and functions are fully hoisted.
-
-```javascript
-(function() {
-	console.log('Does this hoist');
-})();
-```
-
-The above function does not hoist. const and let are not
-hoisted. It's going to throw a reference error.
-
-### What about function expressions?
-
-```javascript
-var app = function() {
-	console.log('How does this hoist?');
-};
-```
-
-The variable app is going to be hoisted and assigned
-undefined. If I run app() before it is defined, I get
-an error saying that the function is not defined.
-
-- Function expressions are defined at runtime 
-- function declarations are defined at parse time.
-- ***Function expressions put their identifier in their own scope***
-- ***You should prefer the named function expression over the anonymous function    	 	expression***
-- The name provides reliable function self-reference(recursion etc) 
-- More debuggable stack traces
-- More self-documenting code
-
-
-### Variable environment
-
-![Variable environment](https://user-images.githubusercontent.com/15992276/59047082-ba043d00-8872-11e9-9684-272abbc5d1b1.JPG)
-
-When a function is invoked, we get the **this*** keyword and
-***arguments***. The arguments keyword give us an object with
-the arguments passed in as property values.
-
-Now we want the arguments to be an array so that we can
-perform some computations on them.
-
-```javascript
-function marry2(...args) {
-	console.log('Arguments', arguments);
-}
-
-marry('Tim', 'Tina');
-```
-
-In Javascript, our lexical scope determines our
-available variable. Not where the function is called.
-
-![The scope chain](https://user-images.githubusercontent.com/15992276/59047080-ba043d00-8872-11e9-865d-72df855ebebf.JPG)
-
-```javascript
-function sayName() {
-	var a = 'a';
-
-	return function findName() {
-		var b = 'b';
-		console.log(c);
-
-		return function printName() {
-			var c = 'c';
-			return 'Andrei Neagoie';
-		};
-	};
+functio square(x){
+	return x*x
 }
 ```
 
-### IIFE
+This is a function declaration.
+The statement defines the binding square and points it at the given function.
 
-One major issue with global variables is that we can have collissions. To avoid
-this JS developers used an IIFE. An IIFE is an function expression which looks like this:
+**_There is one subtelty with this form of function definition_**
 
 ```javascript
-(function() {})();
+console.log('The future says', future());
+
+function future() {
+	return "You'll never have flying cars";
+}
 ```
 
-Using this design pattern, we can define all our variables in a local scope. We can also see
-that the function expression is immediately invoked. We cannot do the same
-with a function declaration. What's the benefit of this?
+The above code works even though the function is defined below the code that uses it.
+
+Function declarations are not part of the regular top to bottom flow of control. They are conceptually moved to the top of the scope and can be used by all the code in that scope.
+
+This is sometimes useful because it offers the freedom to order code in a way that seems meaningful
+
+Because a function has to jump back to the place that called it when it returns, the computer must remember the context from which the call happened.
+
+The place where the computer stores the context is the call stack.
+
+### Closure
 
 ```javascript
-(function() {
-	var a = 'Is this available outside';
-})();
-
-console.log(a); //reference error
-```
-
-This is really powerful though. I can encapsulate the behaviour of the
-underlying function and only return the values neeed. We still used
-a global namespace but we kept it from polluting.
-
-```javascript
-var z = 1;
-var script1 = (function() {
-	return 5;
-})();
-```
-
-**_JQuery made use of the IIFE pattern_**
-
-```javascript
-
-// Importing jquery here
-<script src="http://code.jquery.com/......"></script>
-
-// Now jquery has been added to our window object
-<script>
-
-var script1=(function(what){
-what('h1').click(function(){
-what('h1').hide();
-})
-
-function a(){
-return 5;
+function multiplier() {
+	return number => number * factor;
 }
 
-return {
-a:a
-}
-
-})(jQuery)
-</script>
+let twice = multiplier(2);
+console.log(twice(5));
+//10
 ```
 
-We can also do something like this
+Thinking about program like this takes some practice. A good mental model is to think of function values as containing both the code in their body and the environment in which they are created.
+
+The following code summarizes the concepts convered above.
+
+Question:
+by starting from the number 1 and repeatedly either adding 5 or multiplying by 3, an infinite set of numbers can be produced. How would you write a function that, given a number, tries to find a sequence of such additions and multiplications that produces that number? For example, the number 13 could be reached by first multiplying by 3 and then adding 5 twice, whereas the number 15 cannot be reached at all
 
 ```javascript
-script.a(); //5
-```
+function findSolution(target) {
+	function find(current, history) {
+		if (current == target) return history;
 
-### this keyword
-
-**_this_** is the object that the function is a property of.
-
-```javascript
-function a() {
-	console.log(this);
-}
-a(); //Window
-```
-
-Again, this is a object that the function
-is a property of.
-
-```javascript
-const obj = {
-	name: 'Bill',
-	sing: function() {
-		return 'hey' + this.name;
+		else if(current<target>) return null
+		else{
+			return find(current+5,`${history}+5`) || find (current+3, `${history}+3`)
+		}
 	}
-};
-
-obj.sing();
-```
-
-The **_'this'_** keyword is actually dynamically
-scoped.
-
-```javascript
-const obj = {
-	name: 'Bill',
-	sing: function() {
-		var name=function(){
-            console.log('Inner', this)
-        }
-        name();
-	}
-};
-
-obj.sing();
-
-Output
-Window Object.
-```
-
-Here the inner function name was not called by 'obj'. It was called by the window object.
-Arrow function is going to lexically bind this. If we replace the function inside the sing function with the arrow function, the problem will now be solved.
-
-```javascript
-const wizard = {
-	name: 'Merlin',
-	health: 50,
-	heal() {
-		return (this.health = 100);
-	}
-};
-
-const archer = {
-	name: 'Robin Hood',
-	health: 30
-};
-
-wizard.heal.call(archer);
-```
-
-What happens if you use bind? Unlike call and apply it does not run a function
-but returns a function.
-
-```javascript
-const healArcher=wizard.heal.bind(archer)
-```
-
-### Bind and currying
-
-**_Function Currying_**
-
-```javascript
-function multiply(a, b) {
-	return a * b;
+	find(1,"1")
 }
 
-let multiplyByTwo = multiply.bind(this, 2);
-console.log(multiplyByTwo(4));
-
-let multiplyByTen = multiply.bind(this, 10);
-console.log(multiplyByTen(4));
+findSolution(24)
 ```
 
+### Data Structures: Objects and Arrays
 
-### Summarizing through examples
-
-### Functions are first class citizens in JS
-
-
-//1 (function Expressions)
+Both string and array objects contain in addition to the length property, a number of properties that hold function values.
 
 ```javascript
-var stuff=function(){
+let anObject = { left: 1, right: 2 };
+
+delete anObject.left;
+//undefined
+
+console.log('left' in anObject);
+//false
+```
+
+The binary in operator when applied to a string or an object tells you whether that object has a property with that name.
+
+To fnd out that properties an object has, you can use the Object.keys.
+
+There is an Object.assign function that copies all properties from one object into another.
+
+```javascript
+let objectA = { a: 1, b: 2 };
+Object.assign(objectA, {
+	b: 3,
+	c: 4
+});
+
+// {a;1,b:3,c:4}
+```
+
+### A for-of-loop
+
+```javascript
+for (let i = 0; i < JOURNAL.length; i++) {
+	let entry = Journal[i];
+}
+
+// for-of=loop
+
+for (let entry of JOURNAL) {
+	console.log(`${entry.events.length}events`);
 }
 ```
---------------------------------------
-//2 (Passing functions as parameters)
+
+### Important Array methods
 
 ```javascript
+let todoList = [];
 
-function a(fn){
-fn()
+function remember(task) {
+	todoList.push(task);
 }
-a(function(){console.log('Hi there'));
 
+function getTask(task) {
+	return todoList.shift();
+	//get the first task
+}
+
+function rememberUrgently() {
+	todoList.unshift(task);
+}
 ```
---------------------------------------
-//3 (Inner function)
+
+To search for a specific value, provide an indexOf method. The method searches through the array from the start to the end and returns the index of which the requested value was found.
 
 ```javascript
-
-function b(){
-return function c(){console.log('bye')}
-
-var d=b()
-d();
-
+console.log([1, 2, 3, 4].indexOf(2));
 ```
 
+Another fundamental method is slice that the start and end indices and returns an array that has only the elements between them. The start index is inclusive, the end index is exclusive.
+
+The concat method can be used to glue arrays together to create a new array which is similar to what the + operator does for strings.
+
+```javascript
+function remove(array, index) {
+	return array.slice(0, index).concat(array.slice(index + 1));
+}
+
+console.log(remove(['a', 'b', 'c', 'd', 'e'], 2));
+```
+
+Values of types string, number and Boolean are not objects and the language doesn't complain if you try to set new properties on them. Such values are immutable and cannot be change.
+
+```javascript
+let kim = 'kim';
+
+kim.age = 88;
+console.log(kim.age);
+//undefined
+```
+
+But these types have built in properties.
+
+```javascript
+console.log('coconuts', slice(4, 7));
+
+console.log('coconut', indexof('u'));
+//5
+```
+
+**_One difference between the string's indexof can search for a string containing more than one character, whereas the corresponding array method looks only for a single element._**
 
 
 
+The padStart function takes the desired length and padds charcters as arguments
 
-
+```javascript
+console.log(String(6).padStart(3, '0'));
+```
