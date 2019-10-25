@@ -282,7 +282,7 @@ let notBinary = /[^01]/;
 notBinary.test('11001000100110');
 ```
 
-### Repeating Parts of a PAttern
+### Repeating Parts of a Pattern
 
 We not know how to match a sinle digit. What if we want to match a whole number- a sequence of one or more digits.
 
@@ -306,6 +306,16 @@ neighbor.test('neighbour');
 //true
 neighbor.test('neighbor');
 //true
+```
+
+### Choice patterns
+
+So we want to know whether a piece of text contains not only a number but a number followed by one of the words pig, cow, or chicken or any of their plural forms.
+
+```javascript
+let animalCount = /\b\d+ (pig|cow|chicken)s?\b/;
+
+animalCount.test('15 pigs');
 ```
 
 To indicate that a pattern should occur a precise number of times, use braces. Putting {4} after an element, for example, requires it to occur exactly four times. It is also possoble to specify a range this way: {2,4} means the element must occur at least twice and at most four times.
@@ -347,3 +357,15 @@ When the regular expression contains subexpressions grouped with paranthesis, th
 The next element is the part matched by the first group.
 
 The \_ (underscore) binding is ignored and used only to skip the full match element in the array returned by exec.
+
+### Word and String Boundaries
+
+Unfortunately, getDate will also happily extract the nonsensical date 00-1-3000 from the string "100-1-30000". A match may happen anywhere in the string, so in this case, it will start at the second character and end at the second-to-last character.
+
+If we want to enforce that the match must span the whole string, we can the markers ^ and $. The caret matches the start of the input string and the $ matches the end.
+
+### The Mechanics of matching
+
+
+Conceptually, when you use exec or test, the regular expression engine looks for a match in your string by trying to match the expression first from the start of the string.
+
