@@ -20,7 +20,7 @@ $> ./sladp restart
 
 ```bash
 
-$>id gideon.pinto
+$>ssh chris@chris-tmp
 $>ls
 $> cd src/
 $> ls

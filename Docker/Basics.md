@@ -30,14 +30,18 @@ Docker registries
 
 ### How to create a docker image
 
-Docker images:
+- App binaries and dependencies
+- Metadata about the image data and how to run the image
+- Not a complete OS. No kernel, kernel modules (eg: drivers)
 
-- Use images to create an instance of a container
-- Comprised of multiple layers
-- Build Time constructs
-- Build from the instructions
+- Images are made up of filesystem changes and metadata
+- Each layer is uniquely identified and only stored once in a host
+- This saves storage space on host and transfer time on push/pull
+- A container is just a single read/write layer on top of image
+- docker image history and inspect commands can teach us
 
-Create an onboarding image.
+
+### Create an onboarding image.
 
 ```
 mkdir onboarding
@@ -59,6 +63,9 @@ docker build .
 
 ```
 docker container run hello-world
+docker container run -d -p 3306:3306 --name db -e MYSQL_ROOT_PASSWORD=yes mysql
+docker container logs db
+
 ```
 
 1. The Docker client contacted the Docker daemon.
@@ -69,6 +76,40 @@ docker container run hello-world
 4. The Docker daemon streamed that output to the Docker client, which sent it
    to your terminal.
    (Elaborate explaination below)
+
+
+### Build your own image for a react app
+
+
+```docker
+from node:12
+# this app listens on port 3000 , but the container should launch on port 80
+# so it will respond to http://localhost:80 on your computer
+
+Expose 3000
+
+# Then it should use alpine image to install tini:'apk add --update tini'
+
+RUN apk add --update tini
+
+RUN mkdir -p /usr/src/app
+
+# Node uses a 'package-manager' , so it needs a copy of the package.json file
+
+WORKDIR /usr/src/app
+
+# Then it neds to run npm install to install dependencies from that file
+
+COPY package.json package.json
+
+RUN npm install && npm cache clean
+
+COPY . .
+
+CMD ["tini","--","node","./bin/www"]
+
+```
+
 
 ### Docker objects
 
@@ -127,21 +168,18 @@ containerd
 
 ### Running Containers
 
+1. Looks for that image locally in image cache
+2. Looks in the remote image repository
+3. Downloads the latest version
+4. Creates a container based on that image
+5. Gives it a virtual IP on a private network inside Docker engine
+6. Opens up port 80 on host and forwards it port 80 in container.
+
+
 ```
 docker container run -it --name <NAME><IMAGE>:<TAG>
 ```
 
-Creating a container:
-
-- Use the CLI to execute a command
-- Docker client uses the appropriate API payload
-- POSTs to the correct API endpoint
-- The Docker Daemon receives instructions
-- The Docker Daemon calls containerd to start a new container
-- The Docker Daemon uses gRPC(a CRUD style App)
-- containerd creates an OCI bundle from the Docker image
-- Tells runc to create a container using the OCI bundle
-- runc interfaces with the OS kernel to get the constructions to create a container
 
 ### Creating Containers
 
@@ -182,7 +220,7 @@ CONTAINER ID        IMAGE                         COMMAND                  CREAT
 Mapping a container's port to a host's port
 
 ```
-docker container run -d --expost 3000 -p 80:3000 nginx
+docker container run -d --expose 3000 -p 80:3000 nginx
 7dcb182c1604        nginx                         "nginx -g 'daemon of…"   7 seconds ago       Up 4 seconds        80/tcp, 0.0.0.0:81->3000/tcp       agitated_jennings
 ```
 
@@ -272,3 +310,6 @@ docker image ls
 docker container run -d --name=weather-app1 -p 8081:3000 linuxacademy/weather-app:v1
 
 ```
+
+
+
