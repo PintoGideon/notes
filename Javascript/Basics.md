@@ -368,6 +368,119 @@ If we want to enforce that the match must span the whole string, we can the mark
 
 Conceptually, when you use exec or test, the regular expression engine looks for a match in your string by trying to match the expression first from the start of the string.
 
+### Networks and the Internet
+
+If you put cables between two computers and allow them to send data back and forth, you can do all kinds of wonderful things.
+
+A computer can use a netwrok to shoot bits to another computer. For any effective communication to arise out of this bit-shooting, the computers on both ends must know what the bits are supposed to represent. The meaning of any given sequence of bits depends entirely on the kind of thing that it is tryong to express and on the encoding mechanism used.
+
+A network protocol describes a style of communication over a network.
+A tcp connection works as follows: one computer must be waiting or listening for other computers to start talking to it. To be able to listen for different kinds of communication at the same time on a single machine, each listener has a number (called a port) assosciated by it.
+
+Another computer can then establish a connection by connecting to the target machine using the correct port number.
+
+### THe WEB
+
+The WEB is a set of protocols and formats that allow us to vist page in a browser. TO become a part of the web, all you need to do is connect a machine to the internet and have it listen on PORT 80 with the http protocol so that other computer can ask it for documents.
+
+### Layout
+
+You may be have notice that different types of elements are laid out differently. Some, such as paragraphs (<p>) or headings (<h1>) take up the whole width of the document and are rendered on seperate lines. Those are called block elements. Others such as links (<a>) or the <strong> element are rendered on the same line with their surrounding text. Such elements are called inline elements.
+
+A pixel is the basic unit of measurement in the browser.
+
+```javascript
+<p style="border:3px solid red">I am boxed in</p>
+```
+
+The most effective way to find the precise position of element on the screen is the getBoundingClientRect method.
+It returns an object with top, left, botton and right properties indicating the pixel position of the side of the element relative to the top left of the screen.
+
+Laying out a document can be quite a lot of work. In the interest of speed, browser engines does not immediately re-layout a document every time you change it but wait as long as they can. When a JS program that changed the document finishes running, the browser will have to compute a new layout to draw the changed document to the screen.
+
+A program that repeatedly alternates between reading DOM layout info and changing the DOM force a lot of layout computations to happen and will consequently run very slowly.
+
+### Positioning and Animating
+
+The position style property influences layout in a powerful way. By default it has a value of static, meaning the element sits in its normal place in the document.
+
+When it is set to relative, the element still takes up space in the document, but now the top and left style properties can be used to move it relative to that of normal place. When position is set to absolute, the element is remove the normal document flow- that is, it no longer takes up space and may overlap with other elements.
+
+### Handling Events
+
+A system actively notify your code when an event occurs.
+Browsers do this by allowing us to register functions as handlers for specific events.
+
+### Events and DOM nodes
+
+Each browser event handler is registered in a context. Event listeners are called only when the event happens in the context of the object they are registered on.
+
+Event handler functions are passed on argument called the event object. If we want to know which mouse button was pressed, we can look at the event objects button property.
+
+### Propogation
+
+For most event types, handlers registered on nodes with children will so receive events that happen in the children. If a button inside the paragraph is clicked, event handlers on the paragraph will also see the click event.
+
+But if both the paragraph and the button have a handler, the more specific handlers gets to go first.
+
+If you have a node containing a long list of buttons, it may be more convenient to register a single click handler on the outer node and have it use the target property to figure out whether a button was clicked.
+
+```javascript
+<button>A</button>
+<button>B</button>
+<button>C</button>
+<script>
+document.body.addEventListener("click",event=>{
+	if(event.target.nodeName=="BUTTON"){
+		console.log("Clicked",event.target.textContent)
+	}
+})
+</script>
+
+```
+
+**_ To get precise information on where a mouse event happend, you can look at it's clientX and clientY properties which contain the event's co-ordinates (in pixels) relatives to the top-left corner of the window or pageX or pageY which are relative to the top-left corner of the whole document_**
+
+
+### Mouse motion.
+
+Every time the mouse pointer moves, a "mousemove" event is fired. This event can be used to track the position of the mouse. 
+
+
+### Scroll Events
+
+Whenever an element is scrolled, a 'scroll' event is fired on it. This has various uses, such as knowing that is user is currently looking at or show indication of progress.
+
+
+
+The global innerHeight binding gives us the height of the window, which we have to substract from the total scrollable height.
+
+
+### Load Event
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 ### Backtracking
 
 The regular expression /\b([01]+b|[\da-f]+h)\d+)\b/ matches a binary number followed by a b , a hexadecimal number followed by a h, or a regular decimal number with no suffix character.
