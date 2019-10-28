@@ -368,24 +368,7 @@ If we want to enforce that the match must span the whole string, we can the mark
 
 Conceptually, when you use exec or test, the regular expression engine looks for a match in your string by trying to match the expression first from the start of the string.
 
-### Networks and the Internet
-
-If you put cables between two computers and allow them to send data back and forth, you can do all kinds of wonderful things.
-
-A computer can use a netwrok to shoot bits to another computer. For any effective communication to arise out of this bit-shooting, the computers on both ends must know what the bits are supposed to represent. The meaning of any given sequence of bits depends entirely on the kind of thing that it is tryong to express and on the encoding mechanism used.
-
-A network protocol describes a style of communication over a network.
-A tcp connection works as follows: one computer must be waiting or listening for other computers to start talking to it. To be able to listen for different kinds of communication at the same time on a single machine, each listener has a number (called a port) assosciated by it.
-
-Another computer can then establish a connection by connecting to the target machine using the correct port number.
-
-### THe WEB
-
-The WEB is a set of protocols and formats that allow us to vist page in a browser. TO become a part of the web, all you need to do is connect a machine to the internet and have it listen on PORT 80 with the http protocol so that other computer can ask it for documents.
-
-### Layout
-
-You may be have notice that different types of elements are laid out differently. Some, such as paragraphs (<p>) or headings (<h1>)take up the whole width of the document and are rendered on seperate lines. Those are called block elements. Others such as links (<a>) or the <strong> element are rendered on the same line with their surrounding text. Such elements are called inline elements.
+Some, such as paragraphs (<p>) or headings (<h1>)take up the whole width of the document and are rendered on seperate lines. Those are called block elements. Others such as links (<a>) or the <strong> element are rendered on the same line with their surrounding text. Such elements are called inline elements.
 
 A pixel is the basic unit of measurement in the browser.
 
@@ -698,3 +681,22 @@ The most immediate visible part of a programming language is it's syntax or nota
 A parser is a program that reads a piece of text and produces a data structure that reflects the structure of the program contained at that text.
 
 If the text does not form a valid program, the parser should point out the error. Our language will have a simple and uniform syntax.
+
+### Networks and the Internet
+
+If you put cables between two computers and allow them to send data back and forth, you can do all kinds of wonderful things.
+
+A computer can use a netwrok to shoot bits to another computer. For any effective communication to arise out of this bit-shooting, the computers on both ends must know what the bits are supposed to represent. The meaning of any given sequence of bits depends entirely on the kind of thing that it is tryong to express and on the encoding mechanism used.
+
+A network protocol describes a style of communication over a network.
+A tcp connection works as follows: one computer must be waiting or listening for other computers to start talking to it. To be able to listen for different kinds of communication at the same time on a single machine, each listener has a number (called a port) assosciated by it.
+
+Another computer can then establish a connection by connecting to the target machine using the correct port number.
+
+### THe WEB
+
+The WEB is a set of protocols and formats that allow us to vist page in a browser. TO become a part of the web, all you need to do is connect a machine to the internet and have it listen on PORT 80 with the http protocol so that other computer can ask it for documents.
+
+### Layout
+
+You may be have notice that different types of elements are laid out differently.
