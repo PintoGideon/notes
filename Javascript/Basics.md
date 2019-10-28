@@ -385,7 +385,7 @@ The WEB is a set of protocols and formats that allow us to vist page in a browse
 
 ### Layout
 
-You may be have notice that different types of elements are laid out differently. Some, such as paragraphs (<p>) or headings (<h1>) take up the whole width of the document and are rendered on seperate lines. Those are called block elements. Others such as links (<a>) or the <strong> element are rendered on the same line with their surrounding text. Such elements are called inline elements.
+You may be have notice that different types of elements are laid out differently. Some, such as paragraphs (<p>) or headings (<h1>)take up the whole width of the document and are rendered on seperate lines. Those are called block elements. Others such as links (<a>) or the <strong> element are rendered on the same line with their surrounding text. Such elements are called inline elements.
 
 A pixel is the basic unit of measurement in the browser.
 
@@ -441,10 +441,9 @@ document.body.addEventListener("click",event=>{
 
 **_ To get precise information on where a mouse event happend, you can look at it's clientX and clientY properties which contain the event's co-ordinates (in pixels) relatives to the top-left corner of the window or pageX or pageY which are relative to the top-left corner of the whole document_**
 
-
 ### Mouse motion.
 
-Every time the mouse pointer moves, a "mousemove" event is fired. This event can be used to track the position of the mouse. 
+Every time the mouse pointer moves, a "mousemove" event is fired. This event can be used to track the position of the mouse.
 
 ### Scroll Events
 
