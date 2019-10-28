@@ -678,7 +678,7 @@ The WEB is a set of protocols and formats that allow us to vist page in a browse
 
 ### Layout
 
-You may be have notice that different types of elements are laid out differently. Some, such as paragraphs (<p>) or headings (<h1>)take up the whole width of the document and are rendered on seperate lines. Those are called block elements. Others such as links (<a>) or the <strong> element are rendered on the same line with their surrounding text. Such elements are called inline elements.
+You may be have notice that different types of elements are laid out differently. Some, such as paragraphs (p) or headings (h1)take up the whole width of the document and are rendered on seperate lines. Those are called block elements. Others such as links (<a>) or the <strong> element are rendered on the same line with their surrounding text. Such elements are called inline elements.
 
 A pixel is the basic unit of measurement in the browser.
 
