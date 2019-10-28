@@ -368,54 +368,6 @@ If we want to enforce that the match must span the whole string, we can the mark
 
 Conceptually, when you use exec or test, the regular expression engine looks for a match in your string by trying to match the expression first from the start of the string.
 
-### Handling Events
-
-A system actively notify your code when an event occurs.
-Browsers do this by allowing us to register functions as handlers for specific events.
-
-### Events and DOM nodes
-
-Each browser event handler is registered in a context. Event listeners are called only when the event happens in the context of the object they are registered on.
-
-Event handler functions are passed on argument called the event object. If we want to know which mouse button was pressed, we can look at the event objects button property.
-
-### Propogation
-
-For most event types, handlers registered on nodes with children will so receive events that happen in the children. If a button inside the paragraph is clicked, event handlers on the paragraph will also see the click event.
-
-But if both the paragraph and the button have a handler, the more specific handlers gets to go first.
-
-If you have a node containing a long list of buttons, it may be more convenient to register a single click handler on the outer node and have it use the target property to figure out whether a button was clicked.
-
-```javascript
-<button>A</button>
-<button>B</button>
-<button>C</button>
-<script>
-document.body.addEventListener("click",event=>{
-	if(event.target.nodeName=="BUTTON"){
-		console.log("Clicked",event.target.textContent)
-	}
-})
-</script>
-
-```
-
-**_ To get precise information on where a mouse event happend, you can look at it's clientX and clientY properties which contain the event's co-ordinates (in pixels) relatives to the top-left corner of the window or pageX or pageY which are relative to the top-left corner of the whole document_**
-
-### Mouse motion.
-
-Every time the mouse pointer moves, a "mousemove" event is fired. This event can be used to track the position of the mouse.
-
-### Scroll Events
-
-Whenever an element is scrolled, a 'scroll' event is fired on it. This has various uses, such as knowing that is user is currently looking at or show indication of progress.
-The global innerHeight binding gives us the height of the window, which we have to substract from the total scrollable height.
-
-### Backtracking
-
-The regular expression /\b([01]+b|[\da-f]+h)\d+)\b/ matches a binary number followed by a b , a hexadecimal number followed by a h, or a regular decimal number with no suffix character.
-
 ### THe replace methid
 
 String values have a replace method that can be used to replace part of the string with another string.
@@ -516,6 +468,10 @@ while ((match = number.exec(input))) {
 }
 // Found 3 at 14
 ```
+
+### Backtracking
+
+The regular expression /\b([01]+b|[\da-f]+h)\d+)\b/ matches a binary number followed by a b , a hexadecimal number followed by a h, or a regular decimal number with no suffix character.
 
 ### Modules
 
@@ -698,3 +654,238 @@ A program that repeatedly alternates between reading DOM layout info and changin
 The position style property influences layout in a powerful way. By default it has a value of static, meaning the element sits in its normal place in the document.
 
 When it is set to relative, the element still takes up space in the document, but now the top and left style properties can be used to move it relative to that of normal place. When position is set to absolute, the element is remove the normal document flow- that is, it no longer takes up space and may overlap with other elements.
+
+### Handling Events
+
+A system actively notify your code when an event occurs.
+Browsers do this by allowing us to register functions as handlers for specific events.
+
+### Events and DOM nodes
+
+Each browser event handler is registered in a context. Event listeners are called only when the event happens in the context of the object they are registered on.
+
+Event handler functions are passed on argument called the event object. If we want to know which mouse button was pressed, we can look at the event objects button property.
+
+### Propogation
+
+For most event types, handlers registered on nodes with children will so receive events that happen in the children. If a button inside the paragraph is clicked, event handlers on the paragraph will also see the click event.
+
+But if both the paragraph and the button have a handler, the more specific handlers gets to go first.
+
+If you have a node containing a long list of buttons, it may be more convenient to register a single click handler on the outer node and have it use the target property to figure out whether a button was clicked.
+
+```javascript
+<button>A</button>
+<button>B</button>
+<button>C</button>
+<script>
+document.body.addEventListener("click",event=>{
+	if(event.target.nodeName=="BUTTON"){
+		console.log("Clicked",event.target.textContent)
+	}
+})
+</script>
+
+```
+
+**_ To get precise information on where a mouse event happend, you can look at it's clientX and clientY properties which contain the event's co-ordinates (in pixels) relatives to the top-left corner of the window or pageX or pageY which are relative to the top-left corner of the whole document_**
+
+### Mouse motion.
+
+Every time the mouse pointer moves, a "mousemove" event is fired. This event can be used to track the position of the mouse.
+
+### Scroll Events
+
+Whenever an element is scrolled, a 'scroll' event is fired on it. This has various uses, such as knowing that is user is currently looking at or show indication of progress.
+The global innerHeight binding gives us the height of the window, which we have to substract from the total scrollable height.
+
+### Load Event
+
+When a page finishes loading, the load event fires on the window and the document body objects. This is often used to schedule initialization actions that require the whole document to have been built. Remember that the content of script tags is run immediately when the tag is encountered. This may be too soon.
+
+Elements such as images and script tags that load an external files also have a "load" event that indicates the files they reference are loaded. Like the focus-related events , loading events do not propogate.
+
+### Events and the Event Loop
+
+Browser event handlers like other asynchronous notifications. They are schedules when the event occurs but must wait for the scripts that are running to finish before they get a change to run.
+
+The fact that events can be processed only when nothing else is running means that, if the event loop is tied up with other work, any interaction with the page will be delayed. So if you schedule too much work, either with long running event handlers or will lots of short running ones, the page will become slow and cumbersome to use.
+
+For cases , where you really want to do something time consuming without freezing the page, browsers provide something called web workers. A worker is a JS process that runs alongside the main script, on its own timeline.
+
+Imagine that squaring a number is heavy, long running computation that we want to perform in a seperate thread, we could write a file called code/squareworker.js that responde to messgae by computing a square and sending a message back.
+
+```javascript
+addEventListener("message", event => {
+  postMessage(event.data * event.data);
+});
+```
+
+To avoid the problems of having multiple threads touching the same data, workers do not share their global scope or any other data withing the environment's script. You have to communicate with them by sending messages back and forth.
+
+```javascript
+let squareworker = new Worker("code/squareworker.js");
+squareworker.addEventListener("message", event => {
+  console.log("The worker responsed:", event.data);
+});
+
+squareworker.postMessage(10);
+```
+
+The postMessage function sends a message which will cause a "message" event to fire in the receiver. The script that created the worker sends and receives message through the Worker object, whereas the worker talks to the script that created it by sending and listening directly on the global scope.
+
+### Timers
+
+We saw the setTimeout function which schedules a function to run after a given number of milliseoncs.
+Sometimes you need to cancel a function you have scheduled. This is done by storing the value returned by setTimeout and calling clearTimeout on it.
+
+```javascript
+let bombTimer = setTimeout(() => {
+  console.log("BOOM");
+}, 500);
+
+if (Math.random() < 0.5) {
+  console.log("diffused");
+  clearTimeout(bombTimer);
+}
+```
+
+A similar set of functions ,setInterval and clearInterval are used to set timers that should repeate every X milliseconds.
+
+```javascript
+let ticks = 0;
+let clock = setInterval(() => {
+  console.log("tick", ticks++);
+  if (ticks == 10) {
+    clearInterval(clock);
+  }
+}, 200);
+```
+
+### Debouncing
+
+Some events have the potential to fire rapidly, many times in a row (the "mousemove" and "scroll" events for example). When handling such events , you must be careful not to do anything too time-consuming or your handler will take up so much time that interaction with the document starts to feel slow.
+
+In the first example, we want to react when the user has typed something, but we don't want to do it immediately for every input event. When they are typing quickly, we just want to wait until a pause occurs. Instead of immediately performing an action in the event handler, we set a timeout. We also clear the previous timeout, so that when events occur close together, the timeout from the previous event will be cancelled.
+
+```html
+<textarea> Type something here .....</textarea>
+<script>
+  let textarea = document.querySelector("textarea");
+  let timeout;
+  textarea.addEventListener("input", () => {
+    clearTimeout(timeout);
+    timeout = setTimeout(() => {
+      console.log("typed");
+    }, 500);
+  });
+</script>
+```
+
+### HTTP and Forms
+
+"Communications must be stateless in nature such that each request from a client to server must contain all the information necessary to understand the request, and cannot take advantage of any stored context on the server"
+
+- Roy Fielding
+
+### The Prototcol
+
+If you type an address into your browser's address bar, the browser first looks up the address of the server assosciated with it and tries to open a TCP connection to it on port 80, the default port for HTTP traffic.
+If the server exists and accepts the connection, the browser might send something like this.
+
+```
+GET /18_http.html HTTP/1.1
+Host:eloquentjavascript.net
+User-agent:Your browser's name
+
+```
+
+Then the server response, through the same connection
+
+```
+HTTP/1.1 200 OK
+Content-Length: 65585
+Content-Type: text/html
+Last-Modified: Mon, 08 Jan 2018 10:29:45 GMT
+```
+
+The browser takes the part of the response after the blank line, its body and displays it as an HTML document.
+
+```html
+<form method="GET" action="example/message.html">
+  <p>Name: <input type="text" name="name" /></p>
+  <p>Message: <br /><textarea name="message"></textarea></p>
+  <p><button type="submit">Send</button></p>
+</form>
+```
+
+When the <form> element's method attribute is GET (or is omitted) , the information in the form is added to the end of action URL as a query string.
+
+```javascript
+GET /example/message.html?name=Jean&message=Yes%3f HTTP/1.1
+```
+
+THe question mark indicates the end of the path part of the URL, and the start of the query. It is followed by pairs of names and values, corresponding to the name attribute on the form field elements and the content of those elements respectively.
+
+If we change the method attribute of the HTML form to POST, the HTTP request made to submit the form will use the POST method and put the query string in the body of the request, rather than adding it to the URL.
+
+```javascript
+
+POST /example/message.html HTTP/1.1
+Content-length:24
+Content-type: application/x-www-form-urlencoded
+
+name=Jean&message=Yes%3F
+
+```
+
+### Fetch
+
+The interface through which browser Javascript can make HTTP requests is called fetch. Since it is relatively new, the conveniently uses promises.
+
+```javascript
+fetch("example/data.txt").then(response => {
+  console.log(response.status);
+});
+```
+
+Calling fetch returns a promise that resolves to a response Object holding information about the server's response such as status code and headers.
+
+The first argument to fetch is the URL that should be requested. When the URL doesn't start with a protocol name it is treated relative , which means it is interpreted relative to the current document.
+Servers can include a header like this in their response to explicitly indicate to the browser that it is okay for the request to come from another domain.
+
+```html
+Access-Control-Allow-Origin: *
+```
+
+### Appreciating HTTP
+
+When building a system that requires communication between a JS program running in the browser and the program on a server, there are several different ways to model the communication.
+
+A commonly used model is that of remote procedure calls. In this model, communication follows the patterns of normal function calls , except that the function is actually running on another machine.
+
+Calling it involves making a request to the server that includes the functions name and arguments. The response to that request contains the returned value.
+
+The secure HTTP protocol, used for URLs starting with https://, wraps HTTP traffic in a way that makes it harder to read and tamper with. Before exchanging data, the client verifies that the server is who it claims to be by asking it to prove that it has a cryptographic certificate issued by a certificate authority that the browser recognizes. Next, all data is going over the connection is encryped in away that should prevent eavesdropping and tampering.
+
+### The form as a whole
+
+When a field is contained in a <form> element, its DOM element will have a form property linking back to the form's DOM.
+The <form> element in turn, has a property called elements that contains an array-like collections of the fields inside it.
+
+The name attribute of a form field determines the way its value will be identified when the form is submiited. It can also be as a a property name when accessing the form's elements property which acts both as an array-like object and a map.
+
+```javascript
+
+<form action ="example/submit.html">
+Name: <input type="text" name="name"><br>
+Password: <input type="password" name="password"><br>
+<button type="submit">Log in</button>
+</form>
+
+<script>
+let form=document.querySelector("form")
+console.log(form.elements[1].type);
+console.log(form.elements.password.type);
+</script>
+```
