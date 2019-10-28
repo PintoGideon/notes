@@ -603,13 +603,11 @@ An async function is a special type of generator. It produces a promise when cal
 
 ### The event loop
 
-Asynchronous Programs are executed piece by piece. Each pience may start some actions and schedule code to be  executed when the action finishes or fails. In between these pieces, the program sits idle waiting for the next action.
+Asynchronous Programs are executed piece by piece. Each pience may start some actions and schedule code to be executed when the action finishes or fails. In between these pieces, the program sits idle waiting for the next action.
 
 If I call setTimeout from within a function, that function will have returned by the time the callback function is called. And when the callback returns , control does not go back to the function that scheduled it.
 
-
-As events come in, there are added to a queue and their code is executed one after the other. 
-
+As events come in, there are added to a queue and their code is executed one after the other.
 
 ### Parsing
 
