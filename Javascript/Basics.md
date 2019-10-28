@@ -368,27 +368,6 @@ If we want to enforce that the match must span the whole string, we can the mark
 
 Conceptually, when you use exec or test, the regular expression engine looks for a match in your string by trying to match the expression first from the start of the string.
 
-Some, such as paragraphs (<p>) or headings (<h1>)take up the whole width of the document and are rendered on seperate lines. Those are called block elements. Others such as links (<a>) or the <strong> element are rendered on the same line with their surrounding text. Such elements are called inline elements.
-
-A pixel is the basic unit of measurement in the browser.
-
-```javascript
-<p style="border:3px solid red">I am boxed in</p>
-```
-
-The most effective way to find the precise position of element on the screen is the getBoundingClientRect method.
-It returns an object with top, left, botton and right properties indicating the pixel position of the side of the element relative to the top left of the screen.
-
-Laying out a document can be quite a lot of work. In the interest of speed, browser engines does not immediately re-layout a document every time you change it but wait as long as they can. When a JS program that changed the document finishes running, the browser will have to compute a new layout to draw the changed document to the screen.
-
-A program that repeatedly alternates between reading DOM layout info and changing the DOM force a lot of layout computations to happen and will consequently run very slowly.
-
-### Positioning and Animating
-
-The position style property influences layout in a powerful way. By default it has a value of static, meaning the element sits in its normal place in the document.
-
-When it is set to relative, the element still takes up space in the document, but now the top and left style properties can be used to move it relative to that of normal place. When position is set to absolute, the element is remove the normal document flow- that is, it no longer takes up space and may overlap with other elements.
-
 ### Handling Events
 
 A system actively notify your code when an event occurs.
@@ -699,4 +678,23 @@ The WEB is a set of protocols and formats that allow us to vist page in a browse
 
 ### Layout
 
-You may be have notice that different types of elements are laid out differently.
+You may be have notice that different types of elements are laid out differently. Some, such as paragraphs (<p>) or headings (<h1>)take up the whole width of the document and are rendered on seperate lines. Those are called block elements. Others such as links (<a>) or the <strong> element are rendered on the same line with their surrounding text. Such elements are called inline elements.
+
+A pixel is the basic unit of measurement in the browser.
+
+```javascript
+<p style="border:3px solid red">I am boxed in</p>
+```
+
+The most effective way to find the precise position of element on the screen is the getBoundingClientRect method.
+It returns an object with top, left, botton and right properties indicating the pixel position of the side of the element relative to the top left of the screen.
+
+Laying out a document can be quite a lot of work. In the interest of speed, browser engines does not immediately re-layout a document every time you change it but wait as long as they can. When a JS program that changed the document finishes running, the browser will have to compute a new layout to draw the changed document to the screen.
+
+A program that repeatedly alternates between reading DOM layout info and changing the DOM force a lot of layout computations to happen and will consequently run very slowly.
+
+### Positioning and Animating
+
+The position style property influences layout in a powerful way. By default it has a value of static, meaning the element sits in its normal place in the document.
+
+When it is set to relative, the element still takes up space in the document, but now the top and left style properties can be used to move it relative to that of normal place. When position is set to absolute, the element is remove the normal document flow- that is, it no longer takes up space and may overlap with other elements.
