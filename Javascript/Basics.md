@@ -446,40 +446,10 @@ document.body.addEventListener("click",event=>{
 
 Every time the mouse pointer moves, a "mousemove" event is fired. This event can be used to track the position of the mouse. 
 
-
 ### Scroll Events
 
 Whenever an element is scrolled, a 'scroll' event is fired on it. This has various uses, such as knowing that is user is currently looking at or show indication of progress.
-
-
-
 The global innerHeight binding gives us the height of the window, which we have to substract from the total scrollable height.
-
-
-### Load Event
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 ### Backtracking
 
