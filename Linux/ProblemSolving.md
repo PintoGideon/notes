@@ -29,7 +29,7 @@ $> ls
 $> cd tools
 $> ls
 $> more use.txt
-$> checkDB.bash -h /neuro/chris/users -n chris -u chris
+$> checkDB.bash -h /neuro/users/chris/users -n chris -u chris
 
 ```
 
