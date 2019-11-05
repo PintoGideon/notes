@@ -889,3 +889,74 @@ console.log(form.elements[1].type);
 console.log(form.elements.password.type);
 </script>
 ```
+
+### Offset and Pagination\
+
+Typically in an application with a database, you might have more records than you can fit onto a page or in a single result set from a query.
+When you and your users want to retrieve the next page of results, the two common options include:
+
+1. Offset Pagination
+2. Cursor Pagination
+
+### Offset Pagination
+
+When retrieving data with offset pagination, you would typically allow clients to supply two additional paramters in their query: an offset and a limit.
+An offset is simply the number of records you wish to skip before selecting records. This gets slower as the number of records increases because the database still has to read up to the offset number to know where it should start selecting data.
+
+If you want to get the first page of the newest posts from a database, the query might look like this.
+
+```javascript
+Post |> order_by(inserted_at::desc) |> limit(20);
+```
+
+Then when we want the second page of results , we can include an offset
+
+```javascript
+Post
+|>order_by(inserted_at:"desc")
+|>limit(20)
+|>offset(20)
+```
+
+### A few examples on Promise to have a firm understanding
+
+**_Promise.all_**
+
+The all function retunrs a new promise which is fulfilled with an array of fulfillment values for the passed promises or rejects with the reason of the first promise that rejects.
+
+```javascript
+function readJsonFiles(filenames) {
+  return Promise.all(filenames.map(readJSON));
+}
+
+readJsonFiles(["a.json", "b.json"]).done(
+  function(results) {},
+  function(err) {}
+);
+```
+
+The Promise.all is a built in method so you don't need to worry about implementing it yourself.
+
+```javascript
+function all(promises) {
+  var accumulator = [];
+  var ready = Promise.resolve(null);
+  promises.forEach(function(promise, ndx) {
+    ready = ready
+      .then(function() {
+        return promise;
+      })
+      .then(function(value) {
+        accumulator[ndx] = value;
+      });
+  });
+  return ready.then(function() {
+    return accumulator;
+  });
+}
+```
+
+### Node.js
+
+The console.log method in Node does something similar to what it does in the browser. It prints out the piece of text.
+But in Node, the text will go to the process's standard output stream, rather than to a browser's JS console.
