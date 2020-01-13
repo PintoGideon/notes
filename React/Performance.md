@@ -46,3 +46,82 @@ shouldComponentUpdate() is a special function called before the render function 
 componentWillUpdate() Invoked immediately before rendering when new props or state are being received. Any state changes via this.setState are not allowed as this function should be strictly used to prepare for an upcoming update and not trigger an update itself.
 
 componendDidUpdate() is invoked immediately after the comonent's updates are flushed to the DOM.
+
+### Scheduling is the future of React
+
+Speed alone doesn't define the user experience.
+
+Web Apps are often bount by network speed rather than CPU speed.
+
+### Collections
+
+Collections do not get downloaded. You got to ask for the collection.
+https://medium.com/@baphemot/understanding-react-suspense-1c73b4b0b1e6
+
+```javascript
+const cache = {
+  [file.id]: file
+};
+const pendingCache = {};
+
+// Read from the cache first
+
+// Set the id anf the file if not read from a cache
+
+let pending = pending[file.id];
+
+// Check if you have a promise sitting in the pending cache
+
+const promise = (pending || pending[file.id] = await filelist.getItems());
+
+promise.then(files => {
+  cache[file.id] = file;
+});
+```
+
+### Prevent React setState on unmounted Component
+
+**_Warning: Can only update a mounted or mounting component. This usually means you called setState, replaceState, or forceUpdate on an unmounted component. This is a no-op._**
+
+This warnng usually shows up when this.setState() is called in a component even though the component got already unmounted. The unmounting can happen for different cases.
+
+1. You don't render a component anymore due to React's conditional rendering
+2. You navigate away from a component by using a library such as react router.
+
+It can still happen that this.setState() is called if you have done async logic in your component and updated the local state of the component afterward.
+
+3. You made an asynchronous request to an API, the request (e.g. Promise) isn't resolved yet, but you unmount the component. Then the request resolves, this.setState() is called to set the new state, but it hits an unmounted componen
+
+4. You have a listener in your component, but didn't remove it on componentWillUnmount(). Then the listener may be triggered when the component unmounted
+
+```javascript
+
+class News extends Component {
+  _isMounted = false;
+  constructor(props) {
+    super(props);
+    this.state = {
+      news: [],
+    };
+  }
+  componentDidMount() {
+    this._isMounted = true;
+    axios
+      .get('https://hn.algolia.com/api/v1/search?query=react')
+      .then(result => {
+        if (this._isMounted) {
+          this.setState({
+            news: result.data.hits,
+          });
+        }
+      });
+  }
+  componentWillUnmount() {
+    this._isMounted = false;
+  }
+  render() {
+    ...
+  }
+}
+
+```

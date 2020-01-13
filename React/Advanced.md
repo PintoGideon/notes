@@ -8,4 +8,4 @@ Once a template goes through the JSZ compiler, you end up with a bunch of React 
 render method is merged into the tree of fiber nodes. Every React element has a corresponding fiber node.
 Fiber nodes aren't recreated on every render. These are mutable data structures that hold components state and the DOM.
 
-Every React element is converted into a Fibe node of corresponding type that describes the work that needs to be done.
+Every React element is converted into a Fibe node of corresponding type that describes the work that needs to be done

@@ -31,3 +31,12 @@ The properties would add up horizontally in the object but mask the most importa
 
 The initial state is an empty list of todos. However, in growing applications you want to operate on more than todos. In a growing application, more objects and arrays will gather in the global state. That's why your initial state shouldn't be an empty array but an object that represents the state object. This object has nested properties.
 
+### Advanced Redux Patterns
+
+1. Normalization
+
+The term normalization comes from the database world. It refers to transforming the schema of a database to remove redundant information.
+
+### Normalizing data using a schema
+
+res

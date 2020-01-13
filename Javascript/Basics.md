@@ -168,7 +168,10 @@ function flatten(array) {
   }, []);
 }
 
-flatten([[1, 3, 4], [2, 3]]);
+flatten([
+  [1, 3, 4],
+  [2, 3]
+]);
 ```
 
 ### Encapsulation
@@ -572,7 +575,10 @@ requestType("ping", () => "pong");
 
 function availableNeighbors(nest) {
   let requests = nest.neighbores.map(neighbor => {
-    return request(nest, neighbor, "ping").then(() => true, () => false);
+    return request(nest, neighbor, "ping").then(
+      () => true,
+      () => false
+    );
   });
   return Promise.all(requests).then(result => {
     return nest.neighbors.filter((_, i) => result[i]);
@@ -912,10 +918,7 @@ Post |> order_by(inserted_at::desc) |> limit(20);
 Then when we want the second page of results , we can include an offset
 
 ```javascript
-Post
-|>order_by(inserted_at:"desc")
-|>limit(20)
-|>offset(20)
+Post |> order_by((inserted_at: "desc")) |> limit(20) |> offset(20);
 ```
 
 ### A few examples on Promise to have a firm understanding
@@ -960,3 +963,124 @@ function all(promises) {
 
 The console.log method in Node does something similar to what it does in the browser. It prints out the piece of text.
 But in Node, the text will go to the process's standard output stream, rather than to a browser's JS console.
+
+### Synchronous Generatory
+
+Synchronous generators are special versions of functions definitions and method definitions that always return synchronous iterables.
+
+```javascript
+function* genFunc1() {}
+
+const obj = {
+  *generatorMethod() {}
+};
+```
+
+If you call a generator function, it returns an iterable (actually, in iterator that is also iterable). The generator fills that iterable via the yield operator.
+
+```javascript
+function* genFunc1() {
+  yield "a";
+  yield "b";
+}
+
+const iterable = genFunc1();
+```
+
+Yield pauses a generator function.
+
+1. Function-calling it returns an iterator iter
+2. Iterating over iter repeatedly invokes iter.next(). Each time, we jump into the body of the generator function until there is a yield that returns a value.
+
+```javascript
+let location = 0;
+function* genFunc2() {
+  location = 1;
+  yield "a";
+  location = 2;
+  yield "b";
+  location = 3;
+}
+
+const iter = genFunc2();
+
+iter.next(); //location=0   {value:0, done:false}
+iter.next(); //location=1 {value:1,done:false}
+iter.next(); //location=2 {value:2,done:false}
+```
+
+### Why does yield pause execution?
+
+What are the benefits of yield pausing execution? Due to pausing, generators provide many of the features of coroutines. For example, when you ask for the next value of an iterable, that value is computed lazily.
+
+```javascript
+function* mapIter(iterable, func) {
+  let index = 0;
+  for (const x of iterable) {
+    yield func(x, index);
+    index++;
+  }
+}
+
+const iterable = mapIter(["a", "b"], x => x + x);
+```
+
+### Calling generators from generators
+
+```javascript
+function* bar() {
+  yield "a";
+  yield "b";
+}
+
+function* foo() {
+  yield* bar();
+}
+```
+
+```javascript
+class BinaryTree {
+  constructor(value, left = null, right = null) {
+    this.value = value;
+    this.left = left;
+    this.right = right;
+  }
+
+  *[Symbol.iterator]() {
+    yield this.value;
+    if (this.left) {
+      yield* this.left;
+    }
+    if (this.right) {
+      yield* this.right;
+    }
+  }
+}
+```
+
+### A look into Synchronicity
+
+JavaScript executes tasks sequentially in a single process. The loop is also called the event loop because events such as clicking a mouse, add tasks to the queue.
+
+Due to this style of cooperative multitasking , we don't want a task to block other tasks from being executed while, for example, it waits for results coming from a server.
+
+What if divide() needs a server to compute it's result. The caller shouldn't have to wait until the result is ready; it should be notified when it is. One way of delivering the result asynchronously is by giving divide() a callback function that it uses to notify the caller.
+
+
+### The event loop
+
+By default, JS runs in a single process.
+
+Task sources like DOM manipulation, User interaction, Networking, History traversal add code to run to the task queue, which is emptied by the event loop.
+
+If a user clicks on the UI, then an invocation of that listener is added to the task queue.
+
+The event loop runs continously inside the JS process. During each loop iteration, it takes one task out of the queue and executes it. The task is finished when the call stack is empty and then there is a return.
+Control goes back to the event loop, which then retrieves the next task from the queue and executes it.
+
+### Events: XMLHttpRequest
+
+
+
+
+

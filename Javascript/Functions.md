@@ -13,10 +13,10 @@ The statement defines the binding square and points it at the given function.
 **_There is one subtelty with this form of function definition_**
 
 ```javascript
-console.log('The future says', future());
+console.log("The future says", future());
 
 function future() {
-	return "You'll never have flying cars";
+  return "You'll never have flying cars";
 }
 ```
 
@@ -34,7 +34,7 @@ The place where the computer stores the context is the call stack.
 
 ```javascript
 function multiplier() {
-	return number => number * factor;
+  return number => number * factor;
 }
 
 let twice = multiplier(2);
@@ -75,7 +75,7 @@ let anObject = { left: 1, right: 2 };
 delete anObject.left;
 //undefined
 
-console.log('left' in anObject);
+console.log("left" in anObject);
 //false
 ```
 
@@ -88,8 +88,8 @@ There is an Object.assign function that copies all properties from one object in
 ```javascript
 let objectA = { a: 1, b: 2 };
 Object.assign(objectA, {
-	b: 3,
-	c: 4
+  b: 3,
+  c: 4
 });
 
 // {a;1,b:3,c:4}
@@ -99,13 +99,13 @@ Object.assign(objectA, {
 
 ```javascript
 for (let i = 0; i < JOURNAL.length; i++) {
-	let entry = Journal[i];
+  let entry = Journal[i];
 }
 
 // for-of=loop
 
 for (let entry of JOURNAL) {
-	console.log(`${entry.events.length}events`);
+  console.log(`${entry.events.length}events`);
 }
 ```
 
@@ -115,16 +115,16 @@ for (let entry of JOURNAL) {
 let todoList = [];
 
 function remember(task) {
-	todoList.push(task);
+  todoList.push(task);
 }
 
 function getTask(task) {
-	return todoList.shift();
-	//get the first task
+  return todoList.shift();
+  //get the first task
 }
 
 function rememberUrgently() {
-	todoList.unshift(task);
+  todoList.unshift(task);
 }
 ```
 
@@ -140,16 +140,16 @@ The concat method can be used to glue arrays together to create a new array whic
 
 ```javascript
 function remove(array, index) {
-	return array.slice(0, index).concat(array.slice(index + 1));
+  return array.slice(0, index).concat(array.slice(index + 1));
 }
 
-console.log(remove(['a', 'b', 'c', 'd', 'e'], 2));
+console.log(remove(["a", "b", "c", "d", "e"], 2));
 ```
 
 Values of types string, number and Boolean are not objects and the language doesn't complain if you try to set new properties on them. Such values are immutable and cannot be change.
 
 ```javascript
-let kim = 'kim';
+let kim = "kim";
 
 kim.age = 88;
 console.log(kim.age);
@@ -159,9 +159,9 @@ console.log(kim.age);
 But these types have built in properties.
 
 ```javascript
-console.log('coconuts', slice(4, 7));
+console.log("coconuts", slice(4, 7));
 
-console.log('coconut', indexof('u'));
+console.log("coconut", indexof("u"));
 //5
 ```
 
@@ -170,7 +170,7 @@ console.log('coconut', indexof('u'));
 The padStart function takes the desired length and padds charcters as arguments
 
 ```javascript
-console.log(String(6).padStart(3, '0'));
+console.log(String(6).padStart(3, "0"));
 ```
 
 As we have seen, Math is grab bag of number-related utility functions such as Math.max(maximum). Math.min(minimum and Math.sqrt (square root)
@@ -179,11 +179,11 @@ If you need to do trignometry, Math can help. It contains cos(cosine), sin(sine)
 
 ```javascript
 function randomPointOnCircle(radius) {
-	let angle = Math.random() * 2 * Math.PI;
-	return {
-		x: radius * Math.cos(angle),
-		y: radius * Math.sin(angle)
-	};
+  let angle = Math.random() * 2 * Math.PI;
+  return {
+    x: radius * Math.cos(angle),
+    y: radius * Math.sin(angle)
+  };
 }
 ```
 
@@ -197,3 +197,41 @@ The machine keeps some hidden value, and whenever you ask for a new random numbe
 console.log(Math.floor(Math.random) * 10);
 ```
 
+### Closures
+
+```javascript
+function outer() {
+  let counter = 0; //variable environment
+  function incrementCounter() {
+    counter++;
+  }
+  return incrementCounter;
+}
+
+const myNewFunction = outer();
+myNewFunction(); //1
+myNewFunction(); //2
+```
+
+The increment function contains a scope propery that contains a link to lexical environement which contains the counter variable.
+
+### Advanced Problem Sets
+
+```javascript
+function once() {
+  let hasBeenRun = false;
+  function inner() {
+    if (hasBeenRun === false) {
+      hasBeen = true;
+      return "Congratulations, we won";
+    } else {
+      return "You can't run me again";
+    }
+  }
+  return inner;
+}
+
+let onceifiedWinner = once();
+onceifiedWinner(); //Congratulations , we won
+onceifiedWinner(); // You can't run me again
+```

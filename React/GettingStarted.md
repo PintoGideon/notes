@@ -6,12 +6,11 @@ There are two ways to declare React Components.
 - Importing and using createReactClass() method
 
 ```javascript
-class HelloWorld extends React.Component{
-  render(){
-    return <p>Hello World</p>
+class HelloWorld extends React.Component {
+  render() {
+    return <p>Hello World</p>;
   }
 }
-
 ```
 
 The render() method of a component needs to describe how the view should be represented
@@ -32,19 +31,21 @@ class ProductList extends React.Component {
 
 ReactDom.render(<ProductList />, document.getElementById("content"));
 ```
- We pass in two arguments to the ReactDOM.render() method. The first argument is what we would like to render and the second where to render it.
 
- For what, we are passing in a reference to our ProductList component, from where you might recall index.html
- contains a div tag with an id of content
+We pass in two arguments to the ReactDOM.render() method. The first argument is what we would like to render and the second where to render it.
 
- ```
+For what, we are passing in a reference to our ProductList component, from where you might recall index.html
+contains a div tag with an id of content
+
+```
 <div id="content"></div>
- ```
+```
+
 We pass in a reference to the DOM node as the second argument to see ReactDOM.render().
 
 ### JSX
 
-Browsers do not understand JSX and babel transpiles jsx into javascript. 
+Browsers do not understand JSX and babel transpiles jsx into javascript.
 
 ### Pure functions
 
@@ -58,21 +59,19 @@ React components are JS functions that return view.
 
 this is a special keyword in JS. The details of 'this' are a bit nuanced. In React, 'this'
 will be bound to the React Component Class. When we write this.props, we are accessing
-the props property on the component. 
-
+the props property on the component.
 
 ### Building Custom Component methods
 
 In react, inside render(), this is bound to the component. Understanding the binding of this
-is one of the trickiest parts of learning Javascript programming.For a render() function, React binds this to the component for us. React specifies a default set of special API methods. render() is one such method. constructor() is a special function in a JS class. JS invokes constructor() whenever an object is created via a class. If you've never worked 
+is one of the trickiest parts of learning Javascript programming.For a render() function, React binds this to the component for us. React specifies a default set of special API methods. render() is one such method. constructor() is a special function in a JS class. JS invokes constructor() whenever an object is created via a class. If you've never worked
 with an Object Oriented language before, it's sufficient to know that React invokes constructor() first thing when initializing our component. React invokes constructor() with the component's props.
 
 The constructor() function defined by React.component will bind this inside our constructor() to the component. Because of this, it's a good practice to always call super() first whenever you declare a constructor() for your component. After calling super(),we call bind() on our custom component method.
 
 ### Component
+
 A component should ideally only be responsible for one piece of functionality.
-
-
 
 ```javascript
 import React from "react";
@@ -494,38 +493,72 @@ Routing that takes place as your app is rendering,
 
 When we define a ref attribute on the input elemenet and use a function , for its value, Reac will execute that function when the input element gets mounted with the Component. React will also pass a reference to the DOM input element as an argument to the ref function. Inside the ref function we can access the Component instance via the this keyword so when we can store in input reference as an instance variable.
 
-
 Every React Component has a story.
 
 Here's how its story starts
 
-
 ```javascript
-
-class Quote extends React.Component{
-render(){
-return(
-<div className="quote-container">
- <div className="quote-body">{this.props.body}</div>
- <div className="quote-author-name">{this.props.authorName}</div>
-</div>
-)
+class Quote extends React.Component {
+  render() {
+    return (
+      <div className="quote-container">
+        <div className="quote-body">{this.props.body}</div>
+        <div className="quote-author-name">{this.props.authorName}</div>
+      </div>
+    );
+  }
 }
-}
-
 ```
 
 Our quote container story continues, the next major event in it's history is when we instanitate it. This is when we tell the component class to generate a copy from the template to represent the actual quote data object.
 
-
 ```html
-<Quote body="..." authorName="..."/>
-
+<Quote body="..." authorName="..." />
 ```
 
 The instantiated <Quote/> element is now full-term and ready to be born. We can render it somewhere in the browser.
 
+### Using the Children Prop
 
+React provides a special children prop that is used when a component needs to display content provided by it's parent. This is a useful way to reducing duplication by standardizing features in a container.
 
+### Defining the Context
 
+Contexts can be defined anywhere in the application.
 
+### Defining Error Boundaries
+
+When a component generates an error in its render method or in a lifecycle methid, it propogates up the component hierarchy until it reaches the top of the application at which point all applications are unmounted.
+
+Class based components can implement the componentDidCatch lifecycle method which is invoked when a child component throws an error. The React convention is to use dedicated error handling components known as error boundaries, that intercepts errors and either recover the application so it can continue execution or display a message to the user to indicate the nature of the problem.
+
+The componentDidCatch method receives the error object thrown by the problem component and an additional information object that provides the component's stack trace which can be useful for logging.
+
+### Using Portals
+
+A portal allows a component to render it's content into a specific DOM element instead of being presented as part of its parent context.
+
+### Memoization
+
+```javascript
+class Examples extends React.Component {
+  state = {
+    filterText: ""
+  };
+
+  filter=memoize((list,filterText)=>list.filter(item=>item.text.includes(filterText)))
+
+  render(){
+
+    const filteredList=this.filter(this.props.list,this.state.filterText)
+    return(
+      <>
+       <input onChange={this.handleChange} value={this.state.filterText}>
+       <ul>{
+         filteredList.map(item=><li key={item.id}>{item.text}</li>)
+       }</ul>
+      </>
+    )
+  }
+}
+```
