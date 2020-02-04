@@ -79,3 +79,21 @@ The path /python3 (from --python=/python3) does not exist
 ssh toor@chris-tmp
 sudo service apache2 restart
 ```
+
+### Setting up ChRIS instances on fnndsc
+
+```bash
+cd /home/jorge.bernal/chris/ChRIS_ultron_backEnd
+./docker-destroy-chris_dev.sh
+sudo rm -r FS/
+git pull
+./docker-make-chris_dev.sh -U -I -i
+cd /home/jorge.bernal/chris/ChRIS_store_ui
+git pull
+docker build -t local/chris_store_ui .
+docker run --name chris_store_ui -p 5055:3000 -d local/chris_store_ui
+cd /home/jorge.bernal/chris/ChRIS_ui
+git pull
+docker build -t local/chris_ui .
+docker run --name chris_ui -p 5010:3000 -d local/chris_ui
+```

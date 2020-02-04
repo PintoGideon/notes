@@ -61,6 +61,12 @@ this is a special keyword in JS. The details of 'this' are a bit nuanced. In Rea
 will be bound to the React Component Class. When we write this.props, we are accessing
 the props property on the component.
 
+Link to an example that explains this: https://www.smashingmagazine.com/2014/01/understanding-javascript-function-prototype-bind/
+
+
+
+
+
 ### Building Custom Component methods
 
 In react, inside render(), this is bound to the component. Understanding the binding of this
@@ -103,6 +109,16 @@ JSX is compiled down to JS by Babel.
    it's children
 
 2. Bottom-up: Start at the bottom(the leaves of the tree). Build Avatar, then name with handle, then the rest of the child components. Verify that they work in isolation. Once they are all done, assemble them into the Tweet.
+
+
+
+### Updating the Rendered Element
+
+React elements are immutable. Once you create an element you can't change it's children or attributes. An element is like a single frame in a movie. It represents the UI at a certain point in time.
+
+Thinking about how the UI should look at any given moment rather than how to change it over time eliminates a whole class of bugs.
+
+
 
 ### Deep Dive
 
@@ -382,7 +398,8 @@ If you need to do any calculations based on the old DOM, this is the time to do 
 
 ### Unmounting:
 
-**_componentWillUnmount_**:The component is about to be unmounted. Maybe it's item was removed from a list, maybe the user navigated to another tab.
+**_componentWillUnmount_**:The component is about to be unmounted. Maybe it's item was removed from a list, maybe the user navigated to another tab. In applications with many components, it's very important to free up resources taken up by the components when they are destroyed.
+
 
 ### state
 

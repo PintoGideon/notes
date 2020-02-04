@@ -125,3 +125,23 @@ class News extends Component {
 }
 
 ```
+
+### Race Conditions
+
+1. Redux Middleware
+
+```javascript
+const apiMiddleware = ({ dispatch }) => next => action => {
+  next(action);
+};
+
+or;
+
+const test = function apiMiddleware({ dispatch }) {
+  return function(next) {
+    return function(action) {
+      next(action);
+    };
+  };
+};
+```

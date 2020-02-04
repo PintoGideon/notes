@@ -235,3 +235,292 @@ let onceifiedWinner = once();
 onceifiedWinner(); //Congratulations , we won
 onceifiedWinner(); // You can't run me again
 ```
+
+Rebuilding the once function
+
+```javascript
+function once(func) {
+  let hasBeenRun = false;
+  function inner() {
+    if (hasBeenRun === false) {
+      hasBeenRun = true;
+      const value = func();
+      return value;
+    } else {
+      return "You can't run me again";
+    }
+  }
+  return inner;
+}
+
+function winner() {
+  return `congratulations you won`;
+}
+
+const onceifiedWinner = once(winner);
+onceifiedWinner();
+onceifiedWinner();
+```
+
+### Memoization
+
+```javascript
+function cacheOnce(func) {
+  let cache = {};
+
+  function inner(value) {
+    console.log(cache);
+    if (cache[value]) return cache[value];
+    else {
+      const returnVal = func(value); //returns the value
+      cache[value] = returnVal;
+      return value;
+    }
+  }
+  return inner;
+}
+
+function nthPrime(val) {
+  return `Prime number of ${val} calculated`;
+}
+
+const calculateNthPrime = cacheOnce(nthPrime);
+calculateNthPrime(1000);
+calculateNthPrime(1000);
+calculateNthPrime(100);
+```
+
+### Each node can have one parent and can have any number of children.
+
+```javascript
+
+const flat={
+// All my feed objects.
+  { id: 1, parentId: 3 },
+  { id: 3, parentId: 8 },
+  { id: 4, parentId: 6 },
+  { id: 6, parentId: 3 },
+  { id: 7, parentId: 6 },
+  { id: 8, parentId: null },
+  { id: 10, parentId: 8 },
+  { id: 13, parentId: 14 },
+  { id: 14, parentId: 10 }
+
+}
+
+
+```
+
+Simply iterate through the array and assign each object to the children array of it's parent object.
+
+```javascript
+flat.forEach(node => {
+  // No parentId means top leavel.
+
+  if (!node.id) return root.push(node);
+
+  // Insert node as child of parent in flat array
+
+  const parent = flat.findIndex(e1 => e.id === node.parentId);
+  if (!flat[parent].children) {
+    return (flat[parent].children = node);
+  }
+  flat[parentIndex].children.push(node);
+});
+
+console.log(root);
+```
+
+```javascript
+for (let pluginInstance of pluginInstances) {
+  console.log("PluginInstances that are being looped over", pluginInstances);
+  console.log("PluginCount", countPlugin);
+  const { id, plugin_name } = pluginInstance.data;
+  const previousPluginInstance = await pluginInstance.getPreviousPluginInstance();
+  if (previousPluginInstance === null) {
+    console.log("In here for dircopy");
+    currentDir.push({
+      label: `${plugin_name}_${id}`,
+      value: plugin_name,
+      children: []
+    });
+  } else {
+    console.log(
+      "Previous Plugin Instance exists",
+      previousPluginInstance,
+      currentDir
+    );
+    const parentIndex = currentDir.findIndex(
+      node =>
+        node.label ==
+        `${previousPluginInstance.data.plugin_name}_${previousPluginInstance.data.id}`
+    );
+
+    console.log("Parent index and currentDir status", parentIndex, currentDir);
+
+    this.getNestedChildren(currentDir, currentDir[parentIndex]);
+    console.log("CurrentDir at the end of the loop", currentDir);
+  }
+  countPlugin++;
+}
+currentDir = trackDir;
+```
+
+console.log("In nested children", pluginInstances);
+
+    let out = [];
+    const map = {};
+
+    pluginInstances.forEach(async pluginInstance => {
+      const { id, name } = pluginInstance;
+
+      if (pluginInstance.parentId === undefined)
+        return out.push(pluginInstance);
+
+      const parentIndex = pluginInstances.findIndex(
+        e1 => e1.id === pluginInstance.parentId
+      );
+      if (!pluginInstances[parentIndex].children) {
+        return pluginInstances[parentIndex].children.push(pluginInstance);
+      }
+      pluginInstances[parentIndex].children.push(pluginInstance);
+    });
+    console.log("Out", out);
+
+    return out;pluginInstanceList
+        .getItems()
+        .map(pluginInstance => ({
+          id: pluginInstance.data.id,
+          parentId: pluginInstance.data.previous_id,
+          name: pluginInstance.data.plugin_name
+        }))
+        .sort((a, b) => a.id - b.id);git
+
+```javascript
+var paths = [
+  ["rWAR_7"][("rwar_7 ", " dircopy_8")][
+    ("rWAR_7 ", " dircopy_8 ", " freesurfer_pp_11")
+  ]
+];
+
+function arrangeIntoTree(paths) {
+  var tree = [];
+
+  var currentLevel = tree;
+  for (var i = 0; i < paths.length; i++) {
+    var path = paths[i];
+    for (j = 0; j < path.length; j++) {
+      var part = path[j];
+      var existingPath = findWhere(currentLevel, "name", part);
+      if (existingPath) {
+        currentLevel = existingPath.children;
+      } else {
+        var newpart = {
+          name: part,
+          children: []
+        };
+        currentLevel.push(newPart);
+        currentLevel = newPart.children;
+      }
+    }
+  }
+  return tree;
+}
+
+function findWhere(array, key, value) {
+  let t = 0; //counter
+
+  while (t < array.length && array[t][key] !== value) {
+    t++;
+  }
+  if (t < array.length) {
+    return array[t];
+  } else {
+    return false;
+  }
+}
+```
+
+/test-temp-8719/chris-uploads/DICOM/dataset1/0192-1.3.12.2.1107.5.2.19.45152.2013030808105485455785379.d
+
+input directory is actually assumed to exist within swift storage, thus the value of the input directory is the prefix within swift storage. See the wiki pages of CUBE for more information.
+
+### Reselect Library
+
+```javascript
+const mapStateToProps = (state: ApplicationState) => ({
+  pluginFiles: state.pluginFiles
+});
+
+const mapDispatchToProps = (dispatch: Dispatch) => ({
+  getPluginFiles: (plugin: IPluginItem) => dispatch(getPluginFiles(plugin))
+});
+```
+
+### Memoizing with Reselect
+
+```javascript
+import { createSelector } from "reselect";
+
+const getPlugin = state => state.plugin.selected;
+
+const getFiles = state => state.plugin.files;
+
+const getPluginFiles = createSelector(
+  [getPlugin, getFiles],
+  (selected, files) => {
+    let cache = {};
+	const id= selected.id as number
+	if(cache[id]) return cache[id]
+	else {
+		cache[id]=files;
+		return files
+	}
+  }
+);
+
+
+const mapStateToProps=(state)=>{
+	return {
+		pluginFiles:getVisibleTodos(state.selected,state.files)
+	}
+}
+```
+
+### Pfurl command for testing
+
+pfurl --auth chris:chris1234 --verb POST \
+ --http ${HOST_IP}:${HOST_PORT}/api/v1/plugins/7/instances/ \
+ --content-type application/vnd.collection+json \
+ --jsonwrapper 'template' --msg '
+{"data":
+[{"name":"dir",
+"value":"/uploads/DICOM"}
+]
+}' \
+--quiet --jsonpprintindent 4
+
+pfurl --auth chris:chris1234 --verb GET \
+ --http ${HOST_IP}:${HOST_PORT}/api/v1/plugins/instances/1/ \
+ --content-type application/vnd.collection+json \
+ --quiet --jsonpprintindent 4
+
+pfurl --auth chris:chris1234 --verb GET \
+ --http ${HOST_IP}:${HOST_PORT}/api/v1/plugins/instances/1/files \
+ --content-type application/vnd.collection+json \
+ --quiet --jsonpprintindent 4
+
+IP address: 10.72.76.169
+
+dkee chris_dev "sudo chmod 777 /etc/hosts"
+dkee chris_dev "echo '\${} pfcon_service' >> /etc/hosts"
+dkee chris_dev "cat /etc/hosts"
+
+./_make_ -r pfcon
+
+```javascript
+
+
+
+
+```
