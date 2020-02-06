@@ -249,9 +249,9 @@ That means the write template is conceptually equivalent to this HTML form
 
 ```html
 <form action="http://www.youtypeitwepostit/api/" method="post">
-	<label for="text">Text of the message </label>
-	<input id="text" />
-	<input type="submit" />
+  <label for="text">Text of the message </label>
+  <input id="text" />
+  <input type="submit" />
 </form>
 ```
 
@@ -339,8 +339,8 @@ HTML was designed to represent the nested structure of a text document. Any HTML
 
 ```html
 <p>
-	This 'p' tag contains text
-	<a href="http://www.example.com">Add a link</a>
+  This 'p' tag contains text
+  <a href="http://www.example.com">Add a link</a>
 </p>
 ```
 
@@ -368,10 +368,10 @@ Almost an HTML tag can define a value for the id attribute. The attribute unique
 <div id="content"></div>
 ```
 
-
 ### Two-Step Design Procedure
 
-1. Choose a media type to use in your representation. 
+1. Choose a media type to use in your representation.
+
 ### The internal workings of the api
 
 For the plugin select, I need a list of all the available plugins and I can choose any one of the plugin.
@@ -434,9 +434,3 @@ async fetchAllPlugins(){
 The second page of the floating dialog is the user's opportunity to fill in required parameters without defaults as well as review the parameters that are optional and/or have defaults in order to provide values for those as well. The user clicks 'add node'
 
 The node is added to the graph, greyed out at first. As it begins to run, the node circle begins to pulse to indicate it is processing.
-
-```
-
-
-
-```
