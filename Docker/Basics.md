@@ -348,8 +348,6 @@ sandbox is an isolate network stack. It includes Ethernets, interfaces, ports , 
 Endpoints are virtual network interfaces. Like normal network interfaces, they are responsible for making connections.
 Networks are a software implementation of the 802.1d bridge. The group together and isolate, a collection of endpoints that need to communicate.
 
-
-
 Nowadays, all of the core Docker networking lives in libnetwork.
 
 Single-host bridge networks:
@@ -359,10 +357,11 @@ The simplest type of Docker network is the single host bridge network.
 2. Bridge tells us that it's an implementation of an 802.1d bridge
 
 Every Docker host gets a default single-host bridge network. THe bridge network maps to the docker0 linux bridge in the host's kernel which can be mapped back to an Ethernet interface on the host via port mappings.
- 
+
 ```
 docker network create -d bridge localnet
 ```
+
 The new network is created, and will appear in the output of any future docker216network ls commands. If you are using Linux, you will also have a new Linux bridge created in the kernel.
 Let’s use the Linux brctl tool to look at the Linux bridges currently on the system. You may have to manually install the brctl binary using apt-get install bridge- utils , or the equivalent for your Linux distro.
 
@@ -371,4 +370,78 @@ If we add another new container to the same network, it should be able to ping t
 embedded Docker DNS service so can resolve the names of all other containers on
 the same network.
 
+### Docker Volumes
 
+There are two main categories of data. Persistent and non-persistent.
+
+Persistent is the stuff you need to keep. Things like customer records, financials, bookings, audit logs and even some types of application log data. Non-persistent is the stuff you don't need to keep.
+
+Every Docker container gets its own non-persistent storage. It's automatically created, alongside its container and it's tied to the lifecycle of the container.
+
+If you want your container's data to stick around, you need to put it in a volume.
+
+At a high level, you create a volume, then you create a container, and you mount the volume into it. The volumne gets mounted to a directory in the container's filesystem and anything written to that directory is written to the volume.
+
+Using the following command , we can create a new volume.
+
+```bash
+$docker volume create myvol
+```
+
+By default , Docker creates new volumes with the built-in local driver. Third-party drivers are available as plugins.
+These can provide advanced storage features, and integreate external storage systems with Docker.
+
+```bash
+$ docker volume inspect myvol
+[
+{
+"CreatedAt": "2018-01-12T12:12:10Z",
+"Driver": "local",
+"Labels": {},
+"Mountpoint": "/var/lib/docker/volumes/myvol/_data",
+"Name": "myvol",
+"Options": {},
+"Scope": "local"
+}
+]
+```
+
+Here the driver and scope are both local. This means the volume was created with the default local driver.
+
+### Playing with Volumes
+
+The following command creates a new standalone container and mounts a volume called bixvol.
+
+In the docker-compose.dev.yml file, volumes are written like thie following:
+
+```bash
+volumes:
+- type: volume
+source: counter-vol
+target: /code
+```
+
+
+
+```bash
+
+docker container run --dit --name voltainer --mount source=bizvol, target=/vol alpine
+
+```
+
+If you specify an existing volume, Docker will use the existing volume, if it does not exist, Docker will create it for you.
+
+### Sharing storage across cluster nodes
+
+Integrating Docker with external storage systems makes it easy to share the external storage between cluster nodes.
+For example, a single storage LUN or NFS share can be presented to multiple Docker hosts, and therefore made available to containers.
+
+
+### Some Images for mental models:
+
+![docer-port-map](https://user-images.githubusercontent.com/15992276/74468606-16d7de80-4e69-11ea-9841-591b8f35fafb.png)
+![docker0](https://user-images.githubusercontent.com/15992276/74468608-16d7de80-4e69-11ea-9cfe-bcbbb849c491.png)
+![Docker](https://user-images.githubusercontent.com/15992276/74468609-17707500-4e69-11ea-9a4e-1e7f6f7a23ba.png)
+![docker_compose](https://user-images.githubusercontent.com/15992276/74468610-17707500-4e69-11ea-933e-fc8474a19847.png)
+![docker_network](https://user-images.githubusercontent.com/15992276/74468611-17707500-4e69-11ea-9060-dfbf6ce4d6d0.png)
+![docker_volumes](https://user-images.githubusercontent.com/15992276/74468613-17707500-4e69-11ea-8448-2ac600fb7c77.png)
