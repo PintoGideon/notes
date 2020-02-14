@@ -70,3 +70,42 @@ pet = "The Kraken";
 
 We know that string values can't change because they are primitive. But the pet variable does change to 'The Kraken'.
 Variables are not values. Variables point to values.
+
+### Undefined
+
+Undefined in JS represents the concept of an unintentionally missing value. If you forgot to assign a value to a variable it will point to undefined.
+
+```javascript
+let bandersnatch;
+console.log(bandersnatch); //undefined
+```
+
+If you read a variable that was actually not defined, you will get an error.
+
+```javascript
+console.log(jabberwocky); //Reference error
+```
+
+### Null
+
+Null behaves very similarly.
+
+Due to a bug in JS, null pretends to be an object.
+
+In practice, null is used for intentionally missing values. Null is used for intentionally missing values.
+
+### NaN
+
+NaN is a numeric value, it is not null, undefined, a string, or some other type. But in the floating point math, the name for that term is "not a number".
+
+```javascript
+console.log(typeof NaN); //number
+```
+
+```javascript
+let isSad = false;
+let isHappy = !isSad; // isHappy=true
+let isFeeling = isSad || isHappy; // isFeeling=true
+let isConfusing = isSad && isHappy; // false
+isSad = true; //isSad=true
+```
