@@ -145,3 +145,20 @@ const test = function apiMiddleware({ dispatch }) {
   };
 };
 ```
+
+
+### Using the React Profiler 
+
+
+1. Reading Performance Data
+
+React works in 2 phases:
+
+a. The render phase determines what changes need to be made. During this phase , React calls render and then compares the result
+to the previous render.
+
+b. The commit phase is when React applies any changes. React also calls lifecycles like componentDidMount and componentDidUpdate during this phase.
+
+
+The Dev tools profiles groups performance info by commit.
+

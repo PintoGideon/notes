@@ -68,11 +68,6 @@ Logout and log back in.
 
 ```
 
-```bash
-
-The path /python3 (from --python=/python3) does not exist
-```
-
 **_ Cannot connect to chris website _**
 
 ```bash
@@ -96,4 +91,41 @@ cd /home/jorge.bernal/chris/ChRIS_ui
 git pull
 docker build -t local/chris_ui .
 docker run --name chris_ui -p 5010:3000 -d local/chris_ui
+```
+
+### Scripts to push files to the swift storage.
+
+```bash
+./pushAllToCUBE.sh -E dcm -D $DICOMDIR -P DICOM/dataset1 -C $HOST_IP -p $HOST_PORT
+
+```
+
+### Pacs Pull doesn't seem to work on ChRIS
+
+Sometimes the PACS is slow. We can also restart the listener on Pretoria. The service on Pretoria is usually down.
+
+```bash
+nc pretoria 10401
+
+```
+
+This check if the listener is actually up. If the above command "hangs", it means the listener is up. If it immediately returns, it means the listener is down.
+
+```bash
+ssh toor@pretoria
+sudo bash
+service xinetd restart
+```
+
+### Books to read
+
+```bash
+/neuro/labs/grantlab/research/Books/Linux
+```
+
+### Download files on the system
+
+```bash
+su - toor
+sudo dkpg -i whateverfile.deb
 ```
