@@ -628,11 +628,9 @@ We can also remove groups from our system.
 
 ### User and Group Configuration Files
 
-
-
 ```bash
 ssh ch212561@e2
 singularity --version
-singularity build ubuntu.sif docker://ubuntu:latest 
+singularity build ubuntu.sif docker://ubuntu:latest
 
 ```

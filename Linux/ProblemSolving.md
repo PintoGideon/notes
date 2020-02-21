@@ -129,3 +129,23 @@ service xinetd restart
 su - toor
 sudo dkpg -i whateverfile.deb
 ```
+ docker-compose -f docker-compose_dev.yml exec chris_dev python plugins/services/manager.py add "${dockerhubRepo}" $computeEnv http://chrisstore:8010/api/v1/
+
+ cd utils/scripts
+./pushAllToCUBE.sh -E dcm -D $DICOMDIR -P validation data
+
+
+### neuro-adduser.sh
+
+'neuro-adduser.sh' is a general FNNDSC LDAP user admin script. 
+
+Here are some of the arguments.
+
+```bash
+
+- u <username>
+-U <uid>
+-g <groupname>
+
+neuro-adduser.sh -u  -G 
+uid=2249509(ch212561) gid=2000513(domain_users) groups=2000513(domain_users),2202204(rc_hpc)
