@@ -109,3 +109,7 @@ let isFeeling = isSad || isHappy; // isFeeling=true
 let isConfusing = isSad && isHappy; // false
 isSad = true; //isSad=true
 ```
+
+
+### Kinds of equality in JavaScript
+
