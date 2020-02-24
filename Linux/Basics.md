@@ -46,8 +46,7 @@ r=4.
 w=2.
 x=1.
 
-
-
+bluevalentine!2
 
 A superuser can change the owner of a file using the chown system call.
 
@@ -63,3 +62,6 @@ int chown(const char *path, uid_t owner, gid_t group)
 All Linux Programs, with notable exception of init, are started by other programs or users. Users most often start programs from a shell that respondes to their commands. When a user logs in to a linux system, he/she has a username and password. Once these have been validated, user is presented with a shell.
 
 Internally, a user has a unique user identifier known as a UID. Each program that Linux runs is run on behalf of a user and an assosciated UID.
+
+
+
