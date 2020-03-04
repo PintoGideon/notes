@@ -159,3 +159,21 @@ ssh root@pretoria
 nano /etc/resolv.conf
 search tch.harvard.edu chboston.org
 ```
+
+### Pacs pull parameters
+
+```bash
+pacs_pull.bash -M <MRN> || -N <PatientsName> -m <modality> -C <scannerName> -D <scandate> -S <seriesDescription>
+```
+
+### Open Network Ports
+
+```bash
+
+netstat -nutl | grep -v '^Active' | grep -v '^Proto'
+netstat -nutl | grep ':' | awk '{print $4}' | awk -F ':' '{print $NF}'
+
+# To see what's running on the open ports
+
+netstat -nutlp
+```

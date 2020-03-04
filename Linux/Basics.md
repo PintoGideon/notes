@@ -63,5 +63,10 @@ All Linux Programs, with notable exception of init, are started by other program
 
 Internally, a user has a unique user identifier known as a UID. Each program that Linux runs is run on behalf of a user and an assosciated UID.
 
+### Basename
+
+basename- strip directory and suffix from filenames.
+dirname- strip last component from filename.
+
 
 

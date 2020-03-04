@@ -1,4 +1,4 @@
-# notes.md
+# Notes
 
 1. [Front End Engineering](https://github.com/PintoGideon/notes.md/blob/master/Front%20End%20Engineering/Basics.md)
 
@@ -11,6 +11,3 @@
 5. [React](https://github.com/PintoGideon/notes.md/tree/master/React)
 
 6. [TypeScript](https://github.com/PintoGideon/notes.md/tree/master/TypeScript)
-
-
-
