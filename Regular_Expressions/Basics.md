@@ -16,8 +16,8 @@ let regex2- /word/;
 Once you have a regex object, you can then use it with one of the methods on RegExp Constructor or the String object wrapper.
 
 ```javascript
-let txt = 'Programming courses always start with a hello world example';
-let regex1 = new RegExp('hello');
+let txt = "Programming courses always start with a hello world example";
+let regex1 = new RegExp("hello");
 console.log(regex1.test(txt)); //true
 ```
 
@@ -26,7 +26,7 @@ console.log(regex1.test(txt)); //true
 The second method available to us is exec().
 
 ```javascript
-let regex1 = new RegExp('Hello');
+let regex1 = new RegExp("Hello");
 regex1.exec(txt); // [0:"hello", index:41, input:""]
 txt.match(regex1); // Same output as above
 txt.search(regex1); // 41
@@ -37,14 +37,14 @@ txt.search(regex1); // 41
 We are looking for a pattern "hello" in the txt input and replace that with hi.
 
 ```javascript
-txt.replace(regex1, 'h1');
+txt.replace(regex1, "h1");
 txt.split(regex1);
 ```
 
 ### The split method.
 
 ```javascript
-let txt = 'Programming courses always starts with a hello world example';
+let txt = "Programming courses always starts with a hello world example";
 
 let regex1 = /\s/;
 txt.split(regex1); //Creates an array of all of the strings in an array.
@@ -70,7 +70,7 @@ i- case insensitive match, case doesn't matter
 m- multi-line match
 
 ```javascript
-let txt = 'Programming courses alwayS starts with a hello world example';
+let txt = "Programming courses alwayS starts with a hello world example";
 
 let regex1 = /s\s/gi;
 txt.match(regex1);
@@ -255,9 +255,9 @@ and these objects have APIs so that they can be manipulated. For instance, a lin
 
 ```javascript
 var a = document.links[0];
-a.href = 'sample.html';
-a.protocol = 'https';
-a.setAttrbite('href', 'https://example.com');
+a.href = "sample.html";
+a.protocol = "https";
+a.setAttrbite("href", "https://example.com");
 ```
 
 ### Important !!
@@ -347,7 +347,7 @@ Here the pattern [-./] repeates twice in dates and hence I use the pattern \2 to
 Here is an example for matching a domain name. We want to force the pattern to match a '.com'
 
 ```javascript
-let data = 'allthingsjavascript.com google.com youtube.com';
+let data = "allthingsjavascript.com google.com youtube.com";
 let reg = /w+(?=\.com)/g;
 let arr = data.match(reg);
 
@@ -372,15 +372,15 @@ In a lookahead group, the input should match each look ahead group. For example,
 Iterate through the data provided. Use a regular expression to store the names in a new array but change the order of the name so first name is listed first and the last name is last.
 
 ```javascript
-let data = ['Jensen, Dale', 'Smith,Andrea'];
+let data = ["Jensen, Dale", "Smith,Andrea"];
 
 let reg = /(\w+),(\w+)/;
 
 let newData = data.map(val => {
-	let arr = reg.exec(val);
-	if (arr !== null) {
-		return arr[2] + '' + arr[1];
-	} else return null;
+  let arr = reg.exec(val);
+  if (arr !== null) {
+    return arr[2] + "" + arr[1];
+  } else return null;
 });
 ```
 
@@ -395,13 +395,30 @@ let newData = data.map(val => {
 // Create a new array that shows the names with the firstName and the surname.
 
 let names = [
-	'Smith, James',
-	'Peterson, Alyssa',
-	'Johnson, Lynette',
-	'Lopez, Tony'
+  "Smith, James",
+  "Peterson, Alyssa",
+  "Johnson, Lynette",
+  "Lopez, Tony"
 ];
 
 let newNames = names.map(function(name) {
-	return name.replace(/(\w+),(\w+)/, '$2 $1');
+  return name.replace(/(\w+),(\w+)/, "$2 $1");
 });
+```
+
+```javascript
+
+editorState:{
+	[key:string]:string
+}
+
+for (let i in userInput) {
+    generatedCommand += `  --${i}  ${userInput[i]}`;
+
+ this.setState({
+      userInput: {
+        ...this.state.userInput,
+        ...input
+      }
+    });
 ```
