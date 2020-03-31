@@ -405,20 +405,3 @@ let newNames = names.map(function(name) {
   return name.replace(/(\w+),(\w+)/, "$2 $1");
 });
 ```
-
-```javascript
-
-editorState:{
-	[key:string]:string
-}
-
-for (let i in userInput) {
-    generatedCommand += `  --${i}  ${userInput[i]}`;
-
- this.setState({
-      userInput: {
-        ...this.state.userInput,
-        ...input
-      }
-    });
-```
