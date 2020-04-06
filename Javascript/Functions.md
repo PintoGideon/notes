@@ -34,7 +34,7 @@ The place where the computer stores the context is the call stack.
 
 ```javascript
 function multiplier() {
-  return number => number * factor;
+  return (number) => number * factor;
 }
 
 let twice = multiplier(2);
@@ -89,7 +89,7 @@ There is an Object.assign function that copies all properties from one object in
 let objectA = { a: 1, b: 2 };
 Object.assign(objectA, {
   b: 3,
-  c: 4
+  c: 4,
 });
 
 // {a;1,b:3,c:4}
@@ -182,7 +182,7 @@ function randomPointOnCircle(radius) {
   let angle = Math.random() * 2 * Math.PI;
   return {
     x: radius * Math.cos(angle),
-    y: radius * Math.sin(angle)
+    y: radius * Math.sin(angle),
   };
 }
 ```
@@ -311,149 +311,15 @@ const flat={
 
 ```
 
-Simply iterate through the array and assign each object to the children array of it's parent object.
-
-```javascript
-flat.forEach(node => {
-  // No parentId means top leavel.
-
-  if (!node.id) return root.push(node);
-
-  // Insert node as child of parent in flat array
-
-  const parent = flat.findIndex(e1 => e.id === node.parentId);
-  if (!flat[parent].children) {
-    return (flat[parent].children = node);
-  }
-  flat[parentIndex].children.push(node);
-});
-
-console.log(root);
-```
-
-```javascript
-for (let pluginInstance of pluginInstances) {
-  console.log("PluginInstances that are being looped over", pluginInstances);
-  console.log("PluginCount", countPlugin);
-  const { id, plugin_name } = pluginInstance.data;
-  const previousPluginInstance = await pluginInstance.getPreviousPluginInstance();
-  if (previousPluginInstance === null) {
-    console.log("In here for dircopy");
-    currentDir.push({
-      label: `${plugin_name}_${id}`,
-      value: plugin_name,
-      children: []
-    });
-  } else {
-    console.log(
-      "Previous Plugin Instance exists",
-      previousPluginInstance,
-      currentDir
-    );
-    const parentIndex = currentDir.findIndex(
-      node =>
-        node.label ==
-        `${previousPluginInstance.data.plugin_name}_${previousPluginInstance.data.id}`
-    );
-
-    console.log("Parent index and currentDir status", parentIndex, currentDir);
-
-    this.getNestedChildren(currentDir, currentDir[parentIndex]);
-    console.log("CurrentDir at the end of the loop", currentDir);
-  }
-  countPlugin++;
-}
-currentDir = trackDir;
-```
-
-console.log("In nested children", pluginInstances);
-
-    let out = [];
-    const map = {};
-
-    pluginInstances.forEach(async pluginInstance => {
-      const { id, name } = pluginInstance;
-
-      if (pluginInstance.parentId === undefined)
-        return out.push(pluginInstance);
-
-      const parentIndex = pluginInstances.findIndex(
-        e1 => e1.id === pluginInstance.parentId
-      );
-      if (!pluginInstances[parentIndex].children) {
-        return pluginInstances[parentIndex].children.push(pluginInstance);
-      }
-      pluginInstances[parentIndex].children.push(pluginInstance);
-    });
-    console.log("Out", out);
-
-    return out;pluginInstanceList
-        .getItems()
-        .map(pluginInstance => ({
-          id: pluginInstance.data.id,
-          parentId: pluginInstance.data.previous_id,
-          name: pluginInstance.data.plugin_name
-        }))
-        .sort((a, b) => a.id - b.id);git
-
-```javascript
-var paths = [
-  ["rWAR_7"][("rwar_7 ", " dircopy_8")][
-    ("rWAR_7 ", " dircopy_8 ", " freesurfer_pp_11")
-  ]
-];
-
-function arrangeIntoTree(paths) {
-  var tree = [];
-
-  var currentLevel = tree;
-  for (var i = 0; i < paths.length; i++) {
-    var path = paths[i];
-    for (j = 0; j < path.length; j++) {
-      var part = path[j];
-      var existingPath = findWhere(currentLevel, "name", part);
-      if (existingPath) {
-        currentLevel = existingPath.children;
-      } else {
-        var newpart = {
-          name: part,
-          children: []
-        };
-        currentLevel.push(newPart);
-        currentLevel = newPart.children;
-      }
-    }
-  }
-  return tree;
-}
-
-function findWhere(array, key, value) {
-  let t = 0; //counter
-
-  while (t < array.length && array[t][key] !== value) {
-    t++;
-  }
-  if (t < array.length) {
-    return array[t];
-  } else {
-    return false;
-  }
-}
-```
-
-/test-temp-8719/chris-uploads/DICOM/dataset1/0192-1.3.12.2.1107.5.2.19.45152.2013030808105485455785379.d
-
-input directory is actually assumed to exist within swift storage, thus the value of the input directory is the prefix within swift storage. See the wiki pages of CUBE for more information.
-
 ### Reselect Library
 
 ```javascript
 const mapStateToProps = (state: ApplicationState) => ({
-  pluginFiles: state.pluginFiles
+  pluginFiles: state.pluginFiles,
 });
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({
-  getPluginFiles: (plugin: IPluginItem) => dispatch(getPluginFiles(plugin))
+  getPluginFiles: (plugin: IPluginItem) => dispatch(getPluginFiles(plugin)),
 });
 ```
 

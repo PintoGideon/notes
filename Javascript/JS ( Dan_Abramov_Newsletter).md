@@ -15,7 +15,7 @@ Objects and Functions are also values, but they are not primitive.
 ```javascript
 console.log({});
 console.log([]);
-console.log(x => x * 2);
+console.log((x) => x * 2);
 ```
 
 Expressions are questions that JS can answer. JS answers questions in the only way it knows how- with values.
@@ -110,6 +110,23 @@ let isConfusing = isSad && isHappy; // false
 isSad = true; //isSad=true
 ```
 
+### Objects
 
-### Kinds of equality in JavaScript
+```javascript
+let sherlock = {
+  surname: "Holmes",
+  address: { city: "London" },
+};
 
+let john = {
+  surname: "Watson",
+  address: sherlock.address,
+};
+
+john.surname = "Lennon";
+john.addressCity = "Malibu";
+```
+
+Here john.address.city is "Malibu" and sherlock.address.city is also "Malibu".
+
+Importantly, properties don't contain values--they point at them! It turns out the js universe is full of wires.
