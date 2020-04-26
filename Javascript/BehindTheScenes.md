@@ -7,4 +7,16 @@ The first JS engine was SpiderMonkey.
 The first version of SpiderMonkey was simply a JS interpreter.
 An interpreter takes human-friendly JS source code , converts it into a machine-friendly intermediate, and executes it immediately. Interpretation doesn't literally happen line by line because JS and intermediate machine code are pretty different and the interpreter needs to "look ahead" to get the full context of the JS source code.
 
-One downside of interpretation is that because it's a one pass process, it doesn't do any sort of code optimization that might make it run faster. 
+One downside of interpretation is that because it's a one pass process, it doesn't do any sort of code optimization that might make it run faster.
+
+### Recreating map function from scratch
+
+```javascript
+Array.prototype.map = function (callback) {
+  const resultArray = [];
+  for (let index = 0; index < this.length; index++) {
+    resultArray.push(callback(this[index], index, this));
+  }
+  return resultArray;
+};
+```
