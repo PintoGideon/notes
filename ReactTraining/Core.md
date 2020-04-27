@@ -189,5 +189,142 @@ useEffect is designed to synchronize every committed render to your own effects.
 
 With data loading, we can use [] for the first time, but if the uid every changes, we're still rendered. We could be showing the wrong avatar.
 
-
 We put the uid in there to make sure we always display the right thing. Make sure we 'synchronize' our rendered elements.
+
+### Context in React
+
+context can be thougt of as a communication channel.
+
+```jsx
+<Tabs>
+  <Tab>
+    <Signup />
+  </Tab>
+  <Tab>
+    <Login />
+  </Tab>
+</Tabs>
+```
+
+```jsx
+const TabsContext = createContext();
+const TabListContext = createContext();
+
+function TabList({ children }) {
+  return (
+    <div data-react-tab-list>
+      {children.map((child, index) => (
+        <TabListContext.Provider value={{ index }}>
+          {child}
+        </TabListContext.Provider>
+      ))}
+    </div>
+  );
+}
+
+function Tabs2({ children }) {
+  const [activeIndex, setActiveIndex] = useState(0);
+  return (
+    <TabsContext.Provider value={{ activeIndex, setActiveIndex }}>
+      <div data-react-tabs>{children}</div>
+    </TabsContext.Provider>
+  );
+}
+
+function Tab({ children, disabled }) {
+  const { index } = useContext(TabsListContext);
+  const { activeIndex, setActiveIndex } = useContext(TabsContext);
+  //....
+}
+
+function TabPanels({ children }) {
+  const { activeIndex } = useContext(TabsContext);
+}
+```
+
+### children module
+
+### useReducer
+
+```javascript
+const array = [1, 2, 3, 4, 5];
+const add = ((x, y) = x + y);
+
+const sum = array.reduce(add, 0);
+// You can start the reducer at any value you want apart from 0.
+```
+
+### useReducer and useContext for global state.
+
+```jsx
+// App state.js
+
+const Context = createContext();
+
+export function AppStateProvider({ reducer, initialState = {}, children }) {
+  const value = useReducer(reducer, initialState);
+  return <Context.Provider value={value} children={children} />;
+}
+
+export function useAppState() {
+  return useContext(Context);
+}
+```
+
+```javascript
+// Reducer
+
+const appStateReducer = (state, action) => {
+  switch (action.tyoe) {
+    case "AUTH_CHANGE": {
+      return { ...state, auth: action.auth, authAttempted: true };
+    }
+    case "LOAD_USER": {
+      return { ...state, user: action.user };
+    }
+    default:
+      return state;
+  }
+};
+
+export default appStateReducer;
+```
+
+```jsx
+// useAuth
+export default function useAuth() {
+ const [{ authAttempted, auth }, dispatch] = useAppState()
+useEffect(() => {
+  if (!authAttempted) {
+      return onAuthStateChanged(auth => {
+        dispatch({type: "AUTH_CHANGE",
+          auth: auth
+        })
+      })
+    }
+  }, [authAttempted, dispatch])
+
+  return { auth, authAttempted }
+}
+}
+
+
+```
+
+```jsx
+// In app.js
+
+function App() {
+  const { auth, authAttempted } = useAuth();
+
+  if (!authAttemped) {
+    return <div className="Layout">{auth ? <LoggedIn /> : <LoggedOut />}</div>;
+  }
+}
+
+export default () => (
+  <AppStateProvider reducer={appReducer} initialState={initialState}>
+    <App />
+  </AppStateProvider>
+);
+```
