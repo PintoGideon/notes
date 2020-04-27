@@ -328,3 +328,86 @@ export default () => (
   </AppStateProvider>
 );
 ```
+
+### Three types of element animations:
+
+1. Interpolating values on an element:
+   width, opacity, position etc.
+
+2. Enter/Exit an element
+
+3. Transitioning between elements
+
+### useTransition from react-spring
+
+### Performance optimizations
+
+```jsx
+const el = Dashboard();
+renderReactElementToDOM(el, rootDOMElement);
+```
+
+### second render upon state change
+
+```jsx
+const newElement = Dashboard();
+const oldel = el;
+const diff = compare(newElement, oldel); // pretty much always fast
+
+commit(diff);
+```
+
+When we talk about performance, we talk about one of these things being slow.
+
+Calling a component could be slow if the algorithm in your code is slow.
+
+One small hack would be to do
+
+```javascript
+console.time("Test the time of the below function");
+const weeks = calculateWeeks(posts, startDate, numWeeks);
+console.timeEnd("Test time");
+```
+
+`useMemo` is going to allow use to memoize the value.
+Maybe we don't want to do the calculation upon every state change.
+
+```javascript
+const weeks = useMemo(() => {
+  calculateWeeks(posts, startDate, numWeeks);
+}, [posts, startDate, numWeeks]);
+```
+
+### Optimizing the diffing process
+
+```javascript
+const diff = compare(newElement, oldEl);
+```
+
+React also has a way to help us identify the components that needs to be optimized.
+
+```javascript
+import React, {memo} using 'react'
+```
+
+```javascript
+// This is what memo does.
+if (propsChange(newElement.props, oldEl.props)) {
+  const diff = compare(newElement, oldEl);
+  commit(diff);
+}
+```
+
+We can use `memo` which is a higher order component.
+Diffing the props is probably going to be faster than diffing the element tree.
+
+If the props doesn't change, dont render the component.
+
+```javascript
+{}==={} //false
+'string'==='string'
+```
+
+What does that mean for comparing props?
+
+Everytime you compare props with `posts` for example from a fetch request, the component still re-renders as their object identity is different.
