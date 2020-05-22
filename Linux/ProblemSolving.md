@@ -133,7 +133,7 @@ sudo dkpg -i whateverfile.deb
 
 ### neuro-adduser.sh
 
-'neuro-adduser.sh' is a general FNNDSC LDAP user admin script.
+```neuro-adduser.sh``` is a general FNNDSC LDAP user admin script.
 
 Here are some of the arguments.
 
