@@ -130,10 +130,6 @@ su - toor
 sudo dkpg -i whateverfile.deb
 ```
 
-docker-compose -f docker-compose_dev.yml exec chris_dev python plugins/services/manager.py add "${dockerhubRepo}" $computeEnv http://chrisstore:8010/api/v1/
-
-cd utils/scripts
-./pushAllToCUBE.sh -E dcm -D \$DICOMDIR -P validation data
 
 ### neuro-adduser.sh
 
