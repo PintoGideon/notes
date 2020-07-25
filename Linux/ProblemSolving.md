@@ -140,14 +140,10 @@ su - toor
 sudo dkpg -i whateverfile.deb
 ```
 
-docker-compose -f docker-compose_dev.yml exec chris_dev python plugins/services/manager.py add "${dockerhubRepo}" $computeEnv http://chrisstore:8010/api/v1/
-
-cd utils/scripts
-./pushAllToCUBE.sh -E dcm -D \$DICOMDIR -P validation data
 
 ### neuro-adduser.sh
 
-neuro-adduser.sh' is a general FNNDSC LDAP user admin script.
+```neuro-adduser.sh``` is a general FNNDSC LDAP user admin script.
 
 Here are some of the arguments.
 
