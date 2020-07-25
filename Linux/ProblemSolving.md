@@ -18,6 +18,11 @@ $> ./sladp restart
 
 ### In a different terminal
 
+When I sign in the plugin section is not displaying the text boxes to
+input the information in order to search a patient or perform a
+function.
+All that is visible is the function image and the rest of the plugin window is blank.
+
 ```bash
 
 $>ssh chris@chris-tmp
@@ -41,10 +46,15 @@ cd /etc/init.d/
 
 ```bash
 
+ssh ch212561@e2
+id ch212561
+# A unix user id is found
+
 ssh root@fnndsc
+sudo bash
 ssc
 history | grep neuro
-494 neuro-adduser.sh -u mohammed.fouda -g grantlab,chrisgp
+494 neuro-adduser.sh -u mohammed.fouda U <user.id> -g grantlab,chrisgp
 ssh mohammed.fouda@rc-drno
 neuro-adduser.sh -x
 neuro-adduser.sh -u mohammed.fouda -G nirsgp
@@ -176,3 +186,4 @@ git pull
 docker build -t local/chris_ui .
 docker run --name chris_ui -p 5010:3000 -d local/chris_ui
 ```
+

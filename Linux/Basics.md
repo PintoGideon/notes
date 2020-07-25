@@ -46,8 +46,6 @@ r=4.
 w=2.
 x=1.
 
-bluevalentine!2
-
 A superuser can change the owner of a file using the chown system call.
 
 ```bash
@@ -67,6 +65,3 @@ Internally, a user has a unique user identifier known as a UID. Each program tha
 
 basename- strip directory and suffix from filenames.
 dirname- strip last component from filename.
-
-
-

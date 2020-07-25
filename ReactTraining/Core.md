@@ -1,71 +1,3 @@
-### Testing
-
-This is an example of an assertion looks like.
-
-```jsx
-describe("ContentToggle",()=>{
-    it("renders its summary inside a button",()=>{
-        const node=document.createElement("div")
-        ReactDOM.render(<ContentToggle summary="Tacos"/>,node)
-        const button=node.querySelector("button")
-        expect(button).not.toBe(null)
-        ex
-    })
-}
-```
-
-```jsx
-describe("when the button is clicked", () => {
-  it("is open", () => {
-    const node = document.createElement("div");
-    let contentToggleInstance;
-
-    ReactDOM.render(
-      <StatefulContentToggle summary="tacos">
-        <p> are the best...</p>
-      </StatefulContentToggle>,
-      node,
-      function () {
-        contentToggleInstance = this;
-      }
-    );
-
-    const button = node.querySelector("button");
-    Simulate.click(button);
-    expect(contentToggleInstance.state.isOpen).toBe(true);
-    //expect(node.innerHTML).toContain("The Best");
-  });
-});
-```
-
-Why the simulate module is amazing?
-
-```jsx
-handleDragOver = (event) => {
-  if (event.dataTransfer.types[0] === "Files") {
-    event.preventDefault();
-    this.setState({
-      acceptDrop: true,
-    });
-  }
-};
-```
-
-```jsx
-describe("Droppable", () => {
-  it.only("works", () => {
-    const node = document.createElement("div");
-    document.body.appendChild(node);
-
-    ReactDOM.render(<Droppable />, node);
-    Simulate.dragOver(node.firstChild, {
-      dataTransfer: { types: ["Files"] },
-    });
-    expect(node.innerHTML).toContain("Drop it");
-  });
-});
-```
-
 ### Render Props
 
 The following code is just a rough template for render props.
@@ -106,18 +38,28 @@ const states = [];
 let callCount = -1;
 
 function useState(initialValue) {
-  const id = ++callCount;
+  const id = ++callCount; //0
   if(states[id]){
-    return states[id]
+    return states[id] // after re-rendering, [1,fn]
   }
   const setValue = (newValue) => {
     // assign a new Value;
-    states[id][0] = newValue;
+    states[id][0] = newValue; //states[0][0]=1
     renderPhonyHooks();
   };
-  const tuple = [initialValue, setValue];
-  states.push(tuple);
+  const tuple = [initialValue, setValue];   //[0, fn]
+  states.push(tuple); //state=[[0,fn]]
   return tuple;
+}
+
+function Minutes(){
+  const [test,setTest]=useState(0)
+
+  render(){
+    return(
+      <button onClick={()=>setTest(1)}></button>
+    )
+  }
 }
 
 function renderPhonyHooks(){
@@ -187,7 +129,7 @@ useEffect(() => {
 
 useEffect is designed to synchronize every committed render to your own effects.
 
-With data loading, we can use [] for the first time, but if the uid every changes, we're still rendered. We could be showing the wrong avatar.
+With data loading, we can use [] for the first time, but if the uid changes, we're still rendered. We could be showing the wrong avatar.
 
 We put the uid in there to make sure we always display the right thing. Make sure we 'synchronize' our rendered elements.
 
@@ -411,3 +353,144 @@ If the props doesn't change, dont render the component.
 What does that mean for comparing props?
 
 Everytime you compare props with `posts` for example from a fetch request, the component still re-renders as their object identity is different.
+
+### Important patterns to remember
+
+If you pass a function to useState, everytime there is an update within the component that calls the hook, that function will be invoked every single time.
+
+```javascript
+const useClapAnimation = () => {
+  const [animationTimeline, setAnimationTimeline] = useState(
+    new mojs.Timeline()
+  );
+};
+```
+
+In the above example, I do not want to initialize the mo-js timeline every single time. Essentially , favor passing a function reference as opposed to invoking a function within useState.
+
+```javascript
+const useClapAnimation = () => {
+  const [animationTimeline, setAnimationTimeline] = useState(
+    () => new mojs.Timeline()
+  );
+};
+```
+
+### Callback Refs
+
+React also supports another way of set refs called 'callback refs', which gives more fine-grain control over when refs are set and unset.
+
+Instead of passing a ref attribute created by createRef(), you pass a function. The function receives the React component instance or HTML DOM element as it's argument, which can be stored and accessed elsewhere.
+
+```jsx
+const MediumClap = () => {
+  const [refs,setRefState]=useState({})
+  const {clapRef,clapCountRef,clapTotalRef}=refs;
+
+  const setRef = (node) => {
+    //save the node
+    setRefState(prevRefState=>{
+      ...prevRefState,
+      [node.dataset.refkey]:node
+    })
+  };
+
+  const animationTimeline = useClapAnimation({
+    duration: 300,
+    bounceEl: clapCountRef,
+    fadeEl: clapTotalRef,
+    burstEl: clapRef,
+  });
+
+  return (
+    <button
+      ref={setRef}
+      data-refKey="clapRef"
+      className={styles.cap}
+      onClick={handleClapClick}
+    >
+      <ClapIcon isClicked={isClicked} />
+       <ClapCount count={count} setRef={setRef} />
+      <CountTotal countTotal={countTotal} setRef={setRef} />
+    </button>
+  );
+};
+```
+
+We are sending the `setRef` function as a prop to child components, we don't want the child components to be rendering because a reference to this changes.
+
+```jsx
+const setRef = useCallback((node) => {
+  if (node !== null) {
+    setRefState((prevRefState) => ({
+      ...prevRefState,
+      [node.dataset.refkey]: node,
+    }));
+  }
+}, []);
+```
+
+### Getting Closures on React Hooks by Shawn Wang
+
+```javascript
+let foo = 1;
+function add() {
+  foo = foo + 1;
+  return foo;
+}
+
+console.log(add()); // foo is in the global scope, you can move it inside the scope of the function.
+
+// How to fix this
+
+function getAdd() {
+  let foo = 1;
+  return function () {
+    foo = foo + 1;
+    return foo;
+  };
+}
+
+const add = getAdd();
+add(); // Now we cannot touch foo.
+```
+
+### Cloning hooks
+
+```javascript
+const React = function () {
+  let hooks = [];
+  let idx = 0;
+  function useState(initVal) {
+    const state = hooks[idx] || initVal;
+    const _idx = idx;
+    const setState = (newVal) => {
+      hooks[_idx] = newVal;
+    };
+    idx++;
+    return [state, setState];
+  }
+  function render(Component) {
+    idx = 0;
+    const C = Component();
+    C.render();
+    return C;
+  }
+  return { useState, render };
+};
+
+function Component() {
+  const [count, setCount] = React.useState(1);
+  const [text, setText] = React.useState("apple");
+  return {
+    render: () => console.log({ count, text }),
+    click: () => setCount(count + 1),
+    type: (word) => setText(word),
+  };
+}
+
+var App = React.render(Component);
+App.click(); //1
+var App = React.render(Component);
+App.type(); //2
+```

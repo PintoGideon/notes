@@ -31,8 +31,8 @@ function doAddTodoWithNotification(id, name) {
     type: TODO_ADD_WITH_NOTIFICATION,
     todo: {
       id,
-      name
-    }
+      name,
+    },
   };
 }
 ```
@@ -65,4 +65,157 @@ function *handleAddTodoNotification(action){
 
 ```
 
-In JS generators, you can use the yield statement to execute async code synchronously. Only when the function after the yield resolves, the code will execute the next line of code. 
+In JS generators, you can use the yield statement to execute async code synchronously. Only when the function after the yield resolves, the code will execute the next line of code.
+
+### High Level Saga
+
+```javascript
+
+import {take,call,put} from 'redux-saga/effects"
+
+function * authorize(user,password){
+//fetches and returns token
+}
+
+function* loginFlow(){
+while(true)}
+const {user,password}=yield take('LOGIN_REQUEST')
+const token=yield call(authorize,user,password)
+if(token){
+  yield call(Api.storeItem,{token})
+  yield take('LOGOUT')
+  yield call(Api.clearItem,'token')
+}
+}
+```
+
+To express non-blocking calls, the library provides another Effect: fork. When we fork a task, the task is started in the background and the caller can continue its flow without waiting for the forked task to terminate.
+
+So in order for loginFlow to not miss a concurrent LOGOUT, we must not call the authorize task, instead we have to fork it.
+
+### Starting a race between multiple effects
+
+Sometimes we start multiple tasks in parallel but don't want to wait for all
+of them, we just need to get the winner. The first one that resolves (or rejects). The `race` effect offers a way of triggering a race between multiple
+effects.
+
+```javascript
+import {take,call,put,delay} from 'redux-saga/effects';
+
+function* fetchPostWithTimeout(){
+  const {posts,timeout}=yield race({
+    posts:call(fetchApi,'/posts').
+    timeout:delay(1000)
+  })
+  if(posts){
+    yield put({
+      type:'POST_RECEIVED',posts
+    })
+  }
+  else
+  yield put({type:'Timeout Errpr'})
+}
+
+```
+
+Suppose we want the user to finish some game in a limited amount of time.
+
+```javascript
+function* game(getState) {
+  let finished;
+  while (!finished) {
+    const [score,timeout]=yield race({
+      score:call(play,getState).
+      timeout:delay(60000)
+    })
+  }
+  if(!timeout){
+    finished=true;
+    yield put(showScore(score))
+  }
+}
+```
+
+### Polling with redux-saga/effeccts
+
+```javascript
+function* pollTask() {
+  while (true) {
+    try {
+      const plugin = plugin.get();
+      if (plugin.data.status === "finishedSuccessfully") {
+        yield put(getPluginFiles(plugin));
+        yield put(getPluginStatus(plugin.data.summary));
+      }
+      if (plugin.data.status === "started") {
+        yield put(getPluginStatus(plugin.data.summary));
+      }
+      yield call(delay, 1000);
+    }
+    catch(err){
+      yield put({
+        getPluginFetchError(err)
+      })
+      yield put({type:'STOP_WATCHER_TASK',err})
+    }
+  }
+}
+
+function* pollTaskWatcher(){
+  while(true){
+    yield take('START_WATCHER_TASK')
+    yield race([call(pollTask),take("STOP_WATCHER_TASK")])
+  }
+}
+```
+
+If the `call(pollTask)` resolves, the response will be the result of pollTask
+and the result of cancel event will be undefined.
+If the action 'STOP_WATCHER_TASK' is dispatch on the store before `pollTask`
+completes, the response will be undefined and cancel will be the dispatched action.
+
+```html
+<button id="start">Start the Poll</button>
+<button id="stop">Stop the Poll</button>
+```
+
+```javascript
+const start = document.getElementById("start");
+const stop = document.getElementById("stop");
+
+start.addEventListener("click", () => {
+  store.dispatch(startPoll());
+});
+
+const START_POLL = "START_POLL";
+
+const startPoll = () => ({ type: START_POLL });
+const stopPoll = () => ({ type: STOP_POLL });
+```
+
+### Polling with saga
+
+```javascript
+// Watcher
+
+function* pollSaga(action) {
+  while (true) {
+    try {
+      const { data } = yield call(() => axios({ url: ENDPOINT }));
+      yield put(getDataSuccessAction(data));
+      yield call(delay, 1000);
+    } catch (err) {
+      yield put(getDataFailureAction(err));
+    }
+  }
+}
+
+//Worker
+
+function* watchPoll() {
+  while (true) {
+    yield take(START_POLL);
+    yield race([call(pollSaga), take(STOP_POLL)]);
+  }
+}
+```
