@@ -5,7 +5,7 @@ on their computers.
 - What code/data do they need to load?
 - Where's the code/data coming from?
 
-# Send the data right back from the server requires using multiple features of the computer
+# Sending the data right back from the server requires using multiple features of the computer
 
 
 - Network socket- Receive and send back messages over the internet
@@ -17,7 +17,7 @@ We are going to have C++ and JavaScript to work together to make the above possi
 C++ has many features that lets it directly interact with 
 OS directly. 
 
-Javascript has ton of built in labels that trigger Node Features that are a built on C++ to use the computer internals.
+Javascript has ton of built in labels that trigger Node Features that are built on C++ to use the computer internals.
 
 # Using the http feature of Node to set up an open object
 
@@ -27,8 +27,7 @@ const server=http.createServer();
 server.listen(80)
 ```
 The ```http.createServer() ``` set's up a network feature of Node specialzing in http protocols
-The libuv library links C++ code and Node the with computer's internal structure which opens a socket
-which is ready to receive incoming messages.
+The libuv library links C++ code and Node with the computer's internal structure which opens a socket and is ready to receive incoming messages.
 
 Node auto-runs the code (function) for us when a request arrives from a user.
 ```javascript
@@ -46,7 +45,7 @@ const server = http.createServer(doOnIncoming)
 
 Let's look at the complete process:
 
-- The client sends an HTTP request. This request is a encoded as a string of characters The **doInComing** function will be autorun by     Node by adding a paranthesis at the end. 
+- The client sends an HTTP request. This request is a encoded as a string of characters The **doInComing** function will be autorun by Node by adding a paranthesis at the end. 
 - The function needs to now notify Node with two messages.
    - The function has finished executing
    - The data it needs to send as a response
