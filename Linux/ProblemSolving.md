@@ -38,10 +38,6 @@ $> checkDB.bash -h /neuro/users/chris/users -n chris -u chris
 
 ```
 
-```bash
-cd /etc/init.d/
-```
-
 ### How to create a user account for a lab member
 
 ```bash
@@ -119,7 +115,7 @@ nc pretoria 10401
 
 ```
 
-This check if the listener is actually up. If the above command "hangs", it means the listener is up. If it immediately returns, it means the listener is down.
+This checks if the listener is actually up. If the above command "hangs", it means the listener is up. If it immediately returns, it means the listener is down.
 
 ```bash
 ssh toor@pretoria
@@ -166,20 +162,6 @@ nano /etc/resolv.conf
 search tch.harvard.edu chboston.org
 ```
 
-### Pacs pull parameters
 
-```sh
-cd /home/jorge.bernal/chris/ChRIS_ultron_backEnd
-./docker-deploy.sh down
-git pull
-./docker-deploy.sh up
-cd /home/jorge.bernal/chris/ChRIS_store_ui
-git pull
-docker build -t local/chris_store_ui .
-docker run --name chris_store_ui -p 5055:3000 -d local/chris_store_ui
-cd /home/jorge.bernal/chris/ChRIS_ui
-git pull
-docker build -t local/chris_ui .
-docker run --name chris_ui -p 5010:3000 -d local/chris_ui
 ```
 
