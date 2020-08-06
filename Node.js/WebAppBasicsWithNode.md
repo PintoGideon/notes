@@ -61,3 +61,33 @@ But if you run `node example.js` from `/Users/fullstack`, we would get an error.
 If we created a file `/Users/fullstack/example.js` and `console.log(**dirname)`, when we run`node example.js`from`Users/fullstack`, we could see that`\_\_dirname`is`/Users/fullstack/`.
 
 `res.json()` automaticallyy sets the appropriate content-type header and formats the response for us.
+
+### Middleware in Express
+
+In addition to `request` handlers, we can setup a middleware functions that will run regardless of the HTTP method or URLs. This is very useful in the case for setting tha CORS header.
+
+```javascript
+app.use(function () {})``;
+```
+
+We are also calling `next()` within that function allowing the following route handlers to run. Order is important to middleware. Middleware functions will run in order they are declared.
+
+### Post Request
+
+`express` doesn't parese request bodies for us automatically.
+If we wanted to, we could read data from the request stream manually and we parse it after the transfer is finished.
+
+However ```express` recommends a simpler middleware.
+
+```javascript
+const express = require("express");
+const bodyParser = require("body-parser");
+app.use(bodyParser.json());
+```
+
+### MongoDB
+
+```javascript
+npm i mongoose
+```
+

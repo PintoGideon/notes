@@ -65,3 +65,164 @@ Internally, a user has a unique user identifier known as a UID. Each program tha
 
 basename- strip directory and suffix from filenames.
 dirname- strip last component from filename.
+
+### ls -al
+
+1. -l gives you the longform output.
+2. -a shows you hidden files and directories
+
+_Note: a single dash tells linux that multiple flags coming along_
+
+### ~
+
+~ represents your home directory.
+
+```bash
+>> cd ~
+
+```
+
+### tail
+
+```bash
+>> tail ~/.bash_history
+
+```
+
+### Signals
+
+A signal is a notification that you send to a program. It's up to
+the program to understand what to do with that.
+
+```bash
+CTRL + C - SIGINT
+
+CTRL +D - SIGQUIT
+
+
+```
+
+### SIGKILL
+
+If you want a program to stop and stop now.
+
+```bash
+ps aux | grep vnc
+
+kill -9 <process_id>
+#or
+kill -SIGKILL <process_id>
+
+```
+
+### Some basics of vim.
+
+```bash
+vi test.txt
+
+```
+
+1. click "i" for insert
+2. click "esc" to switch between command mode and insert mode
+3. type `:wq` to write and quit vim.
+
+### Streams
+
+If you want to direct the 'stdout' stream to a file.
+
+```bash
+echo "Testing streams" > stream.txt
+cat stream.txt
+"Testing streams"
+```
+
+```bash
+ls -lsah 2 > /dev/null
+```
+
+### User groups and permissions
+
+```bash
+whoami
+
+sudo su
+# sudo switch user
+
+>> sudo useradd username
+>> sudo passwd userpassword
+>> su username
+>> whoami
+>> username
+>> sudo echo hi
+
+"username" is not in the sudoers list
+
+### username does not have sudo privileges so we will have to use groups
+
+```
+
+### Groups
+
+Some groups have special privileges like "sudo"
+
+```bash
+sudo usermod -aG sudo username
+su username
+
+### We are adding "username" to the "sudo" group
+```
+
+You can create your own groups.
+
+### Permissions
+
+```
+drwxrwxr-x
+
+
+d - d stands for directory file
+rwx (User)- read, write, execute permission for the user
+rwx (Group)- read, write, execute permission for the group.
+r-x (Everyone else) - read and executed
+```
+
+```bash
+chown username:groupname foldername
+chmod u=rw, g=rw, o=rw filename
+#or
+chmod 666 filename
+
+
+# 4 - read permissions
+# 2 - write permissions
+# 1 - execute permissions
+```
+
+### ~/.bashrc
+
+```bash
+
+>> vi ~/.bashrc
+>> source ~/.bashrc
+
+```
+
+### Processes
+
+```bash
+>> ps
+```
+
+### Exit codes
+
+If a process finishes successfully, it will return an exit code 0.
+If not, the process will return a non-zero code.
+
+130: The program was ended with CTRL+C
+137: The program was ended with a SIGKILL
+
+
+
+
+
+
