@@ -159,7 +159,7 @@ Classes are defined with the class Keyword. self is explicitly passed everywhere
 
 Defining a class named Creature creates a class object:
 
-```
+```python
 >>>Creature
 <class '__main__.Creature'>
 ```

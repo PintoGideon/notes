@@ -450,3 +450,75 @@ psql -h localhost -U postgres -d postgres
 
 It is an object relational mapper which means we can take a relational database and we can create object instances based
 on the rows.
+
+### String Formatting
+
+```python
+"{0}{1}".format("Hey","Jude")
+```
+
+```python
+coin="bitcoin"
+price=15690
+print('Coin: %s Price: %s' % (coin.price))
+print("Coin:{} price:{}".format(coin.price))
+print(f"Coin:{coin} Price:{price}")
+```
+
+```python
+
+class Dog:
+   """ A simple attempt to model a dog """
+
+   def __init__(self,name,age):
+      self.name=name
+      self.age=age
+
+   def sit(self):
+       print(f"{self.name} is now sitting")
+
+   def roll_over(self):
+       """ Simulate rolling over in response to a command """
+       print(f"{self.name} rolled over")
+
+```
+
+By convention, captialized names refer to classes in Python.
+The `__init__()` method takes in three parameters and assigns
+them to the attributes that will be assosciated with instances
+made from this class.
+
+### The **init**() method
+
+A function that's part of a class is a method. Everything you learned about function applies to methods as well.
+
+The **init**() method is a special method that Python runs automatically
+whenever we create a new instance based on the `Dog` class.
+
+We define the **init**() method to have three parameters: self, name and age. The `self` parameter is required in the method defintion and it must come first before other parameters. It must be included in the definition
+because when Python calls this method later, the method call will automatically pass the `self` argument.
+
+The `self` parameter is a reference to the instance itself.
+
+### Inheritance
+
+When one class inherits from another, it takes on the attributes and methods of the first class. The original class is called the parent class and the new class is the child class. The child class can inherit any or all of the attributes of the parent class.
+
+```python
+
+class ElectricCar(Car):
+      def __init__(self,make,model,year):
+         super().__init__(make,model,year)
+
+
+
+my_tesla=ElectricCar('tesla','model s',2019)
+```
+
+### import
+
+We can import classes as modules.
+
+```python
+from car import Car
+```
