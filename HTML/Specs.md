@@ -2,10 +2,10 @@
 
 ### HTML (Note from the official spec)
 
-HTMl documents consist of tree elements and text. Each element is denoted by a start tag such as <body> and and end tag such as </body>.
+HTMl documents consist of tree elements and text. Each element is denoted by a start tag such as <body> and an end tag such as </body>.
 
 Elements have attributes that control how elements work.
-HTML user agents then parse this markup , turining into a DOM tree. A DOM is representation of a document.
+HTML user agents then parse this markup , turning into a DOM tree. A DOM is representation of a document.
 
 DOM tress contain several kind of nodes, in particular a DOcument Type node, Element nodes, Text nodes , Comment nodes and in some cases ProcessingInstruction nodes.Each element in the DOM tree is represented by an object 
 and these objects have APIs so that they can be manipulated. For instance, a link (e.g. The a element in the tree above) can have it's "href" attribute change in several ways:
@@ -23,7 +23,7 @@ When accepting untrusted input e.g: user generated content such as text comments
 
 ### Pitfalls to avoid
 
-Scipts in HTML have "run-to-completion" semantics meaning that the browser will generally run the script uninterrupted before doing anything else scuh as firing further events or continuing to parse the document.
+Scipts in HTML have "run-to-completion" semantics meaning that the browser will generally run the script uninterrupted before doing anything else such as firing further events or continuing to parse the document.
 
 ### DOM trees
 
