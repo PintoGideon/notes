@@ -10,7 +10,7 @@ Processes are important in Node, It's pretty common in Node.js development to sp
 
 ### Spawning a Child Process
 
-EventEmitter is a very important class in Node.js. It provides a channel for events to be dispatched and listeners to be notified. Many object you'll encounter in Node.js inherit from EventEmitter.
+EventEmitter is a very important class in Node.js. It provides a channel for events to be dispatched and listeners to be notified. Many objects you'll encounter in Node.js inherit from EventEmitter.
 
 ### Binding a Server to a TCP port
 
@@ -20,9 +20,25 @@ In Node.js, the bind and connect operations are provided by the net module. Bind
 
 ```javascript
 const net = require("net");
-server = net.createServer(connection => {});
+server = net.createServer((connection) => {});
 
 server.listen(60300);
 ```
 
 The net.createServer method takes a callback function and returns a Server object. Node.js will invoke the callback function whenever another endpoint connects. The connection parameter is a Socket object that you can use to send or receive data.
+
+### Proxy Server
+
+Setting up a proxy server listening at port 80 and having a different server listening at a different port say port 3000. When a request comes in through port 80, the proxy server will route the request to the corresponding server according to the host url of the request header.
+
+```javascript
+var http = require("http");
+var proxy = httpProxy.createProxy();
+
+http.createServer((req, res) => {
+  proxy.web(req, res, { target: "http://mytarget.com:8080" });
+});
+```
+
+### Setup a basic stand alone proxy server
+

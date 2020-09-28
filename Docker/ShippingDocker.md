@@ -93,4 +93,10 @@ This means that when the container is spun off, create a named volume and share 
 VOLUME /var/lib/msql
 ```
 
+### Exploring the `mysql` repository
+
+Envionment Variables:
+When you start the `mysql` image, you can adjust the configuration of the MySQL instance by passing one or more environment variables on the
+```docker run``` comand.
+
 

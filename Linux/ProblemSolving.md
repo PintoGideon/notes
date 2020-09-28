@@ -136,10 +136,9 @@ su - toor
 sudo dkpg -i whateverfile.deb
 ```
 
-
 ### neuro-adduser.sh
 
-```neuro-adduser.sh``` is a general FNNDSC LDAP user admin script.
+`neuro-adduser.sh` is a general FNNDSC LDAP user admin script.
 
 Here are some of the arguments.
 
@@ -162,6 +161,8 @@ nano /etc/resolv.conf
 search tch.harvard.edu chboston.org
 ```
 
+```bash
+ssh -f -N -L localhost:5902:localhost:5902 -J london athena
+vncviewer localhost:5902
 
 ```
-
