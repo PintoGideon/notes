@@ -162,7 +162,43 @@ search tch.harvard.edu chboston.org
 ```
 
 ```bash
-ssh -f -N -L localhost:5902:localhost:5902 -J london athena
+ssh -f -N -L localhost:5902:localhost:5902 -J london titan
 vncviewer localhost:5902
 
 ```
+
+### Pulse Secure over Ubuntu 20.04
+
+```bash
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/pulse/extra/usr/lib/x86_64-linux-gnu/
+```
+
+./plugin_add.sh 
+./plugin_add.sh fnndsc/pl-pfdorun_imgmagick -j
+
+```bash
+1- Build local pfcon
+git clone https://github.com/FNNDSC/pfcon.git
+cd pfcon
+git checkout flask
+docker build -t local/pfcon .
+
+
+2- Build local CUBE
+
+cd ChRIS_ultron_backEnd
+git checkout pfcon_flask
+docker build -t local/chris:dev -f Dockerfile_dev .
+
+
+3- Run CUBE
+In docker-compose_dev.yml change CHRISREPO and PFCONREPO to local
+
+./make.sh
+
+
+http -a cube:cube1234 http://localhost:8000/api/v1/plugins/instances/2/
+
+
+docker-compose -f docker-compose_dev.yml exec pfcon_service cat /tmp/debug.log
+````

@@ -162,3 +162,290 @@ b. The commit phase is when React applies any changes. React also calls lifecycl
 
 The Dev tools profiles groups performance info by commit.
 
+### React Performance
+
+
+React in itself is pretty fast. The abstraction we build is unlikely to be as fast as the abstraction built into React.
+
+### Code Splitting
+
+Network ---> Command + Shift + P ----> Show Coverage
+
+
+How to monitor performance ?
+
+Code Splitting acts on the principle that loading less code will speed up your app. 
+
+```javascript
+
+import('/some-module.js').then(module=>{
+  // Do stuff with module exports
+},
+error => {
+  // Module could not be loaded, React out the developer please
+}
+)
+```
+
+React has built in support for loading modules as React components.
+The module must have a React component as the default export, and 
+you have to use the `<React.Suspense>` component to render a fallback
+value while the user waits for the module to be loaded.
+
+```javascript
+
+import * as React from 'react';
+
+function SmileyFace(){
+  <div></div>
+}
+export default SmileyFace;
+
+
+
+function App(){
+  return(
+    <div>
+       <React.Suspense fallback={<div>Loading....</div>}>
+       <SmileyFace/>
+       <React.Suspense>
+    </div>
+  )
+}
+
+```
+
+1. Use Incognito mode so the browser plugins don't mess with the typical user experience
+2. Run `npm run build` and then `npm run serve`
+3. Play with the coverage feature of the dev tools
+
+
+
+
+### Eager Loading
+
+So it's great that the users can get the app loaded faster, but it's annoying
+when 99% of the time the reason the users are using the app is so they can
+interact with our textarea. We don't want to have to make them wait first to
+load the app and then again to load the globe. Wouldn't it be cool if we could
+have globe start loading as soon as the user hovers over the checkbox? So if
+they `mouseOver` or `focus` the `<label>` for the checkbox, we should kick off a
+dynamic import for the globe module.
+
+
+### Webpack magic comments
+
+If you're using webpack to bundle your application, then you can use webpack magic comments, to have webpack instruct the browser to prefetch dynamic imports.
+
+With this, the browser will automatically load this JS file into the browser cache so it's ready ahead of time.
+
+Select any component in the dev tools, click the stopwatch to see the how the Suspense boundary is going to handle your component and how the fallback UI is going to look like.
+
+We can also load npm dependencies lazily.
+
+```javascript
+
+const Globe=React.lazy(()=>import(/* webpackPrefetch:true */) 
+'../globe'
+)
+
+function App(){
+  const [showGlobe, setShowGlobe]= React.useState(false)
+  
+
+  return(
+    <div>
+       <div style={{width:400, height:400}}>
+        <React.Suspense fallback={<div>Loading Globe </div>}>
+        {showGlobe ? <Globe/>:null}
+        </React.Suspense>
+       </div>
+    </div>
+  )
+
+}
+
+```
+
+
+### useMemoize
+
+Calculations performed within render will be performed every single render, regardless of whether the inputs for the calculations change.
+
+```jsx
+
+function Distance(x,y){
+  const distance= calculateDistance(x,y)
+  return(
+    <div>
+       The distance between {x} and {y} is {distance}
+    </div>
+  )
+}
+
+```
+
+If that component's parent re-renders, or if we add some unrelated state
+to the component and trigger a re-render, we will be calling 
+`calculateDistance` every render which could lead to a performance bottleneck.
+
+```jsx
+function Distance({x, y}) {
+  const distance = React.useMemo(() => calculateDistance(x, y), [x, y])
+  return (
+    <div>
+      The distance between {x} and {y} is {distance}.
+    </div>
+  )
+}
+```
+
+
+### Use web workers
+
+Working with web-workers is asynchronous. 
+
+
+### Typical life cycle of a react app
+render -> reconciliation -> commit -> state change
+
+A React component can re-render for any of the following
+reasons:
+
+1. Props change
+2. Internal State Change
+3. Consuming context value have changed
+4. Parent re-renders.
+
+
+
+```jsx
+function CountButton({count, onClick}) {
+  return <button onClick={onClick}>{count}</button>
+}
+
+function NameInput({name, onNameChange}) {
+  return (
+    <label>
+      Name: <input value={name} onChange={e => onNameChange(e.target.value)} />
+    </label>
+  )
+}
+
+function Example() {
+  const [name, setName] = React.useState('')
+  const [count, setCount] = React.useState(0)
+  const increment = () => setCount(c => c + 1)
+  return (
+    <div>
+      <div>
+        <CountButton count={count} onClick={increment} />
+      </div>
+      <div>
+        <NameInput name={name} onNameChange={setName} />
+      </div>
+      {name ? <div>{`${name}'s favorite number is ${count}`}</div> : null}
+    </div>
+  )
+}
+```
+
+Based on how this is implemented, when you click on the counter button, the <CountButton/> re-renders (so we can update the count value).
+
+But the <NameInput/> is also re-rendered. React does this because it has no way of knowing whether the NameInput will need to return different React Components based on the state change of the parent.
+
+`React.PureComponent` is for class components and `React.memo` is for function components.
+
+
+### react-virtual
+
+Window Large Lists with react-virtual.
+
+We often don't need to actually display tends of thousands of list items, table cells or data points to users. So if that content isn't displayed, you can kinda cheat by doing some 'lazy' just in-time rendering.
+
+Let's stay you have a grid of data that rendered 100 columns and had 5000 rows. Do you really need to render 
+all 500000 cells for the user all at once. 
+
+We can only display a window of 10 columns by 20 rows and the rest you can delay rendering until the user starts scrolling around the grid.
+
+```jsx
+
+function MyListOfData({items}){
+  const listRef=React.useRef();
+  const rowVirtualizer=useVirtual({
+    size:items.length,
+    parentRef:listRef,
+    estimateSize:React.useCallback(()=>20,[]),
+    overscan:10
+  })
+
+  return(
+    <ul ref={listRef} style={{display: 'relative', height: 300}}>
+      <li style={{height: rowVirtualizer.totalSize}} />
+      {rowVirtualizer.virtualItems.map(({index, size, start}) => {
+        const item = items[index]
+        return (
+          <li
+            key={item.id}
+            style={{
+              position: 'absolute',
+              top: 0,
+              left: 0,
+              width: '100%',
+              height: size,
+              transform: `translateY(${start}px)`,
+            }}
+          >
+            {item.name}
+          </li>
+        )
+      })}
+    </ul>
+
+  )
+}
+
+
+```
+
+We can simply tell `useVirtual` how many rows are there in our list, give it a callback that it can use to determine size, it will give us back `virtualItems`
+and a `totalSize` which we can then use to only render the items the user should be able to see within the window.
+
+
+### All the optimizations that can be done on large lists.
+
+The way that context works is that whenever the provided value changes from one render to another, it triggers a re-render of all the consuming components
+(which will re-render whether or not they're memoized)
+
+```jsx
+
+const CountContext=React.createContext()
+
+function CountProvider(props){
+  const [count,setCount]=React.useState(0)
+  const value=[count,setCount]
+  return <CountContext.Provider value={value} {...props}/>
+}
+
+
+```
+
+Every time the `<CountProvider/>` is re-rendered , the 
+value is brand new so even though the `count` value
+itself may stay the same, all component consumers will
+be re=rendered.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -81,4 +81,3 @@ type PersonKeys = keyof Person; // "name" | "age"
 
 type PersonTypes = Person[PersonKeys]; //"string" | "number"
 ```
-
