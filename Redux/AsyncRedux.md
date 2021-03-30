@@ -21,6 +21,9 @@ setTimeout(() => {
 
 ### Redux Saga
 
+
+
+
 Redux Saga is the most popular asynchronous actions library for Redux. "The mental model is that a saga is like a seperate thread in your application that's solely responsible for side effects. Basically, it outsources the impure functions into seperate threads. These threads can be paused or cancelled with plain Redux action from your core application.
 
 ```javascript
@@ -60,7 +63,7 @@ function *handleAddTodoNotification(action){
 
     yield put(doAddTodo(id, name));
     yield delay(5000)
-    yiled put(doHideNotification(id));
+    yield put(doHideNotification(id));
 }
 
 ```
@@ -219,3 +222,13 @@ function* watchPoll() {
   }
 }
 ```
+
+
+
+
+
+
+
+
+
+

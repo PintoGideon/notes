@@ -1,16 +1,6 @@
-1. Memoize the getCommand() and calculateRuntime()
-functions in NodeDetails Component
+Currently doing: Studying Redux Sagas
 
-2. 
-
-```javascript
-return base64.b64encode(
-            zlib.compress(
-                json.dumps(json_data).encode('utf-8')
-            )
-        ).decode('ascii')
-```
-
-```
-This is @rpienaar’s code but easy to see that the dictionary is converted into a a json string then byte-encoded, then compressed with zlib and then  base 64 encoded
-```
+1. Use Immer in reducer to simplify state
+2. Update Add Node functionality
+3. Update React UI tree as that library is no longer supported
+4. Update Feed Tree and run the workflow on the new machine

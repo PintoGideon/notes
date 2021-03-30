@@ -59,3 +59,287 @@ chris / uploads / test_late - temp - 6215;
 uploads/DICOM/dataset1
 ```
 
+### Using Redux with Typescript
+
+### Initial Scafolding
+
+```javascript
+
+// Action Creators Type
+export enum ActionType {
+  MOVE_CELL = 'move_cell',
+  DELETE_CELL='delete_cell'
+}
+
+// Action Payload
+
+interface MoveCellAction {
+  type: ActionType.MOVE_CELL
+}
+
+interface DeleteCellAction {
+  type:ActionType.DELETE_CELL,
+  payload: {
+    id: string
+  }
+}
+
+export type Action = MoveCellAction | DeleteCellAction
+
+// Reducer
+
+interface CellsState {
+  loading: boolean;
+  error:string | null;
+  order: string[];
+  data: {
+    [key:string]:Cell
+  }
+}
+
+
+const initialState: CellsState = {
+  loading: false,
+  error: null,
+  order: [],
+  data: {}
+}
+
+const reducer = (state:CellsState = initialState, action:Action) => {
+switch(action.type) {
+ case ActionType.MOVE_CELL : return state;
+ case ActionType.DELETE_CELL: return state;
+ default:
+  return state;
+}
+}
+
+const reducers = combineReducers({
+  cells: cellsReducer
+})
+
+export default reducers;
+export type RootState= ReturnType <typeof reducers>;
+
+import {createStore} from 'redux';
+
+export const store=createStore(reducers, {}, applyMiddleware(thunk))
+
+// Action creators
+
+export const moveCell=()=>{}
+export const deleteCell=()=>{}
+
+
+
+```
+
+
+### Avoid Cyclic Dependency
+
+If one file uses a exported type used by another file and vice versa, we create a cyclic dependency.
+
+
+### Usage in React
+
+```javascript
+
+const App = () => {
+  return (
+    <Provider store={store}>
+      <div>
+        <TestApp/>
+      <div>
+    </Provider>
+  )
+}
+
+```
+
+### Examples of a data structure in Redux
+
+
+```javascript
+
+{
+  loading:false,
+  error:null,
+  data : {
+    '1': {
+      id:"cell-1",
+      type:'code',
+      content:"const a = 1"
+    }, 
+    '2' : {
+      id: "cell-2",
+      type:"text",
+      content:"Documentation for this thing"
+    }
+  }
+}
+
+```
+
+
+### CRUD operations in Redux
+
+
+```javascript
+
+const reducer = (state = initialState, action) => {
+  switch(action.type) {
+    case ActionType.UPDATE_CELL : 
+    const {id, content} = action.payload
+    return {
+      ...state,
+      data: {
+        ...state.data,
+        [id] : {
+          ...state.data[id],
+          content: content
+        }
+      }
+    }
+  }
+}
+
+```
+
+### Using Immer to manage state in a reducer
+
+```javascript
+import {produce} from 'immer';
+
+const reducer = produce((state = initialState, action) =>  {
+  switch(action.type) {
+    case ActionType.UPDATE_CELL : 
+    const {id, content} = action.payload
+    state.data[id].content=content;
+    //  Immer will return the state object for us.
+    return state;
+
+    case ActionType.DELETE_CELL : 
+    delete state.data[action.payload];
+    state.order= state.order.filter(id=> id !== action.payload)
+    return state;
+  }
+});
+
+```
+
+
+
+
+### Validating code in our reducer
+
+
+We can manually get state out of our store and manually dispatch actions
+to validate our code. This solution does not replace testing, but helps us get a better understanding of our workflows.
+
+```javascript
+
+
+export const store= createStore(reducers, {}, applyMiddleware(thunk));
+
+// We can dispatch actions to the store as a test
+
+store.dispatch({
+  type:ActionType.DELETE_CELL,
+  payload:{
+    id:'1'
+  }
+})
+
+store.getState();
+
+```
+
+### The React side of things.
+
+```jsx
+
+const CellList: React.FC = () => {
+  return <div>Cell List </div>
+}
+
+export default CellList;
+
+```
+
+### Creating a Typed Selector 
+
+```javascript
+import {useSelector, TypedUseSelectorHook} from 'react-redux';
+import {RootState} from '../state';
+
+export const useTypedSelector:TypeduseSelectorHook<RootState>=useSelector;
+
+```
+
+### Using Typed Selectors (This is just an example)
+
+```javascript
+
+import {useTypedSelector} from '../hooks/use-typed-selector';
+
+const CellList: React.FC = () => {
+  useTypedSelector(({cells: {order, data}})=> {
+    return order.map((id)=> {
+      return data[id]
+    })
+  });
+
+  return <div>Cell List </div>
+}
+
+export default CellList;
+
+```
+
+### Dispatch Actions in React Components
+
+
+```javascript
+
+
+import {useDispatch} from 'react-redux';
+import {bindActionCreators} from 'redux';
+import {actionCreators} from '../state';
+
+export const useActions = () => {
+  const dispatch= useDispatch();
+  return bindActionCreators(actionCreators, dispatch);
+}
+
+```
+
+
+### Using Action Creators in React Components
+
+
+```javascript
+import {useActions} from './useActions';
+
+const CodeCell: React.FC = () => {
+  const {updateCell} = useActions();    
+  
+}
+
+export default CodeCell;
+
+```
+
+### 
+
+
+
+
+
+
+
+
+
+
+
+
+
