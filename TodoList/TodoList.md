@@ -1,38 +1,32 @@
-Currently doing: Studying Redux Sagas
-
-2. Make sense of Ellen's data
-1. Use Immer in reducer to simplify state
-3. Add resizable hook to the Feed Tree 
-4. Optimize performance in the Feed Tree
-5.
-
-8. TS Plugin 
-9. Design Version Numbers in the Add Node Wizard Better.
 
 
- 
+### Things to update in the ChRIS_ui
 
-1. Replace Feed Graph Suspense Fallback component with A Skeleton
-
-3. Web Workers for Rendering Feed Tree
+1. Wrap error messages in a pre tag.
 
 
-Make use of the async hook.
+### Ellen's project research
 
-```javascript
- 
-const {data:allItems, run} = useAsync({data:[], status:'pending'})
+The Ventricular system is a set of four interconnected cavities known as cerebral ventricles in the brain.
 
- React.useEffect(()=>{
- run(getItems(inputValue))
- },[inputValue, run])
+Being able to segment the cerebral ventricles to determine the quantity of cerebrospinal fluid (CSF) within the ventricles has widespread applicability in many neurological conditions. Although this segmentation would seem to be a relatively straightforward task, such is not the case requiring manual tracing of the ventricular outline on multiple image slices. This process is tedious, time-consuming, operator dependent and rarely done except for research purposes. 
 
-```
+To establish new cross-sectional reference values
+for the size of the lateral ventricles in a large cohort
+of neonates between 24 and 42 weeks GA.
+
+VI - Ventricular Index
+Defined as the distance between the falx and the lateral wall of the anterior horn
+GA - Gestational Age
+TEA - Term Equivalent Age
+AHW - Anterior Horn Width
+Anterior horn width defined as the diagnol width of the
+anterior horn 
+TOD- Thalamo occipital distance
+
+Background Info:
 
 
-4. Re-visit the react-virtual concept for file browser table
-5. \.pdf$,\.pdf$,\.pdf$
-
-Link to solve dependencies:
-
-https://github.com/npm/normalize-package-data
+Posthemorrhagic ventricular dilation affects approximately 75% of preterm infants following a severe germinal matrix-intraventricular
+hemorrhage and represents a potential threat to the developing neonatal brain ( 1 ). In infants with progressive ventricular dilation, drainage of cerebrospinal fluid has been shown to improve cerebral hemodynamics and oxygenation and may prevent further brain injury ( 2,3 ). To diagnose posthemorrhagic ventricular dilation and evaluate the need for intervention, measurement of ventricular size by means of cranial ultrasonography (US) has been
+shown to be superior to measurement of head circumference or assessment of clinical symptoms of raised intracranial pressure.
