@@ -104,37 +104,6 @@ yarn add react-query-devtools
 
 ```
 
-```javascript
-
-react-query fetches the query if the query is stale.
-
-```
-
-
-### Inactive state
-
-By default react-query will keep the data in your memory for about 5 mins.
-
-```javascript
-{
-cacheTime:5000
-}
-
-
-
-```
-
-We can also cache time to 0 so that we have to reload it from the server
-every single time.
-
-
-
-```javascript
-
-
-
-
-````
 
 
 

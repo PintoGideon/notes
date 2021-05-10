@@ -1,15 +1,24 @@
+```javascript
+
+const reducer = (state, action) => {
+  return state;
+}
+
+const store= createStore(reducer);
+
+```
+
+
+
+
+
 ### How to cache fetched data in react without redux?
 
 When you use React, at a single point in time you can think of the render() function as creating a tree of React elements.
-
 On the next state or props update, that render() function will return a different tree of React Elements.
-
 React then needs to figure out how to efficiently update the UI to match the most recent tree.
-
 React implements a heuristic O(n) algorithm based on two comparisons.
-
 1. Two elements of different types will producde different trees.
-
 2. The developer can hint at which child elements may be stable across different renders with a key prop.
 
 ### The diffing algo.

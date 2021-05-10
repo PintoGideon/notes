@@ -542,8 +542,62 @@ Grid = React.memo(Grid)
 
 
 
+###
 
- 
+Staying interactive === not blocking the main thread.
+
+Typical Runtime Performance Issues
+
+1. Computationally expensive tasks
+2. Animations and graphical updates
+3. Reflow/ Repaint/ Layout
+4. Parsing
+5. Memory Leaks
+
+
+How do you know you have performance issues?
+
+1. Best Case: Dropped Frames and input delay
+2. Worst case: Dropped frames
+
+How do we fix it?
+
+Performance isn't really prescriptive. You'll have to get clever. A lot of the time it's a problem you have created.
+Semi Prescriptive things we can do to improve runtime performance.
+
+1. Use Regular for loops
+2. Use lookup tables
+3. Avoid creating new objects
+4. Turn off animation
+5. Avoid reflow/layouts
+6. Caching
+7. Sneaky tricks (set object index to undefined instead of using the delete keyword)
+8. Use immer
+
+### Learn how to use Dev Tools
+
+
+Using the user timings api.
+
+```javascript
+
+
+
+
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
