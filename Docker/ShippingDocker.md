@@ -1,15 +1,39 @@
+### Important commands
+
+```bash
+# Show running containers
+
+docker ps -a
+# Print all the docker images
+docker images
+
+# Remove all containers
+docker rm $(docker ps -aq)
+
+docker start -i <container_id>
+```
+
+### Running docker containers
+
+
+```
+docker run ubuntu:16.04 ls -lah
+```
+
+
+
+
 ### Inspecting containers
 
 ```sh
-docker inspect --format="{{}}"<container hash>
+docker inspect --format="{{}}" <container hash>
 
+# Example of running an container
 docker run -it -p 80:80 ubuntu:16.04 bash
+apt-get install nginx
 
-# Inside the container
 
-apt-get update
-apt-get install -y nginx
-
+docker diff <container_name>
 ```
 
 ### Docker Volumes
@@ -97,6 +121,8 @@ VOLUME /var/lib/msql
 
 Envionment Variables:
 When you start the `mysql` image, you can adjust the configuration of the MySQL instance by passing one or more environment variables on the
-```docker run``` comand.
+```docker run``` command.
 
+
+### Dockerfile
 

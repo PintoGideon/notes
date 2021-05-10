@@ -98,3 +98,60 @@ const leo=Dog('Leo',10,'Goldendoogle');
 leo.eat(10)  //Leo is eating
 leo.bark()   // Woof Woof!
 ```
+
+
+### Advanced React Patterns
+
+
+Context - Module pattern
+
+
+```javascript
+
+const UserContext = React.createContext();
+
+function UserProvider() {
+	const [state, dispatch] = React.useReducer((
+		state, action
+	)=>{
+		switch(action.type){
+			case 'increment': {
+				return {
+					...state,
+					count:state.count + change
+				}
+			}
+		}
+	},
+	{ 
+		count:initialCount
+	})
+
+	return <UserContext.Provider value={[state,dispatch]}{...props}/>
+}
+
+
+function useProvider(){
+	const context = React.useContext(UserContext);
+	if(context===undefined){
+		throw new Error(`useCounted must be used with a provider`)
+	}
+	return context;
+}
+
+
+function Counter(){
+	const [state, dispatch] = useCounter();
+}
+
+
+```
+
+
+
+
+
+
+
+
+

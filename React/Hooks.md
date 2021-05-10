@@ -362,18 +362,35 @@ function useCount({ initialCount = 0, step = 1 } = {}) {
 }
 ```
 
-
 ### useCallback
+
+```javascript
+const updateLocalStorage = () => window.localStorage.setItem("count", count);
+
+React.useEffect(() => {
+  updateLocalStorage();
+}, [updateLocalStorage]);
+```
+The problem with that though is because `updateLocalStorage` is defined inside
+the component function body, it's re-initialized every render, which means it's
+brand new every render, which means it changes every render, which means, you
+guessed it, our callback will be called every render!
 
 
 ```javascript
-
-const updateLocalStorage=() => window.localStorage.setItem("count", count);
-
-
-React.useEffect(()=>{
+const updateLocalStorage = React.useCallback(
+  () => window.localStorage.setItem('count', count),
+  [count], // <-- yup! That's a dependency list!
+)
+React.useEffect(() => {
   updateLocalStorage()
-},[updateLocalStorage])
-
-
+}, [updateLocalStorage])
 ```
+
+What that does is we pass React a function and React gives that same function
+back to us, but with a catch. On subsequent renders, if the elements in the
+dependency list are unchanged, instead of giving the same function back that we
+give to it, React will give us the same function it gave us last time.
+
+So while we still create a new function every render (to pass to `useCallback`),
+React only gives us the new one if the dependency list changes.

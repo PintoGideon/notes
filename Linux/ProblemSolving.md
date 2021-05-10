@@ -45,12 +45,14 @@ $> checkDB.bash -h /neuro/users/chris/users -n chris -u chris
 ssh ch212561@e2
 id ch212561
 # A unix user id is found
+uid=2279731
+cd
 
 ssh root@fnndsc
 sudo bash
 ssc
 history | grep neuro
-494 neuro-adduser.sh -u mohammed.fouda U <user.id> -g grantlab,chrisgp
+494 neuro-adduser.sh -u mohammed.fouda -U <user.id> -g grantlab,chrisgp
 ssh mohammed.fouda@rc-drno
 neuro-adduser.sh -x
 neuro-adduser.sh -u mohammed.fouda -G nirsgp
@@ -202,3 +204,25 @@ http -a cube:cube1234 http://localhost:8000/api/v1/plugins/instances/2/
 
 docker-compose -f docker-compose_dev.yml exec pfcon_service cat /tmp/debug.log
 ````
+
+
+```md
+
+COVIDNET_ui is served from-the-metal by the apache2 web server on this host.
+
+The React-TypeScript bundle is built on a foreign machine, then pushed here.
+
+e.g.
+
+    git clone git@github.com:FNNDSC/covidnet_ui.git
+    cd covidnet_ui
+    git checkout fnndsc-deploy
+    npm i
+
+    git pull
+    npm run build
+
+    ssh jorge.bernal@fnndsc.childrens.harvard.edu rm -r /var/www/covidnet_ui/build
+    scp -r build jorge.bernal@fnndsc.childrens.harvard.edu:/var/www/covidnet_ui/build
+
+```

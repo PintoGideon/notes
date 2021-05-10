@@ -220,6 +220,8 @@ function App(){
 3. Play with the coverage feature of the dev tools
 
 
+We can go to the react dev tools, click on the suspense component and suspend it with the stop watch to see the fallback ui.
+
 
 
 ### Eager Loading
@@ -268,6 +270,12 @@ function App(){
 ```
 
 
+### Performance Profiling
+
+Click on the performance tab, record the activity.
+You will see a flame graph. Click shift and scroll to navigate horizontally or vertically.
+
+
 ### useMemoize
 
 Calculations performed within render will be performed every single render, regardless of whether the inputs for the calculations change.
@@ -301,9 +309,13 @@ function Distance({x, y}) {
 ```
 
 
+
+
 ### Use web workers
 
 Working with web-workers is asynchronous. 
+Javascript is single threaded. Because of that if the rendering takes longer than 16s , the browser just locks up and results into a jenky experience
+We can use a web worker provided by web worker called workerize. The communication between the web worker and the main thread is going to be asynchronous.
 
 
 ### Typical life cycle of a react app
@@ -317,6 +329,7 @@ reasons:
 3. Consuming context value have changed
 4. Parent re-renders.
 
+Fix a slow render than fixing an unnecessary render. In the profiler's flame graph, the different colors means that the component was updated.
 
 
 ```jsx
@@ -356,6 +369,18 @@ But the <NameInput/> is also re-rendered. React does this because it has no way 
 
 `React.PureComponent` is for class components and `React.memo` is for function components.
 
+We won't get re-rendering because we return true
+
+```javascript
+
+ListItem = React.Memo(ListItem, (prevProps, nextProps)=>{
+  return true;
+})
+
+```
+If you have a particular component with many changes to the prop, lift those calculations to the parent and pass the values to the 
+child component, giving you an opportunity to optimize the values.
+
 
 ### react-virtual
 
@@ -369,6 +394,8 @@ all 500000 cells for the user all at once.
 We can only display a window of 10 columns by 20 rows and the rest you can delay rendering until the user starts scrolling around the grid.
 
 ```jsx
+
+import {useVirtual} from 'react-virtual';
 
 function MyListOfData({items}){
   const listRef=React.useRef();
@@ -433,16 +460,90 @@ function CountProvider(props){
 Every time the `<CountProvider/>` is re-rendered , the 
 value is brand new so even though the `count` value
 itself may stay the same, all component consumers will
-be re=rendered.
+be re-rendered.
 
 
 
 
+```javascript
+
+function AppProvider({children}){
+  const [state, dispatch] = React.useReducer(appReducer, {
+    dogname:'',
+    grid:initialGrid
+  })
+
+  const value = React.useMemo(()=>[state,dispatch],[state,dispatch]);
+  return (
+    <AppContext.Provider value={value}>
+      {children}
+    </AppContext.Provider>
+  )
+}
+
+```
+
+OR
+
+```javascript
+
+
+function AppProvider({children}) {
+  const [state, dispatch] = React.useReducer(appReducer, {
+    dogName: '',
+    grid: initialGrid,
+  })
+  return (
+    <AppStateContext.Provider value={state}>
+      <AppDispatchContext.Provider value={dispatch}>
+        {children}
+      </AppDispatchContext.Provider>
+    </AppStateContext.Provider>
+  )
+}
+
+function useAppState() {
+  const context = React.useContext(AppStateContext)
+  if (!context) {
+    throw new Error('useAppState must be used within the AppProvider')
+  }
+  return context
+}
+
+function useAppDispatch() {
+  const context = React.useContext(AppDispatchContext)
+  if (!context) {
+    throw new Error('useAppDispatch must be used within the AppProvider')
+  }
+  return context
+}
+
+// Grid only renders when dispatch changes, as opposed to before with a single provider, where it would re-render on a state change.
+
+function Grid() {
+  const dispatch = useAppDispatch()
+  const [rows, setRows] = useDebouncedState(50)
+  const [columns, setColumns] = useDebouncedState(50)
+  const updateGridData = () => dispatch({type: 'UPDATE_GRID'})
+  return (
+    <AppGrid
+      onUpdateGrid={updateGridData}
+      rows={rows}
+      handleRowsChange={setRows}
+      columns={columns}
+      handleColumnsChange={setColumns}
+      Cell={Cell}
+    />
+  )
+}
+Grid = React.memo(Grid)
+
+```
 
 
 
 
-
+ 
 
 
 
