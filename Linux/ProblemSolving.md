@@ -223,6 +223,13 @@ e.g.
     npm run build
 
     ssh jorge.bernal@fnndsc.childrens.harvard.edu rm -r /var/www/covidnet_ui/build
+    
+
     scp -r build jorge.bernal@fnndsc.childrens.harvard.edu:/var/www/covidnet_ui/build
+    scp -r build jorge.bernal@fnndsc.childrens.harvard.edu:/var/www/app.chrisproject.org/build
 
 ```
+
+
+
+

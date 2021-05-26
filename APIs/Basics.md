@@ -417,20 +417,3 @@ A template is a recipe for updating or creating an object via the API. Each temp
 
 ```
 
-```javascript
-
-async fetchAllPlugins(){
-    const client=ChRISAPIClient.getClient();
-    const pluginList=await client.getPlugins();
-    const plugins=pluginList.getItems();
-    this.setState({
-        allPlugins:plugins
-    })
-}
-```
-
-### Understanding the Add Node workflow
-
-The second page of the floating dialog is the user's opportunity to fill in required parameters without defaults as well as review the parameters that are optional and/or have defaults in order to provide values for those as well. The user clicks 'add node'
-
-The node is added to the graph, greyed out at first. As it begins to run, the node circle begins to pulse to indicate it is processing.

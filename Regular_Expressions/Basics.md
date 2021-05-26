@@ -9,7 +9,7 @@ Regular expressions are objects in JS. Inside the wuotes, we have the pattern.
 
 ```javascript
 let regex1= new RegExp("Hello");
-let regex2- /word/;
+let regex2= /word/;
 
 ```
 
