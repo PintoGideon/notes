@@ -6,48 +6,48 @@ user.
 
 We need to use a 'token' which represents the user's current session. That way the token can be invalidated and the user doesn't have to change their password.
 
-In every request, the client makes must include this token to make authenticated requests. Most backend clients will give you a mechanism for retrieving a token when the user opens the application and we can use the token to make authenticated requests to the backend. 
+In every request, the client makes must include this token to make authenticated requests. Most backend clients will give you a mechanism for retrieving a token when the user opens the application and we can use the token to make authenticated requests to the backend.
 
 1. Call a API to retrieve a token
 2. If there's a token, send it along with the requests we make.
 
 When the app loads in the first place, we'll call our auth provider's API to retrieve a token if the user is already logged in. Then we can show a loading screen while we request the user's data before rendering anything else. If they aren't, then we can render the login screen right away.
 
-
 ### Routing
 
 ```javascript
-import * as React from 'react';
-import ReactDOM from 'react-dom';
+import * as React from "react";
+import ReactDOM from "react-dom";
 
-import {BrowserRouter as Router, Routes, Route,
-useParams, Link
-} from 'react-router-dom'
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  useParams,
+  Link,
+} from "react-router-dom";
 
-
-function App(){
-    return(
-        <div>
-          <h1>Welcome</h1>
-          <Nav/>
-          <Routes>
-          <Route path='/' element={<Home/>}/>
-          <Route path='/about' element={<About/>}/>
-          <Route path='/dog/:dogId' element={<Dog/>}/>
-          <Route path="*" element={<YouLost/>}>
-
-
-          </Routes>
-
-        </div>
-    )
+function App() {
+  return (
+    <div>
+      <h1>Welcome</h1>
+      <Nav />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/dog/:dogId" element={<Dog />} />
+        <Route path="*" element={<YouLost />} />
+      </Routes>
+    </div>
+  );
 }
 
+function Dog() {
+  const dogId = useParams();
 
-
+  return <div>{dogId} </div>;
+}
 ```
-
-
 
 ### Cache Management
 
@@ -59,36 +59,58 @@ State can be lumped into two buckets:
 ### Using React query
 
 ```javascript
-import {useQuery} from 'react-query'
-import axios from 'axios'
+import { useQuery } from "react-query";
+import axios from "axios";
 
-export default function App(){
-    const queryInfo=useQuery('pokemon',async()=>{
-        await new Promise(resolve=>setTimeout(resolve,1000))
-        return axios.get('https://pokeapi.co/api/v2/pokemon').then(res=>res.data.results)
-    })
+export default function App() {
+  const queryInfo = useQuery("pokemon", async () => {
+    await new Promise((resolve) => setTimeout(resolve, 1000));
+    return axios
+      .get("https://pokeapi.co/api/v2/pokemon")
+      .then((res) => res.data.results);
+  });
 
-    return queryInfo.isLoading ? (
-        'Loading...'
-    ):(
-        <div>
-           {
-               queryInfo.data?.map(result=>{
-                   return <div key={result.name}>{result.name}</div>
-               })
-           }
-           <br/>
-           {
-               queryInfo.isFetching ? 'Updating...' : null
-           }
-
-        </div>
-
-    )
+  return queryInfo.isLoading ? (
+    "Loading..."
+  ) : (
+    <div>
+      {queryInfo.data?.map((result) => {
+        return <div key={result.name}>{result.name}</div>;
+      })}
+      <br />
+      {queryInfo.isFetching ? "Updating..." : null}
+    </div>
+  );
 }
-
-
 ```
+
+### Redirects in your app
+
+setupProxy
+
+```javascript
+module.exports = (app) => {
+  app.get(/^\/$/, (req, res) => res.redirect("/discover"));
+};
+```
+
+serve.json
+
+```javascript
+{
+    "redirects":[
+        {
+            "source":"/".
+            "destination":"/discover",
+            "type":302
+        }
+    ]
+}
+```
+
+
+
+
 
 What makes a query stale? React-query marks the query stale as soon as it
 is resolved. It will refetch the query as soon as the window is focused.
@@ -103,7 +125,3 @@ Stale time can range from 0 to infinity.
 yarn add react-query-devtools
 
 ```
-
-
-
-
