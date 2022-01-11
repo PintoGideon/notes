@@ -25,8 +25,8 @@ All that is visible is the function image and the rest of the plugin window is b
 
 ```bash
 
-$>ssh chris@chris-tmp
-$>ls
+$> ssh chris@chris-tmp
+$> ls
 $> cd src/
 $> ls
 $> cd chrisreloaded
@@ -175,7 +175,7 @@ vncviewer localhost:5902
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/pulse/extra/usr/lib/x86_64-linux-gnu/
 ```
 
-./plugin_add.sh 
+./plugin_add.sh
 ./plugin_add.sh fnndsc/pl-pfdorun_imgmagick -j
 
 ```bash
@@ -203,11 +203,9 @@ http -a cube:cube1234 http://localhost:8000/api/v1/plugins/instances/2/
 
 
 docker-compose -f docker-compose_dev.yml exec pfcon_service cat /tmp/debug.log
-````
-
+```
 
 ```md
-
 COVIDNET_ui is served from-the-metal by the apache2 web server on this host.
 
 The React-TypeScript bundle is built on a foreign machine, then pushed here.
@@ -223,13 +221,129 @@ e.g.
     npm run build
 
     ssh jorge.bernal@fnndsc.childrens.harvard.edu rm -r /var/www/app.chrisproject.org/build
+<<<<<<< HEAD
     
+=======
+
+>>>>>>> 89e1691a1ea45140ebdccb03e5594b4c1739065e
 
     scp -r build jorge.bernal@fnndsc.childrens.harvard.edu:/var/www/covidnet_ui/build
     scp -r build jorge.bernal@fnndsc.childrens.harvard.edu:/var/www/app.chrisproject.org/build
+```
 
+```sh
+
+./px-push                                                     \
+                   --swiftIP 0.0.0.0                                \
+                   --swiftPort 8080                                        \
+                   --swiftLogin chris:chris1234                            \
+                   --swiftServicesPACS covidnet                            \
+                   --swiftPackEachDICOM                                    \
+                   --xcrdir /home/gideon/covidnet_integration/images       \
+                   --parseAllFilesWithSubStr dcm                           \
+                   --verbosity 1                                           \
+                   --json > push.json
+
+
+
+```
+
+```sh
+
+./px-register                                                 \
+                       --upstreamFile push.json                            \
+                       --CUBEURL http://localhost:8333/api/v1/             \
+                       --CUBEusername chris                                \
+                       --CUBEuserpasswd chris1234                          \
+                       --swiftServicesPACS covidnet                        \
+                       --verbosity 1                                       \
+                       --json                                              \
+                       --logdir /tmp/log                                   \
+                       --debug
 ```
 
 
 
 
+
+### Feedback for Alisamar
+
+When you select a search criteria from the dropdown, there is no indicator to show 
+which option is selected.
+
+```jsx
+<Button isLarge variant='primary' id='finalize' onClick={finalize}
+icon={<SearchIcon/>}
+>Search</Button>
+
+```
+
+We have a couple of invalid Dom nesting warnings.
+When the query builder returns a single patient, it should be 1 patient matched your search.
+
+Similarly, if you have a single study, it should say 1 study.
+
+
+
+
+
+```sh
+curl -X 'PUT' \
+  'http://localhost:4005/api/v1/PACSservice/orthanc' \
+  -H 'accept: application/json' \
+  -H 'Content-Type: application/json' \
+  -d '{
+  "info": {
+    "aet": "CHRISLOCAL",
+    "aet_listener": "ORTHANC",
+    "aec": "ORTHANC",
+    "serverIP":"192.168.1.109",
+    "serverPort": "4242"
+  }
+}' | jq
+
+```
+
+
+```sh
+curl -X 'POST' \
+  'http://localhost:4005/api/v1/PACS/pypx/' \
+  -H 'accept: application/json' \
+  -H 'Content-Type: application/json' \
+  -d '{
+  "PACSservice": {
+    "value": "orthanc"
+  },
+  "listenerService": {
+    "value": "default"
+  },
+  "pypx_find": {
+    "AccessionNumber": "",
+    "PatientID": "1449c1d",
+    "PatientName": "",
+    "PatientBirthDate": "",
+    "PatientAge": "",
+    "PatientSex": "",
+    "StudyDate": "",
+    "StudyDescription": "",
+    "StudyInstanceUID": "",
+    "Modality": "",
+    "ModalitiesInStudy": "",
+    "PerformedStationAETitle": "",
+    "NumberOfSeriesRelatedInstances": "",
+    "InstanceNumber": "",
+    "SeriesDate": "",
+    "SeriesDescription": "",
+    "SeriesInstanceUID": "",
+    "ProtocolName": "",
+    "AcquisitionProtocolDescription": "",
+    "AcquisitionProtocolName": "",
+    "withFeedBack": false,
+    "then": "",
+    "dblogbasepath": "/home/dicom/log",
+    "json_response": true
+  }
+}'
+
+
+```
