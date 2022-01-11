@@ -222,7 +222,7 @@ e.g.
     git pull
     npm run build
 
-    ssh jorge.bernal@fnndsc.childrens.harvard.edu rm -r /var/www/covidnet_ui/build
+    ssh jorge.bernal@fnndsc.childrens.harvard.edu rm -r /var/www/app.chrisproject.org/build
     
 
     scp -r build jorge.bernal@fnndsc.childrens.harvard.edu:/var/www/covidnet_ui/build
