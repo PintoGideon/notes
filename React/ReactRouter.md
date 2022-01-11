@@ -271,20 +271,24 @@ function App() {
 }
 ```
 
-### Protected Routes in React
+### Theoretical concepts
 
-```jsx
-import React from 'react';
+NavLink is a wrapper around Link to show if it's active or not.
+Routes instead of Switch acts like a switch statement.
+Nested Routes
 
-function PrivateRoute({ children, ...rest }) {
-  return(
-<Route {...rest} render={({location})=>{
-return fakeAuth.isAuthenticated ? children : <Redirect to={{
-  pathname:'/login', state={
-    from:location
-  } a
-}}/>
-}}/>
-)
+```javascript
+<Link to={`${product.id}`} />
+<Route path=":id" element={<Product/>}/>
+
+const params=useParams();
+
+/*
+{
+id:"french fries"
 }
+*/
+
 ```
+
+

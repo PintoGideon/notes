@@ -297,4 +297,41 @@ Location: http://www.example.org/my-collections/1
 GET /my-collection/1 HTTP/1.1
 Host:www.example.org
 Content-Type:application/vnd.collection.json
+```
 
+### fname_nslashes
+
+
+This file filter acceps either a plain integer or an integer ending with u (like 5u for instance). When a plain integer k
+is passed the filter returns all the files that have k slashes in their path. This is still an efficient query to the DB.
+
+On the other hand, when an integer ending in u is passed, the filter only returns one file per folder. 
+
+
+Possible Algorithm
+
+```md
+
+1. Given the current folder, filter it's path by fname===path and look at the total property
+2. Filter by fname==path and f_nslashes to get all files and look at the total property until not empty
+3. If total >= original, total finish
+4. filter by fname ===path and f_nslashes u+1 to get all folder until not empty
+5. Construct folder tree
+
+
+
+```
+
+
+### Current Working Mechanisms
+
+```md
+1. Fetch all the uploaded files
+2. Build the tree
+3. Should have a breadcrumb saying chris/uploads
+4. 
+
+
+
+
+```

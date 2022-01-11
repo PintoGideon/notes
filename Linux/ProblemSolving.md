@@ -225,6 +225,8 @@ e.g.
 
     scp -r build jorge.bernal@fnndsc.childrens.harvard.edu:/var/www/covidnet_ui/build
     scp -r build jorge.bernal@fnndsc.childrens.harvard.edu:/var/www/app.chrisproject.org/build
+    
+
 ```
 
 ```sh
@@ -343,3 +345,62 @@ curl -X 'POST' \
 
 
 ```
+
+
+```javascript
+
+1- git commit and push modified files after successful yarn test
+2- increase version in package.json and yarn build the package
+3- npm publish
+4- git commit and push package.json and built package with -m "v.0.0.3"  format
+
+```
+
+You need to switch to https://github.com/FNNDSC/fnndsc/tree/gh-pages branch
+But first in  master  do
+
+```
+yarn docs
+mv doc/ /<dir_containing_gh-pages>/chrisdoc/
+```
+And push the changes to rebuild the docs
+
+
+
+### Cube- pdcm
+
+```md
+REACT_APP_PFDCM_URL=https://pfdcm.pangea.chrisproject.org
+```
+Minimize the footprint in each component
+Sequential matching of the routes takes a while to render
+
+```
+https://meet.google.com/dhb-rfcy-rzz
+```
+
+
+```
+
+titan
+moc
+bu-21-9
+ulsan
+
+```
+
+
+```javascript
+
+ date.setUTCFullYear(parseInt(value.slice(0, 4)));
+
+```
+
+### Personal Access Token
+
+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
+
+
+
+
+

@@ -158,3 +158,9 @@ npm install webpack-dev-server --save-dev
 "start":"webpack-dev-server"
 }
 ```
+
+### CSS Modules
+
+
+The main advantage of CSS is that it doesn't require JS-engine to render the element
+styles. CSS modules also generate unique class names for components.
